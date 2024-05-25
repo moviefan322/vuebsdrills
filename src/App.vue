@@ -1,19 +1,16 @@
 <script setup lang="ts">
-import { useCounterStore } from './stores/counter'
+import { RouterView } from 'vue-router';
 
-const counter = useCounterStore()
+const testEnv = import.meta.env.VITE_APP_TEST;
 
-const add = () => {
-  counter.increment()
-}
+console.log(testEnv)
+
 </script>
 
 <template>
-  <div>
-    <h1>{{ counter.count }}</h1>
-    <h2>{{ counter.doubleCount }}</h2>
-    <button @click="add">++</button>
-  </div>
+<h1>Butt</h1>
+<h2>{{ testEnv }}</h2>
+<RouterView />
 </template>
 
 <style scoped></style>
