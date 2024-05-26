@@ -6,3 +6,9 @@ export interface Drill {
   type: 'progressive' | 'standard' | 'highscore';
   skills: string[];
 }
+
+export interface DrillSet {
+  id: number;
+  name: string;
+  drills: Drill[];
+}

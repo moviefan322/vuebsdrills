@@ -1,19 +1,25 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import BuDrill1 from '@/drills/buf/BuDrill1.vue'
-import DummyPage from '../pages/DummyPage.vue'
+import DrillsPage from '../pages/DrillsPage.vue'
+import DrillSetPage from '../pages/DrillSetPage.vue'
+import MainMenuPage from '../pages/MainMenuPage.vue'
 
 const router = createRouter({
-  history: createWebHistory((import.meta as any).env.VITE_APP_BASE_URL),
+  history: createWebHistory(),
   routes: [
     {
       path: '/',
       name: 'home',
-      component: DummyPage
+      component: MainMenuPage
     },
     {
       path: '/drill/:id',
       name: 'drills',
-      component: BuDrill1
+      component: DrillsPage
+    },
+    {
+      path: '/set/:setId',
+      name: 'DrillSet',
+      component: DrillSetPage
     },
     {
       path: '/about',
@@ -25,5 +31,4 @@ const router = createRouter({
     }
   ]
 })
-
 export default router
