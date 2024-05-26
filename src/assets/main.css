@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: black;
+  color: lime;
+  width: 480px;
+  font-family: 'Roboto Mono', sans-serif;
+  margin: auto;
+}
+
+.noStyleButt {
+  font-size: 1rem;
+  cursor: pointer;
+  background: none;
+  box-shadow: none;
+  border: none;
+}
+
+.myButt {
+  font-size: 1rem;
+  cursor: pointer;
+  background: none;
+  box-shadow: none;
+  border: none;
+  color: lime;
+  padding: 0.5rem 1rem;
+  border: 1px solid lime;
+  border-radius: 5px;
+  margin-top: .5rem;
+}
+
+.myButtSm {
+  font-size: 0.8rem;
+  cursor: pointer;
+  background: none;
+  box-shadow: none;
+  border: none;
+  color: lime;
+  padding: 0.5rem 1rem;
+  border: 1px solid lime;
+  border-radius: 5px;
+  margin-top: .5rem;
+
+}
+
+.myButt:hover,
+.myButtSm:hover {
+  background-color: lime;
+  color: black;
+}

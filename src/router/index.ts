@@ -1,13 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import DummyPage from '@/pages/DummyPage.vue'
+import BuDrill1 from '@/drills/buf/BuDrill1.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/dummy',
-      name: 'dummy',
-      component: DummyPage
+      path: '/',
+      name: 'drill1',
+      component: BuDrill1
     },
     {
       path: '/about',
