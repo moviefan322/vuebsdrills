@@ -13,10 +13,10 @@
     stop if you make the first eight shots). <br />
     <br />
   </div>
-  <div id="image-wrapper">
+  <div id="image-wrapper" class="mb">
     <div id="image-container" :style="backgroundImageStyle"></div>
   </div>
-  <div id="scorebar">
+  <div id="scorebar" v-if="!drillComplete" class="mt">
     <div>
       Shot: <span>{{ shot }}</span>
     </div>
@@ -27,6 +27,10 @@
       Score: <span>{{ score }}</span>
     </div>
   </div>
+  <div v-if="drillComplete" class="endGameMes">
+    {{ endGameMessage }} <br />
+    You scored {{ score }} point{{ score !== 1 ? 's' : '' }}!
+  </div>
   <div id="controls">
     <button
       class="noStyleButt control make"
@@ -35,6 +39,14 @@
       :disabled="drillComplete"
     >
       &#x2714;
+    </button>
+    <button
+      class="muButt control undo"
+      :class="{ disabledUndo: disableUndo }"
+      @click="undo"
+      :disable = "disableUndo"
+    >
+      <font-awesome-icon icon="fa-solid fa-rotate-left" />
     </button>
     <button
       class="noStyleButt control miss"
@@ -53,28 +65,28 @@
 </template>
 
 <script setup lang="ts">
-import { transform } from 'next/dist/build/swc';
 import { ref, computed, watch } from 'vue'
+
+// data
 
 const shot = ref(1)
 const position = ref(4)
 const bonus = ref(0)
-const drillComplete = ref(false)
-const score = computed(() => position.value + bonus.value)
 
+const previousState = ref({
+  shot: 1,
+  position: 4,
+  bonus: 0
+})
+
+const drillComplete = ref(false)
+const showInstructions = ref(false)
 const imageSrc = ref(
   'https://res.cloudinary.com/dnc2xvyms/image/upload/v1716658046/Screenshot_2024-05-25_at_1.24.29_PM_wdum1u.png'
 )
 
-const backgroundImageStyle = computed(() => ({
-  backgroundImage: `url(${imageSrc.value})`,
-  backgroundSize: 'cover',
-  backgroundPosition: 'fit-content',
-  width: 'inherit',
-  height: '14.5rem' // Adjust height as needed
-}))
+// methods
 
-const showInstructions = ref(false)
 const toggleShowInstructions = () => {
   showInstructions.value = !showInstructions.value
 }
@@ -115,21 +127,75 @@ const resetValues = () => {
   drillComplete.value = false
 }
 
-const handleClose = () => {
-  resetValues()
-  drillComplete.value = false
-}
-
 const handleMake = () => {
+  updatePreviousState()
   incrementScore()
   incrementPosition()
   incrementShot()
 }
 
 const handleMiss = () => {
+  updatePreviousState()
   decrementPosition()
   incrementShot()
 }
+
+const updatePreviousState = () => {
+  previousState.value = {
+    shot: shot.value,
+    position: position.value,
+    bonus: bonus.value
+  }
+}
+
+const undo = () => {
+  shot.value = previousState.value.shot
+  position.value = previousState.value.position
+  bonus.value = previousState.value.bonus
+}
+
+// computed
+
+const score = computed(() => position.value + bonus.value)
+
+const backgroundImageStyle = computed(() => ({
+  backgroundImage: `url(${imageSrc.value})`,
+  backgroundSize: 'cover',
+  backgroundPosition: 'fit-content',
+  width: 'inherit',
+  height: '14.5rem' // Adjust height as needed
+}))
+
+const endGameMessage = computed(() => {
+  if (score.value <= 2) {
+    return `Damn, you suck!`
+  }
+  if (score.value <= 4) {
+    return `You're not very good at this.`
+  }
+  if (score.value <= 6) {
+    return `Not bad.`
+  }
+  if (score.value <= 8) {
+    return `You're pretty good.`
+  }
+  if (score.value <= 10) {
+    return `You are killing it!`
+  }
+  return 'Drill complete'
+})
+
+const disableUndo = computed(() => {
+  if (shot.value === 1) {
+    return true
+  }
+  if (previousState.value.shot === shot.value) {
+    return true
+  }
+  return false
+})
+
+// watch
 
 watch(shot, () => {
   if (shot.value >= 8 && score.value >= 12) {
@@ -147,6 +213,13 @@ watch(drillComplete, () => {
 </script>
 
 <style scoped>
+.endGameMes {
+  font-size: 20px;
+  font-weight: bolder;
+  margin-top: 1rem;
+  text-align: center;
+}
+
 #footControl {
   display: flex;
   justify-content: space-between;
@@ -160,7 +233,7 @@ watch(drillComplete, () => {
   justify-content: space-between;
   align-items: center;
   margin-top: 1rem;
-  width: 40%;
+  width: 50%;
 }
 
 .control {
@@ -179,6 +252,19 @@ watch(drillComplete, () => {
   font-size: 30px;
   font-weight: bolder;
   background-color: rgb(255, 0, 0);
+}
+
+.undo {
+  height: 2rem;
+  width: 2rem;
+  font-size: 15px;
+  background-color: black;
+  color: lime;
+  border: 1px solid lime;
+}
+
+.disabledUndo {
+  visibility: hidden;
 }
 
 .disabled {

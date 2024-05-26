@@ -6,6 +6,11 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 import BaseDialog from './ui/BaseDialog.vue'
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { faRotateLeft } from '@fortawesome/free-solid-svg-icons';
+
+library.add(faRotateLeft);
 
 const app = createApp(App)
 
@@ -13,5 +18,6 @@ app.use(createPinia())
 app.use(router)
 
 app.component('BaseDialog', BaseDialog)
+app.component('font-awesome-icon', FontAwesomeIcon);
 
 app.mount('#app')
