@@ -1,7 +1,4 @@
 <template>
-  <base-dialog :fixed="false" :show="drillComplete" title="Drill Complete!" @close="handleClose">
-    Congrats! You scored {{ score }} points!
-  </base-dialog>
   <div class="mb"><h1>Cut Shot Drill</h1></div>
   <div class="showInst">
     <button class="noStyleButt instButt" @click="toggleShowInstructions">
@@ -56,6 +53,7 @@
 </template>
 
 <script setup lang="ts">
+import { transform } from 'next/dist/build/swc';
 import { ref, computed, watch } from 'vue'
 
 const shot = ref(1)
@@ -73,7 +71,7 @@ const backgroundImageStyle = computed(() => ({
   backgroundSize: 'cover',
   backgroundPosition: 'fit-content',
   width: 'inherit',
-  height: '15rem' // Adjust height as needed
+  height: '14.5rem' // Adjust height as needed
 }))
 
 const showInstructions = ref(false)
@@ -191,8 +189,8 @@ watch(drillComplete, () => {
   margin-left: 1rem;
   margin-right: 1rem;
   padding: 0.5rem 1rem;
-  border-left: 1px solid black;
-  border-right: 1px solid black;
+  border-left: 1px solid lime;
+  border-right: 1px solid lime;
 }
 
 #scorebar {
@@ -202,9 +200,9 @@ watch(drillComplete, () => {
   width: fit-content;
   margin-top: 1rem;
   padding: 0 1rem;
-  border: 1px solid black;
-  background-color: rgb(250, 250, 205);
-  color: black;
+  border: 1px solid lime;
+  background-color: black;
+  color: lime;
 }
 
 .smFont {
