@@ -1,73 +1,76 @@
 <template>
-  <div class="mb"><h1>Cut Shot Drill</h1></div>
-  <div class="showInst">
-    <button class="noStyleButt instButt" @click="toggleShowInstructions">
-      {{ showInstructions ? `Hide` : `Show` }} Intstructions
-    </button>
-  </div>
-  <div v-if="showInstructions" class="smFont mt mb">
-    • Start with the cue ball (CB) in position 4. Each time you pocket the object ball (OB), advance
-    the CB one position (e.g., from 4 to 5); and with each miss, move down by one number (e.g., from
-    4 to 3). If you succeed at position 7 or miss at position 1, stay at that position. <br />
-    • Continue for 10 shots total unless you already have a guaranteed score of 10 (e.g., you can
-    stop if you make the first eight shots). <br />
-  </div>
-  <div id="image-wrapper" class="mb">
-    <div id="image-container" :style="backgroundImageStyle"></div>
-  </div>
-  <div id="scorebar" v-if="!drillComplete" class="mt">
-    <div>
-      Shot: <span>{{ shot }}</span>
+  <div>
+    <div class="mb"><h1>{{ title }}</h1></div>
+    <div class="showInst">
+      <button class="noStyleButt instButt" @click="toggleShowInstructions">
+        {{ showInstructions ? `Hide` : `Show` }} Instructions
+      </button>
     </div>
-    <div id="scoremid">
-      Position: <span>{{ position }}</span>
+    <div v-if="showInstructions" class="smFont mt mb" v-html="instructions"></div>
+    <div id="image-wrapper" class="mb">
+      <div id="image-container" :style="backgroundImageStyle"></div>
     </div>
-    <div>
-      Score: <span>{{ score }}</span>
+    <div v-if="!drillComplete" id="scorebar" class="mt">
+      <div>
+        Shot: <span>{{ shot }}</span>
+      </div>
+      <div id="scoremid">
+        Position: <span>{{ position }}</span>
+      </div>
+      <div>
+        Score: <span>{{ score }}</span>
+      </div>
     </div>
-  </div>
-  <div v-if="drillComplete" class="endGameMes">
-    {{ endGameMessage }} <br />
-    You scored {{ score }} point{{ score !== 1 ? 's' : '' }}!
-  </div>
-  <div id="controls">
-    <button
-      class="noStyleButt control make"
-      :class="{ disabled: drillComplete }"
-      @click="handleMake"
-      :disabled="drillComplete"
-    >
-      &#x2714;
-    </button>
-    <button
-      class="muButt control undo"
-      :class="{ disabledUndo: disableUndo }"
-      @click="undo"
-      :disable = "disableUndo"
-    >
-      <font-awesome-icon icon="fa-solid fa-rotate-left" />
-    </button>
-    <button
-      class="noStyleButt control miss"
-      :class="{ disabled: drillComplete }"
-      @click="handleMiss"
-      :disabled="drillComplete"
-    >
-      X
-    </button>
-  </div>
-  <div id="footControl">
-    <button class="myButt">&lt;&lt;</button>
-    <button class="myButt" @click="resetValues">Try Again</button>
-    <button class="myButt">>></button>
+    <div v-if="drillComplete" class="endGameMes">
+      {{ endGameMessage }} <br />
+      You scored {{ score }} point{{ score !== 1 ? 's' : '' }}!
+    </div>
+    <div id="controls">
+      <button
+        class="noStyleButt control make"
+        :class="{ disabled: drillComplete }"
+        @click="handleMake"
+        :disabled="drillComplete"
+      >
+        &#x2714;
+      </button>
+      <button
+        class="muButt control undo"
+        :class="{ disabledUndo: disableUndo }"
+        @click="undo"
+        :disable="disableUndo"
+      >
+        <font-awesome-icon icon="fa-solid fa-rotate-left" />
+      </button>
+      <button
+        class="noStyleButt control miss"
+        :class="{ disabled: drillComplete }"
+        @click="handleMiss"
+        :disabled="drillComplete"
+      >
+        X
+      </button>
+    </div>
+    <div id="footControl">
+      <button class="myButt">&lt;&lt;</button>
+      <button class="myButt" @click="resetValues">Try Again</button>
+      <button class="myButt">>></button>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, defineProps } from 'vue'
+
+// Define props
+const props = defineProps({
+  title: String,
+  image: String,
+  instructions: String,
+  drillType: String
+})
 
 // data
-
 const shot = ref(1)
 const position = ref(4)
 const bonus = ref(0)
@@ -80,12 +83,9 @@ const previousState = ref({
 
 const drillComplete = ref(false)
 const showInstructions = ref(false)
-const imageSrc = ref(
-  'https://res.cloudinary.com/dnc2xvyms/image/upload/v1716658046/Screenshot_2024-05-25_at_1.24.29_PM_wdum1u.png'
-)
+const imageSrc = ref(props.image)
 
 // methods
-
 const toggleShowInstructions = () => {
   showInstructions.value = !showInstructions.value
 }
@@ -154,7 +154,6 @@ const undo = () => {
 }
 
 // computed
-
 const score = computed(() => position.value + bonus.value)
 
 const backgroundImageStyle = computed(() => ({
@@ -195,7 +194,6 @@ const disableUndo = computed(() => {
 })
 
 // watch
-
 watch(shot, () => {
   if (shot.value >= 8 && score.value >= 12) {
     drillComplete.value = true
