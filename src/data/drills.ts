@@ -1,4 +1,6 @@
-export const cutShotDrill = {
+import type { Drill } from '../types/types'
+
+export const cutShotDrill: Drill = {
   id: 1,
   name: 'Cut Shot',
   instructions: `• Start with the cue ball (CB) in position 4. Each time you pocket the object ball (OB), advance
@@ -12,7 +14,7 @@ export const cutShotDrill = {
   skills: ['aim']
 }
 
-export const stopShotDrill = {
+export const stopShotDrill: Drill = {
   id: 2,
   name: 'Stop Shot',
   instructions: `• The OB must be pocketed, and the stopped CB must overlap at least part of the ghost-ball
@@ -28,7 +30,7 @@ export const stopShotDrill = {
   skills: ['position, cue ball control']
 }
 
-export const followShotDrill = {
+export const followShotDrill: Drill = {
   id: 3,
   name: 'Follow Shot',
   instructions: `• The rectangular target can be printed and cut out from a template on the website. It is an
@@ -45,7 +47,7 @@ export const followShotDrill = {
   skills: ['position, cue ball control']
 }
 
-export const drawShotDrill = {
+export const drawShotDrill: Drill = {
   id: 4,
   name: 'Draw Shot',
   instructions: `• You must pocket the OB and the CB must end up within the 2x1 diamond rectangle adjacent to
@@ -63,7 +65,7 @@ export const drawShotDrill = {
   skills: ['position, cue ball control']
 }
 
-export const stunShotDrill = {
+export const stunShotDrill: Drill = {
   id: 5,
   name: 'Stun Shot',
   instructions: `• The OB must be pocketed and the CB must end up within or overlapping the target for
@@ -86,3 +88,7 @@ export const stunShotDrill = {
   type: 'progressive',
   skills: ['position, cue ball control']
 }
+
+const drills: Drill[] = [cutShotDrill, stopShotDrill, followShotDrill, drawShotDrill, stunShotDrill]
+
+export default drills
