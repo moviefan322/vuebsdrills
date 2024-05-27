@@ -18,7 +18,6 @@ export const useDrillStore = defineStore('drill', () => {
     }
   })
 
-  
   const fetchDrillSet = async (id: number) => {
     const data = await new Promise<DrillSet | undefined>((resolve) => {
       setTimeout(() => {
@@ -70,5 +69,21 @@ export const useDrillStore = defineStore('drill', () => {
     return false
   })
 
-  return { drill, fetchDrill, nextDrill, previousDrill, fetchDrillSet, currentDrill, isSet, isFirstDrill, isLastDrill}
+  const getDrillName = (id: number) => {
+    const drill = drills.find((d) => d.id === id)
+    return drill ? drill.name : ''
+  }
+
+  return {
+    drill,
+    fetchDrill,
+    nextDrill,
+    previousDrill,
+    fetchDrillSet,
+    currentDrill,
+    isSet,
+    isFirstDrill,
+    isLastDrill,
+    getDrillName
+  }
 })

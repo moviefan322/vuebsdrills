@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
 
-const testEnv = (import.meta as any).env.VITE_APP_TEST
-
-console.log(testEnv)
 </script>
 
 <template>

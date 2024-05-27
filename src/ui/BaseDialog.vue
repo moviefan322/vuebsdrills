@@ -22,8 +22,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, defineEmits } from 'vue'
-
 interface Props {
   show: boolean
   title: string

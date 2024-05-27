@@ -13,3 +13,17 @@ export interface DrillSet {
   name: string;
   drills: Drill[];
 }
+
+export interface Score {
+  id: number;
+  drillId: number;
+  score: number;
+  maxScore: number;
+  date: string;
+}
+
+export interface SubmitScorePayload {
+  score: number;
+  maxScore: number;
+  drillId: number;
+}

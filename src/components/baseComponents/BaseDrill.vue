@@ -61,20 +61,29 @@
       X
     </button>
   </div>
-  <div class="mt">
-    <button class="myButt" v-if="store.isLastDrill && drillComplete">View Results</button>
+  <div class="mt my">
+    <router-link to="/results" class="myButt noStyleLink" v-if="store.isLastDrill && drillComplete"
+      >View Results</router-link
+    >
   </div>
-  <div id="footControl">
+  <div id="footControl" v-if="drillComplete && !store.isLastDrill">
     <button
       class="myButt"
       :class="{ hidden: store.isFirstDrill || isExam }"
       @click="handlePrevious"
-      v-if="isSet"
+      v-if="props.isSet"
     >
       &lt;&lt;
     </button>
-    <button class="myButt" :class="{ hidden: shot === 1 }" @click="resetValues">{{ drillComplete ? 'Try Again' : 'Start Over' }}</button>
-    <button class="myButt" :class="{ hidden: store.isLastDrill }" @click="handleNext" v-if="isSet">
+    <button class="myButt" :class="{ hidden: shot === 1 }" @click="resetValues" v-if="!isExam">
+      {{ drillComplete ? 'Try Again' : 'Start Over' }}
+    </button>
+    <button
+      class="myButt"
+      :class="{ hidden: store.isLastDrill || !drillComplete }"
+      @click="handleNext"
+      v-if="props.isSet"
+    >
       >>
     </button>
   </div>
@@ -83,8 +92,11 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
 import { useDrillStore } from '../../stores/drill'
+import { useScoreStore } from '../../stores/scores'
+import { RouterLink } from 'vue-router'
 
 const store = useDrillStore()
+const scoreStore = useScoreStore()
 
 //emits
 
@@ -102,7 +114,7 @@ const props = defineProps({
 
 // data
 
-const isExam = false
+const isExam = true
 const shot = ref(1)
 const position = ref(4)
 const bonus = ref(0)
@@ -111,7 +123,8 @@ const pots = ref(0)
 const previousState = ref({
   shot: 1,
   position: 4,
-  bonus: 0
+  bonus: 0,
+  pots: 0
 })
 
 const drillComplete = ref(false)
@@ -181,7 +194,8 @@ const updatePreviousState = () => {
   previousState.value = {
     shot: shot.value,
     position: position.value,
-    bonus: bonus.value
+    bonus: bonus.value,
+    pots: pots.value
   }
 }
 
@@ -189,22 +203,26 @@ const undo = () => {
   shot.value = previousState.value.shot
   position.value = previousState.value.position
   bonus.value = previousState.value.bonus
+  pots.value = previousState.value.pots
 }
 
 const handleNext = () => {
-  if (drillComplete.value) {
-    // save results
-  }
   resetValues()
   emits('nextDrill')
 }
 
 const handlePrevious = () => {
-  if (drillComplete.value) {
-    // save results
-  }
   resetValues()
   emits('previousDrill')
+}
+
+const submitScore = () => {
+  const submission = {
+    score: +score.value,
+    drillId: +store.currentDrill!.id,
+    maxScore: +maxScore.value!
+  }
+  scoreStore.pushScore(submission)
 }
 
 // computed
@@ -276,6 +294,7 @@ watch(drillComplete, () => {
     if (score.value >= 10) {
       bonus.value = 3
     }
+    submitScore()
   }
 })
 
@@ -283,7 +302,6 @@ watch(props, (newV, oldV) => {
   imageSrc.value = props.image
   drillType.value = props.type
   maxScore.value = props.maxScore
-  console.log(store.currentDrill)
   if (newV.type !== oldV.type) {
     if (newV.type === 'progressive') {
       position.value = 4
@@ -299,6 +317,7 @@ watch(props, (newV, oldV) => {
   font-size: 20px;
   font-weight: bolder;
   margin-top: 1rem;
+  margin-bottom: 1rem;
   text-align: center;
 }
 
@@ -314,7 +333,7 @@ watch(props, (newV, oldV) => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 1rem;
+  margin-top: 2rem;
   width: 50%;
 }
 
