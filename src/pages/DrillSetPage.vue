@@ -40,6 +40,8 @@ const previousDrill = () => {
     :image="currentDrill.image"
     :instructions="currentDrill.instructions"
     :isSet="isSet"
+    :type="currentDrill.type"
+    :maxScore="currentDrill.maxScore"
     @nextDrill="nextDrill"
     @previousDrill="previousDrill"
   ></base-drill>

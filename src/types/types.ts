@@ -1,6 +1,7 @@
 export interface Drill {
   id: number;
   name: string;
+  maxScore: number;
   instructions: string;
   image: string;
   type: 'progressive' | 'standard' | 'highscore';

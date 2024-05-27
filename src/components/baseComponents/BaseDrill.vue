@@ -11,7 +11,7 @@
   <div id="image-wrapper" class="mb">
     <div id="image-container" :style="backgroundImageStyle"></div>
   </div>
-  <div id="scorebar" v-if="!drillComplete" class="mt">
+  <div class="scorebar mt" v-if="!drillComplete && drillType! === 'progressive'">
     <div>
       Shot: <span>{{ shot }}</span>
     </div>
@@ -22,11 +22,20 @@
       Score: <span>{{ score }}</span>
     </div>
   </div>
+  <div class="scorebar mt progscore" v-if="!drillComplete && drillType! === 'standard'">
+    <div>
+      Shot: <span>{{ shot }}</span>
+    </div>
+    <div id="filler"></div>
+    <div>
+      Score: <span>{{ score }}</span>
+    </div>
+  </div>
   <div v-if="drillComplete" class="endGameMes">
     {{ endGameMessage }} <br />
     You scored {{ score }} point{{ score !== 1 ? 's' : '' }}!
   </div>
-  <div id="controls">
+  <div class="controls" v-if="!drillComplete">
     <button
       class="noStyleButt control make"
       :class="{ disabled: drillComplete }"
@@ -52,22 +61,20 @@
       X
     </button>
   </div>
+  <div class="mt">
+    <button class="myButt" v-if="store.isLastDrill && drillComplete">View Results</button>
+  </div>
   <div id="footControl">
     <button
       class="myButt"
-      :class="{ hidden: store.isFirstDrill || !isExam }"
+      :class="{ hidden: store.isFirstDrill || isExam }"
       @click="handlePrevious"
       v-if="isSet"
     >
       &lt;&lt;
     </button>
-    <button class="myButt" @click="resetValues">Try Again</button>
-    <button
-      class="myButt"
-      :class="{ hidden: store.isLastDrill }"
-      @click="handleNext"
-      v-if="isSet"
-    >
+    <button class="myButt" :class="{ hidden: shot === 1 }" @click="resetValues">{{ drillComplete ? 'Try Again' : 'Start Over' }}</button>
+    <button class="myButt" :class="{ hidden: store.isLastDrill }" @click="handleNext" v-if="isSet">
       >>
     </button>
   </div>
@@ -88,7 +95,9 @@ const props = defineProps({
   title: String,
   image: String,
   instructions: String,
-  isSet: Boolean
+  isSet: Boolean,
+  type: String,
+  maxScore: Number
 })
 
 // data
@@ -97,6 +106,7 @@ const isExam = false
 const shot = ref(1)
 const position = ref(4)
 const bonus = ref(0)
+const pots = ref(0)
 
 const previousState = ref({
   shot: 1,
@@ -107,6 +117,8 @@ const previousState = ref({
 const drillComplete = ref(false)
 const showInstructions = ref(false)
 const imageSrc = ref(props.image)
+const drillType = ref(props.type)
+const maxScore = ref(props.maxScore)
 
 // methods
 
@@ -115,7 +127,7 @@ const toggleShowInstructions = () => {
 }
 
 const incrementShot = () => {
-  if (shot.value === 10) {
+  if (shot.value === maxScore.value) {
     drillComplete.value = true
     return
   }
@@ -123,6 +135,7 @@ const incrementShot = () => {
 }
 
 const incrementScore = () => {
+  pots.value++
   if (position.value === 7) {
     bonus.value++
     return
@@ -148,6 +161,7 @@ const resetValues = () => {
   position.value = 4
   bonus.value = 0
   drillComplete.value = false
+  pots.value = 0
 }
 
 const handleMake = () => {
@@ -178,18 +192,30 @@ const undo = () => {
 }
 
 const handleNext = () => {
-  // save results
+  if (drillComplete.value) {
+    // save results
+  }
   resetValues()
   emits('nextDrill')
 }
 
 const handlePrevious = () => {
+  if (drillComplete.value) {
+    // save results
+  }
+  resetValues()
   emits('previousDrill')
 }
 
 // computed
 
-const score = computed(() => position.value + bonus.value)
+const score = computed(() => {
+  if (drillType.value === 'progressive') {
+    return position.value + bonus.value
+  } else {
+    return pots.value
+  }
+})
 
 const backgroundImageStyle = computed(() => ({
   backgroundImage: `url(${imageSrc.value})`,
@@ -200,19 +226,19 @@ const backgroundImageStyle = computed(() => ({
 }))
 
 const endGameMessage = computed(() => {
-  if (score.value <= 2) {
+  if (score.value <= +maxScore.value! * 0.2) {
     return `Damn, you suck!`
   }
-  if (score.value <= 4) {
+  if (score.value <= +maxScore.value! * 0.4) {
     return `You're not very good at this.`
   }
-  if (score.value <= 6) {
+  if (score.value <= +maxScore.value! * 0.6) {
     return `Not bad.`
   }
-  if (score.value <= 8) {
+  if (score.value <= +maxScore.value! * 0.8) {
     return `You're pretty good.`
   }
-  if (score.value <= 10) {
+  if (score.value <= +maxScore.value!) {
     return `You are killing it!`
   }
   return 'Drill complete'
@@ -238,8 +264,10 @@ const setInstructions = computed(() => {
 // watch
 
 watch(shot, () => {
-  if (shot.value >= 8 && score.value >= 12) {
-    drillComplete.value = true
+  if (drillType.value === 'progressive') {
+    if (shot.value >= 8 && score.value >= 12) {
+      drillComplete.value = true
+    }
   }
 })
 
@@ -251,12 +279,19 @@ watch(drillComplete, () => {
   }
 })
 
-watch(props, () => {
+watch(props, (newV, oldV) => {
   imageSrc.value = props.image
+  drillType.value = props.type
+  maxScore.value = props.maxScore
   console.log(store.currentDrill)
+  if (newV.type !== oldV.type) {
+    if (newV.type === 'progressive') {
+      position.value = 4
+    } else {
+      position.value = 0
+    }
+  }
 })
-
-
 </script>
 
 <style scoped>
@@ -271,11 +306,11 @@ watch(props, () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 1rem;
+  margin: 1rem auto;
   width: 100%;
 }
 
-#controls {
+.controls {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -326,7 +361,7 @@ watch(props, () => {
   border-right: 1px solid lime;
 }
 
-#scorebar {
+.scorebar {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -370,5 +405,19 @@ watch(props, () => {
   color: lime;
   text-decoration: underline;
   font-size: 10px;
+}
+
+.center {
+  margin: auto;
+}
+
+.progscore {
+  gap: 1rem;
+}
+
+#filler {
+  width: 1px;
+  background-color: lime;
+  height: 2.3rem;
 }
 </style>

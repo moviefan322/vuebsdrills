@@ -31,6 +31,8 @@ const nextDrill = () => {
 const previousDrill = () => {
   drillStore.previousDrill()
 }
+
+
 </script>
 
 <template>
@@ -40,6 +42,8 @@ const previousDrill = () => {
     :image="drillData.image"
     :instructions="drillData.instructions"
     :isSet="drillStore.isSet"
+    :type="drillData.type"
+    :maxScore="drillData.maxScore"
     @nextDrill="nextDrill"
     @previousDrill="previousDrill"
   ></base-drill>
