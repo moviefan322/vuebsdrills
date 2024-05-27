@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
-import PoolTable from '@/components/PoolTable.vue'
 </script>
 
 <template>
@@ -10,7 +9,6 @@ import PoolTable from '@/components/PoolTable.vue'
       <router-link to="/set/1" class="noStyleLink lime">BU Fundamentals</router-link>
     </button>
   </div>
-  <pool-table></pool-table>
 </template>
 
 
