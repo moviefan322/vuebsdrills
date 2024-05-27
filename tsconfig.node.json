@@ -2,13 +2,12 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "module": "CommonJS",
-    "target": "ESNext",
-    "moduleResolution": "Node",
-    "lib": ["ESNext"],
     "outDir": "./dist",
-    "rootDir": "./src",
-    "composite": true // Ensure this is included for project references
+    "target": "ES2019"
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["node_modules", "dist"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.vue"
+  ]
 }
