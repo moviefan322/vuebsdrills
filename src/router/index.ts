@@ -3,6 +3,7 @@ import DrillsPage from '../pages/DrillsPage.vue'
 import DrillSetPage from '../pages/DrillSetPage.vue'
 import MainMenuPage from '../pages/MainMenuPage.vue'
 import ResultsPage from '../pages/ResultsPage.vue'
+import TablePage  from '../pages/TablePage.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -26,6 +27,11 @@ const router = createRouter({
       path: '/results',
       name: 'results',
       component: ResultsPage
+    },
+    {
+      path: '/table',
+      name: 'pooltable',
+      component: TablePage
     },
     {
       path: '/about',
