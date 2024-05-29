@@ -20,9 +20,9 @@ export default {
         { number: 0, x: 4, y: 1 }
       ]
     },
-    cuePosition: {
+    pottingPocketProp: {
       type: Object,
-      default: () => ({ start: { x: 0, y: 0 }, end: { x: 0, y: 0 } })
+      default: () => ({ x: 8, y: 4 }) // Diamond coordinates for the pocket
     }
   },
   computed: {
@@ -32,7 +32,7 @@ export default {
     ballPositions() {
       const tableWidth = this.tableWidth
       const tableHeight = tableWidth / 2
-      const ballRadius = tableWidth / 80;
+      const ballRadius = tableWidth / 80
       return this.ballPositionsProp.map((ball) => ({
         ...ball,
         x: (ball.x * tableWidth) / 8,
@@ -40,26 +40,81 @@ export default {
         radius: ballRadius
       }))
     },
+    pottingPocket() {
+      const tableWidth = this.tableWidth
+      const tableHeight = tableWidth / 2
+      return {
+        x: (this.pottingPocketProp.x * tableWidth) / 800,
+        y: (this.pottingPocketProp.y * tableHeight) / 400
+      }
+    },
     objectBall() {
       if (this.ballPositions.length === 2) {
         return this.ballPositions.find((ball) => ball.number !== 0)
       } else return null
+    },
+    pottingLine() {
+      const objectBall = this.objectBall
+      if (!objectBall) return null
+
+      // Convert pocket coordinates to pixel values
+      const tableWidth = this.tableWidth
+      const tableHeight = tableWidth / 2
+      const pocketX = (this.pottingPocket.x * tableWidth) / 8
+      const pocketY = (this.pottingPocket.y * tableHeight) / 4
+
+      // Adjust line to be just outside the object ball
+      const angle = Math.atan2(pocketY - objectBall.y, pocketX - objectBall.x)
+      const objectBallEdgeX = objectBall.x + Math.cos(angle) * objectBall.radius
+      const objectBallEdgeY = objectBall.y + Math.sin(angle) * objectBall.radius
+
+      return {
+        start: { x: objectBallEdgeX, y: objectBallEdgeY },
+        end: { x: pocketX, y: pocketY }
+      }
     },
     shotLine() {
       const cueBall = this.cueBallPosition
       const objectBall = this.objectBall
       if (!cueBall || !objectBall) return null
 
-      // Adjust shot line to be just outside the balls
-      const angle = Math.atan2(objectBall.y - cueBall.y, objectBall.x - cueBall.x)
-      const cueBallEdgeX = cueBall.x + Math.cos(angle) * cueBall.radius
-      const cueBallEdgeY = cueBall.y + Math.sin(angle) * cueBall.radius
-      const objectBallEdgeX = objectBall.x - Math.cos(angle) * objectBall.radius
-      const objectBallEdgeY = objectBall.y - Math.sin(angle) * objectBall.radius
+      // Calculate angle from object ball to pocket
+      const tableWidth = this.tableWidth
+      const tableHeight = tableWidth / 2
+      const pocketX = (this.pottingPocket.x * tableWidth) / 8
+      const pocketY = (this.pottingPocket.y * tableHeight) / 4
+      const pocketAngle = Math.atan2(pocketY - objectBall.y, pocketX - objectBall.x)
+
+      // Adjust shot line to be just outside the balls and aligned with the pocket line
+      const cueBallAngle = Math.atan2(objectBall.y - cueBall.y, objectBall.x - cueBall.x)
+      const cueBallEdgeX = cueBall.x + Math.cos(cueBallAngle) * cueBall.radius
+      const cueBallEdgeY = cueBall.y + Math.sin(cueBallAngle) * cueBall.radius
+      const objectBallEdgeX = objectBall.x - Math.cos(pocketAngle) * objectBall.radius
+      const objectBallEdgeY = objectBall.y - Math.sin(pocketAngle) * objectBall.radius
 
       return {
         start: { x: cueBallEdgeX, y: cueBallEdgeY },
         end: { x: objectBallEdgeX, y: objectBallEdgeY }
+      }
+    },
+
+    cuePosition() {
+      const shotLine = this.shotLine
+      if (!shotLine) return { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } }
+
+      const cueBall = this.cueBallPosition
+      const ballRadius = this.tableWidth / 80
+      const cueLength = (this.tableWidth / 8) * 4 // 4 diamond lengths
+
+      const angle = Math.atan2(shotLine.end.y - shotLine.start.y, shotLine.end.x - shotLine.start.x)
+      const cueEndX = cueBall.x - Math.cos(angle) * (ballRadius + 10) // 1 ball radius away from the cue ball
+      const cueEndY = cueBall.y - Math.sin(angle) * (ballRadius + 10) // 1 ball radius away from the cue ball
+      const cueStartX = cueEndX - Math.cos(angle) * cueLength
+      const cueStartY = cueEndY - Math.sin(angle) * cueLength
+
+      return {
+        start: { x: cueStartX, y: cueStartY },
+        end: { x: cueEndX, y: cueEndY }
       }
     }
   },
@@ -102,6 +157,21 @@ export default {
         .append('svg')
         .attr('width', tableWidth + 2 * borderSize)
         .attr('height', tableHeight + 2 * borderSize)
+
+      // Define arrow marker
+      svg
+        .append('defs')
+        .append('marker')
+        .attr('id', 'arrowhead')
+        .attr('viewBox', '0 0 10 10')
+        .attr('refX', 5)
+        .attr('refY', 5)
+        .attr('markerWidth', 6)
+        .attr('markerHeight', 6)
+        .attr('orient', 'auto')
+        .append('path')
+        .attr('d', 'M 0 0 L 10 5 L 0 10 Z')
+        .attr('fill', 'red')
 
       // Draw oak-colored frame
       svg
@@ -251,20 +321,36 @@ export default {
         .attr('y1', this.cuePosition.start.y + borderSize)
         .attr('x2', this.cuePosition.end.x + borderSize)
         .attr('y2', this.cuePosition.end.y + borderSize)
-        .attr('stroke', 'brown')
+        .attr('stroke', 'lime')
         .attr('stroke-width', 5)
 
       // Draw shot line
-      if (this.shotLine) {
+      const shotLine = this.shotLine
+      if (shotLine) {
         svg
           .append('line')
-          .attr('x1', this.shotLine.start.x + borderSize)
-          .attr('y1', this.shotLine.start.y + borderSize)
-          .attr('x2', this.shotLine.end.x + borderSize)
-          .attr('y2', this.shotLine.end.y + borderSize)
-          .attr('stroke', 'black')
+          .attr('x1', shotLine.start.x + borderSize)
+          .attr('y1', shotLine.start.y + borderSize)
+          .attr('x2', shotLine.end.x + borderSize)
+          .attr('y2', shotLine.end.y + borderSize)
+          .attr('stroke', 'blue')
           .attr('stroke-width', 2)
-          .attr('stroke-dasharray', '2,5')
+          .attr('stroke-dasharray', '5,5')
+      }
+
+      // Draw potting line
+      const pottingLine = this.pottingLine
+      if (pottingLine) {
+        svg
+          .append('line')
+          .attr('x1', pottingLine.start.x + borderSize)
+          .attr('y1', pottingLine.start.y + borderSize)
+          .attr('x2', pottingLine.end.x + borderSize)
+          .attr('y2', pottingLine.end.y + borderSize)
+          .attr('stroke', 'red')
+          .attr('stroke-width', 2)
+          .attr('stroke-dasharray', '5,5')
+          .attr('marker-end', 'url(#arrowhead)');
       }
     },
     modifySpecificDiamonds() {
