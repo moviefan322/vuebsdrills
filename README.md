@@ -1,62 +1,59 @@
-# drills-vue
+# BU DRILLS [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-This template should help get you started developing with Vue 3 in Vite.
+## Table of Contents
 
-## Recommended IDE Setup
+- [BU DRILLS ](#bu-drills-)
+  - [Table of Contents](#table-of-contents)
+  - [Description](#description)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Testing](#testing)
+  - [Contributors](#contributors)
+  - [License](#license)
+  - [Questions](#questions)
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+<a id="Description"></a>
 
-## Type Support for `.vue` Imports in TS
+## Description
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+This application guides the user through sets of billiards drills that are designed to improve the user's game. The user can select from a variety of drills and the application will guide the user through the drill, providing instructions and feedback. The user can also track their progress and see how they are improving over time. The application is designed to be used on a mobile device so that the user can take it with them to the pool hall and use it while they are practicing. The application is designed to be easy to use and intuitive so that the user can focus on their game and not on the application. It is in the early stages, this is just a front end, but will eventually be integrated into a full stack mobile application where a user can create their own drills and build their own routines and compare results with friends.
 
-## Customize configuration
+<a id="Installation"></a>
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+## Installation
 
-## Project Setup
+Copy repo and npm i
 
-```sh
-npm install
-```
+<a id="Usage"></a>
 
-### Compile and Hot-Reload for Development
+## Usage
 
-```sh
-npm run dev
-```
+You can visit the deployed site at https://bu-drills.vercel.app/ .
 
-### Type-Check, Compile and Minify for Production
+<a id="Testing"></a>
 
-```sh
-npm run build
-```
+## Testing
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+The program only supports manual testing for the moment- full testing suite to come.
 
-```sh
-npm run test:unit
-```
+<a id="Contributors"></a>
 
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
+## Contributors
 
-```sh
-npm run test:e2e:dev
-```
+Just me!
 
-This runs the end-to-end tests against the Vite development server.
-It is much faster than the production build.
+<a id="License"></a>
 
-But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
+## License
 
-```sh
-npm run build
-npm run test:e2e
-```
+MIT License
 
-### Lint with [ESLint](https://eslint.org/)
+<a id="Questions"></a>
 
-```sh
-npm run lint
-```
-# vuebsdrills
+## Questions
+
+Philip Scott Neumann
+
+https://github.com/moviefan322
+
+philman202@yahoo.com
