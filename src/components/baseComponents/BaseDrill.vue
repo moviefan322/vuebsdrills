@@ -1,39 +1,32 @@
 <template>
   <div class="mb">
-    <h1>{{ props.title }}</h1>
+    <h1>{{ store.currentDrill!.name }}</h1>
   </div>
   <div class="showInst">
     <button class="noStyleButt instButt" @click="toggleShowInstructions">
-      {{ showInstructions ? `Hide` : `Show` }} Intstructions
+      {{ showInstructions ? `Hide` : `Show` }} Instructions
     </button>
   </div>
   <div v-if="showInstructions" id="instruct" class="smFont mt mb" v-html="setInstructions"></div>
   <div id="image-wrapper" class="mb">
     <div id="image-container" :style="backgroundImageStyle"></div>
   </div>
-  <div class="scorebar mt" v-if="!drillComplete && drillType! === 'progressive'">
+  <ScorebarComponent />
+  <div
+    class="scorebar mt progscore"
+    v-if="!drillComplete && store.currentDrill!.type! === 'standard'"
+  >
     <div>
-      Shot: <span>{{ shot }}</span>
-    </div>
-    <div id="scoremid">
-      Position: <span>{{ position }}</span>
-    </div>
-    <div>
-      Score: <span>{{ score }}</span>
-    </div>
-  </div>
-  <div class="scorebar mt progscore" v-if="!drillComplete && drillType! === 'standard'">
-    <div>
-      Shot: <span>{{ shot }}</span>
+      Shot: <span>{{ store.getShot() }}</span>
     </div>
     <div id="filler"></div>
     <div>
-      Score: <span>{{ score }}</span>
+      Score: <span>{{ store.getScore() }}</span>
     </div>
   </div>
   <div v-if="drillComplete" class="endGameMes">
     {{ endGameMessage }} <br />
-    You scored {{ score }} point{{ score !== 1 ? 's' : '' }}!
+    You scored {{ store.getScore() }} point{{ store.getScore() !== 1 ? 's' : '' }}!
   </div>
   <div class="controls" v-if="!drillComplete">
     <button
@@ -47,7 +40,7 @@
     <button
       class="muButt control undo"
       :class="{ hidden: disableUndo }"
-      @click="undo"
+      @click="store.undo"
       :disable="disableUndo"
     >
       <font-awesome-icon icon="fa-solid fa-rotate-left" />
@@ -71,18 +64,23 @@
       class="myButt"
       :class="{ hidden: store.isFirstDrill || isExam }"
       @click="handlePrevious"
-      v-if="props.isSet"
+      v-if="store.getIsSet()"
     >
       &lt;&lt;
     </button>
-    <button class="myButt" :class="{ hidden: shot === 1 }" @click="resetValues" v-if="!isExam">
+    <button
+      class="myButt"
+      :class="{ hidden: store.getShot() === 1 }"
+      @click="store.resetValues"
+      v-if="!isExam"
+    >
       {{ drillComplete ? 'Try Again' : 'Start Over' }}
     </button>
     <button
       class="myButt"
       :class="{ hidden: store.isLastDrill || !drillComplete }"
       @click="handleNext"
-      v-if="props.isSet"
+      v-if="store.getIsSet()"
     >
       >>
     </button>
@@ -94,6 +92,7 @@ import { ref, computed, watch } from 'vue'
 import { useDrillStore } from '../../stores/drill'
 import { useScoreStore } from '../../stores/scores'
 import { RouterLink } from 'vue-router'
+import ScorebarComponent from '../ScorebarComponent.vue'
 
 const store = useDrillStore()
 const scoreStore = useScoreStore()
@@ -102,36 +101,12 @@ const scoreStore = useScoreStore()
 
 const emits = defineEmits(['nextDrill', 'previousDrill'])
 
-// props
-const props = defineProps({
-  title: String,
-  image: String,
-  instructions: String,
-  isSet: Boolean,
-  type: String,
-  maxScore: Number
-})
-
-// data
+// local data
 
 const isExam = true
-const shot = ref(1)
-const position = ref(4)
-const bonus = ref(0)
-const pots = ref(0)
-
-const previousState = ref({
-  shot: 1,
-  position: 4,
-  bonus: 0,
-  pots: 0
-})
 
 const drillComplete = ref(false)
 const showInstructions = ref(false)
-const imageSrc = ref(props.image)
-const drillType = ref(props.type)
-const maxScore = ref(props.maxScore)
 
 // methods
 
@@ -139,104 +114,42 @@ const toggleShowInstructions = () => {
   showInstructions.value = !showInstructions.value
 }
 
-const incrementShot = () => {
-  if (shot.value === maxScore.value) {
-    drillComplete.value = true
-    return
-  }
-  shot.value++
-}
-
-const incrementScore = () => {
-  pots.value++
-  if (position.value === 7) {
-    bonus.value++
-    return
-  }
-}
-
-const incrementPosition = () => {
-  if (position.value === 7) {
-    return
-  }
-  position.value++
-}
-
-const decrementPosition = () => {
-  if (position.value === 1) {
-    return
-  }
-  position.value--
-}
-
-const resetValues = () => {
-  shot.value = 1
-  position.value = 4
-  bonus.value = 0
-  drillComplete.value = false
-  pots.value = 0
-}
-
 const handleMake = () => {
-  updatePreviousState()
-  incrementScore()
-  incrementPosition()
-  incrementShot()
+  store.updatePreviousState()
+  store.incrementScore()
+  store.incrementPosition()
+  store.incrementShot()
 }
 
 const handleMiss = () => {
-  updatePreviousState()
-  decrementPosition()
-  incrementShot()
-}
-
-const updatePreviousState = () => {
-  previousState.value = {
-    shot: shot.value,
-    position: position.value,
-    bonus: bonus.value,
-    pots: pots.value
-  }
-}
-
-const undo = () => {
-  shot.value = previousState.value.shot
-  position.value = previousState.value.position
-  bonus.value = previousState.value.bonus
-  pots.value = previousState.value.pots
+  store.updatePreviousState()
+  store.decrementPosition()
+  store.incrementShot()
 }
 
 const handleNext = () => {
-  resetValues()
+  store.resetValues()
   emits('nextDrill')
 }
 
 const handlePrevious = () => {
-  resetValues()
+  store.resetValues()
   emits('previousDrill')
 }
 
 const submitScore = () => {
   const submission = {
-    score: +score.value,
+    score: +store.getScore(),
     drillId: +store.currentDrill!.id,
-    maxScore: +maxScore.value!
+    maxScore: +store.currentDrill!.maxScore
   }
   scoreStore.pushScore(submission)
 }
 
 // computed
 
-const score = computed(() => {
-  if (drillType.value === 'progressive') {
-    return position.value + bonus.value
-  } else {
-    return pots.value
-  }
-})
-
 const backgroundImageStyle = computed(() => ({
-  backgroundImage: `url(${imageSrc.value})`,
+  backgroundImage: `url(${store.currentDrill!.image})`,
   backgroundSize: 'cover',
   backgroundPosition: 'fit-content',
   width: 'inherit',
@@ -244,46 +157,43 @@ const backgroundImageStyle = computed(() => ({
 }))
 
 const endGameMessage = computed(() => {
-  if (score.value <= +maxScore.value! * 0.2) {
+  if (store.getScore() <= +store.currentDrill!.maxScore * 0.2) {
     return `Damn, you suck!`
   }
-  if (score.value <= +maxScore.value! * 0.4) {
+  if (store.getScore() <= +store.currentDrill!.maxScore * 0.4) {
     return `You're not very good at this.`
   }
-  if (score.value <= +maxScore.value! * 0.6) {
+  if (store.getScore() <= +store.currentDrill!.maxScore * 0.6) {
     return `Not bad.`
   }
-  if (score.value <= +maxScore.value! * 0.8) {
+  if (store.getScore() <= +store.currentDrill!.maxScore * 0.8) {
     return `You're pretty good.`
   }
-  if (score.value <= +maxScore.value!) {
+  if (store.getScore() <= +store.currentDrill!.maxScore) {
     return `You are killing it!`
   }
   return 'Drill complete'
 })
 
 const disableUndo = computed(() => {
-  if (shot.value === 1) {
+  if (store.getShot() === 1) {
     return true
   }
-  if (previousState.value.shot === shot.value) {
+  if (store.getPreviousState().shot === store.getShot()) {
     return true
   }
   return false
 })
 
 const setInstructions = computed(() => {
-  if (props && props.instructions) {
-    return props.instructions
-  }
-  return ''
+  return store.currentDrill!.instructions
 })
 
 // watch
 
-watch(shot, () => {
-  if (drillType.value === 'progressive') {
-    if (shot.value >= 8 && score.value >= 12) {
+watch(store, () => {
+  if (store.currentDrill!.type === 'progressive') {
+    if (store.getShot() >= 8 && store.getScore() >= 12) {
       drillComplete.value = true
     }
   }
@@ -291,22 +201,19 @@ watch(shot, () => {
 
 watch(drillComplete, () => {
   if (drillComplete.value) {
-    if (score.value >= 10) {
-      bonus.value = 3
+    if (store.getScore() >= 10) {
+      store.setBonus(3)
     }
     submitScore()
   }
 })
 
-watch(props, (newV, oldV) => {
-  imageSrc.value = props.image
-  drillType.value = props.type
-  maxScore.value = props.maxScore
-  if (newV.type !== oldV.type) {
-    if (newV.type === 'progressive') {
-      position.value = 4
+watch(store, (newV, oldV) => {
+  if (newV !== oldV) {
+    if (store.currentDrill!.type === 'progressive') {
+      store.setPosition(4)
     } else {
-      position.value = 0
+      store.setPosition(0)
     }
   }
 })
@@ -372,26 +279,6 @@ watch(props, (newV, oldV) => {
   background-color: rgb(200, 200, 200);
 }
 
-#scoremid {
-  margin-left: 1rem;
-  margin-right: 1rem;
-  padding: 0.5rem 1rem;
-  border-left: 1px solid lime;
-  border-right: 1px solid lime;
-}
-
-.scorebar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: fit-content;
-  margin-top: 1rem;
-  padding: 0 1rem;
-  border: 1px solid lime;
-  background-color: black;
-  color: lime;
-}
-
 .smFont {
   font-size: 10px;
 }
@@ -399,14 +286,6 @@ watch(props, (newV, oldV) => {
 #image-wrapper {
   padding: 0;
   width: 100%;
-}
-
-.mb {
-  margin-bottom: 1rem;
-}
-
-.mt {
-  margin-top: 1rem;
 }
 
 .showInst {
@@ -428,10 +307,6 @@ watch(props, (newV, oldV) => {
 
 .center {
   margin: auto;
-}
-
-.progscore {
-  gap: 1rem;
 }
 
 #filler {

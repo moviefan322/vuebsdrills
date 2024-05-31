@@ -9,6 +9,17 @@ export const useDrillStore = defineStore('drill', () => {
   const drill = ref<Drill | null>(null)
   const currentDrillIndex = ref(0)
   const isSet = computed(() => !!drillSet.value)
+  const shot = ref(1)
+  const position = ref(4)
+  const bonus = ref(0)
+  const pots = ref(0)
+  const drillComplete = ref(false)
+  const previousState = ref({
+    shot: 1,
+    position: 4,
+    bonus: 0,
+    pots: 0
+  })
 
   const currentDrill = computed<Drill | null>(() => {
     if (drillSet.value) {
@@ -74,6 +85,111 @@ export const useDrillStore = defineStore('drill', () => {
     return drill ? drill.name : ''
   }
 
+  const resetValues = () => {
+    shot.value = 1
+    position.value = 4
+    bonus.value = 0
+    drillComplete.value = false
+    pots.value = 0
+    previousState.value = {
+      shot: 1,
+      position: 4,
+      bonus: 0,
+      pots: 0
+    }
+  }
+
+  const incrementShot = () => {
+    console.log('incrementShot')
+    if (shot.value === currentDrill.value!.maxScore) {
+      drillComplete.value = true
+      return
+    }
+    shot.value++
+  }
+
+  const incrementScore = () => {
+    pots.value++
+    if (position.value === 7) {
+      bonus.value++
+      return
+    }
+  }
+
+  const incrementPosition = () => {
+    if (position.value === 7) {
+      return
+    }
+    position.value++
+  }
+
+  const decrementPosition = () => {
+    if (position.value === 1) {
+      return
+    }
+    position.value--
+  }
+
+  const updatePreviousState = () => {
+    previousState.value = {
+      shot: shot.value,
+      position: position.value,
+      bonus: bonus.value,
+      pots: pots.value
+    }
+  }
+
+  const undo = () => {
+    shot.value = previousState.value.shot
+    position.value = previousState.value.position
+    bonus.value = previousState.value.bonus
+    pots.value = previousState.value.pots
+  }
+
+  const score = computed(() => {
+    if (currentDrill.value?.type === 'progressive') {
+      return position.value + bonus.value
+    } else {
+      return pots.value
+    }
+  })
+
+  const getShot = () => {
+    return shot.value
+  }
+
+  const getPosition = () => {
+    return position.value
+  }
+
+  const getBonus = () => {
+    return bonus.value
+  }
+
+  const getPots = () => {
+    return pots.value
+  }
+
+  const getPreviousState = () => {
+    return previousState.value
+  }
+
+  const getIsSet = () => {
+    return isSet.value
+  }
+
+  const getScore = () => {
+    return score.value
+  }
+
+  const setBonus = (value: number) => {
+    bonus.value = value
+  }
+
+  const setPosition = (value: number) => {
+    position.value = value
+  }
+
   return {
     drill,
     fetchDrill,
@@ -81,9 +197,25 @@ export const useDrillStore = defineStore('drill', () => {
     previousDrill,
     fetchDrillSet,
     currentDrill,
-    isSet,
     isFirstDrill,
     isLastDrill,
-    getDrillName
+    getDrillName,
+    resetValues,
+    incrementShot,
+    incrementScore,
+    incrementPosition,
+    decrementPosition,
+    updatePreviousState,
+    undo,
+    drillComplete,
+    getShot,
+    getPosition,
+    setPosition,
+    getBonus,
+    setBonus,
+    getPots,
+    getPreviousState,
+    getIsSet,
+    getScore
   }
 })

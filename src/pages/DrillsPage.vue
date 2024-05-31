@@ -38,12 +38,6 @@ const previousDrill = () => {
 <template>
   <base-drill
     v-if="drillData"
-    :title="drillData.name"
-    :image="drillData.image"
-    :instructions="drillData.instructions"
-    :isSet="drillStore.isSet"
-    :type="drillData.type"
-    :maxScore="drillData.maxScore"
     @nextDrill="nextDrill"
     @previousDrill="previousDrill"
   ></base-drill>

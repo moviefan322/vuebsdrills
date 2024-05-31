@@ -22,7 +22,6 @@ watch(
 )
 
 const currentDrill = computed<Drill | null>(() => drillStore.currentDrill)
-const isSet = computed(() => drillStore.isSet)
 
 const nextDrill = () => {
   drillStore.nextDrill()
@@ -36,12 +35,6 @@ const previousDrill = () => {
 <template>
   <base-drill
     v-if="currentDrill"
-    :title="currentDrill.name"
-    :image="currentDrill.image"
-    :instructions="currentDrill.instructions"
-    :isSet="isSet"
-    :type="currentDrill.type"
-    :maxScore="currentDrill.maxScore"
     @nextDrill="nextDrill"
     @previousDrill="previousDrill"
   ></base-drill>
