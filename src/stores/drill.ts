@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
+import { useScoreStore } from './scores'
 import type { Drill, DrillSet } from '../types/types'
 import drills from '../data/bufDrills'
 import drillSets from '../data/drillSets'
@@ -20,6 +21,8 @@ export const useDrillStore = defineStore('drill', () => {
     bonus: 0,
     pots: 0
   })
+
+  const scoreStore = useScoreStore()
 
   const currentDrill = computed<Drill | null>(() => {
     if (drillSet.value) {
@@ -100,7 +103,6 @@ export const useDrillStore = defineStore('drill', () => {
   }
 
   const incrementShot = () => {
-    console.log('incrementShot')
     if (shot.value === currentDrill.value!.maxScore) {
       drillComplete.value = true
       return
@@ -144,6 +146,15 @@ export const useDrillStore = defineStore('drill', () => {
     position.value = previousState.value.position
     bonus.value = previousState.value.bonus
     pots.value = previousState.value.pots
+  }
+
+  const submitScore = () => {
+    const submission = {
+      score: getScore(),
+      drillId: currentDrill.value!.id,
+      maxScore: currentDrill.value!.maxScore
+    }
+    scoreStore.pushScore(submission)
   }
 
   const score = computed(() => {
@@ -190,6 +201,27 @@ export const useDrillStore = defineStore('drill', () => {
     position.value = value
   }
 
+  const getDrillComplete = () => {
+    return drillComplete.value
+  }
+
+  watch([shot, score], () => {
+    if (currentDrill.value!.type === 'progressive') {
+      if (shot.value >= 8 && score.value >= 12) {
+        drillComplete.value = true
+      }
+    }
+  })
+
+  watch(drillComplete, () => {
+    if (drillComplete.value) {
+      if (getScore() >= 10) {
+        setBonus(3)
+      }
+      submitScore()
+    }
+  })
+
   return {
     drill,
     fetchDrill,
@@ -207,7 +239,6 @@ export const useDrillStore = defineStore('drill', () => {
     decrementPosition,
     updatePreviousState,
     undo,
-    drillComplete,
     getShot,
     getPosition,
     setPosition,
@@ -216,6 +247,7 @@ export const useDrillStore = defineStore('drill', () => {
     getPots,
     getPreviousState,
     getIsSet,
-    getScore
+    getScore,
+    getDrillComplete
   }
 })

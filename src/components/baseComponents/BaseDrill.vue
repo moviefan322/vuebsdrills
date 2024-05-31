@@ -14,7 +14,7 @@
   <ScorebarComponent />
   <div
     class="scorebar mt progscore"
-    v-if="!drillComplete && store.currentDrill!.type! === 'standard'"
+    v-if="!store.getDrillComplete() && store.currentDrill!.type! === 'standard'"
   >
     <div>
       Shot: <span>{{ store.getShot() }}</span>
@@ -24,16 +24,16 @@
       Score: <span>{{ store.getScore() }}</span>
     </div>
   </div>
-  <div v-if="drillComplete" class="endGameMes">
+  <div v-if="store.getDrillComplete()" class="endGameMes">
     {{ endGameMessage }} <br />
     You scored {{ store.getScore() }} point{{ store.getScore() !== 1 ? 's' : '' }}!
   </div>
-  <div class="controls" v-if="!drillComplete">
+  <div class="controls" v-if="!store.getDrillComplete()">
     <button
       class="noStyleButt control make"
-      :class="{ disabled: drillComplete }"
+      :class="{ disabled: store.getDrillComplete() }"
       @click="handleMake"
-      :disabled="drillComplete"
+      :disabled="store.getDrillComplete()"
     >
       &#x2714;
     </button>
@@ -47,19 +47,22 @@
     </button>
     <button
       class="noStyleButt control miss"
-      :class="{ disabled: drillComplete }"
+      :class="{ disabled: store.getDrillComplete() }"
       @click="handleMiss"
-      :disabled="drillComplete"
+      :disabled="store.getDrillComplete()"
     >
       X
     </button>
   </div>
   <div class="mt my">
-    <router-link to="/results" class="myButt noStyleLink" v-if="store.isLastDrill && drillComplete"
+    <router-link
+      to="/results"
+      class="myButt noStyleLink"
+      v-if="store.isLastDrill && store.getDrillComplete()"
       >View Results</router-link
     >
   </div>
-  <div id="footControl" v-if="drillComplete && !store.isLastDrill">
+  <div id="footControl" v-if="store.getDrillComplete() && !store.isLastDrill">
     <button
       class="myButt"
       :class="{ hidden: store.isFirstDrill || isExam }"
@@ -74,11 +77,11 @@
       @click="store.resetValues"
       v-if="!isExam"
     >
-      {{ drillComplete ? 'Try Again' : 'Start Over' }}
+      {{ store.getDrillComplete() ? 'Try Again' : 'Start Over' }}
     </button>
     <button
       class="myButt"
-      :class="{ hidden: store.isLastDrill || !drillComplete }"
+      :class="{ hidden: store.isLastDrill || !store.getDrillComplete() }"
       @click="handleNext"
       v-if="store.getIsSet()"
     >
@@ -104,8 +107,6 @@ const emits = defineEmits(['nextDrill', 'previousDrill'])
 // local data
 
 const isExam = true
-
-const drillComplete = ref(false)
 const showInstructions = ref(false)
 
 // methods
@@ -135,15 +136,6 @@ const handleNext = () => {
 const handlePrevious = () => {
   store.resetValues()
   emits('previousDrill')
-}
-
-const submitScore = () => {
-  const submission = {
-    score: +store.getScore(),
-    drillId: +store.currentDrill!.id,
-    maxScore: +store.currentDrill!.maxScore
-  }
-  scoreStore.pushScore(submission)
 }
 
 // computed
@@ -187,25 +179,6 @@ const disableUndo = computed(() => {
 
 const setInstructions = computed(() => {
   return store.currentDrill!.instructions
-})
-
-// watch
-
-watch(store, () => {
-  if (store.currentDrill!.type === 'progressive') {
-    if (store.getShot() >= 8 && store.getScore() >= 12) {
-      drillComplete.value = true
-    }
-  }
-})
-
-watch(drillComplete, () => {
-  if (drillComplete.value) {
-    if (store.getScore() >= 10) {
-      store.setBonus(3)
-    }
-    submitScore()
-  }
 })
 
 watch(store, (newV, oldV) => {
