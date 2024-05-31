@@ -77,3 +77,19 @@ body {
 .noStyleLink {
   text-decoration: none;
 }
+
+.hidden {
+  visibility: hidden;
+}
+
+.disabled {
+  background-color: rgb(200, 200, 200);
+}
+
+.center {
+  margin: auto;
+}
+
+.smFont {
+  font-size: 10px;
+}

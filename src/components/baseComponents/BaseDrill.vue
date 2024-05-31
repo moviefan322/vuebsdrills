@@ -16,32 +16,7 @@
     {{ endGameMessage }} <br />
     You scored {{ store.getScore() }} point{{ store.getScore() !== 1 ? 's' : '' }}!
   </div>
-  <div class="controls" v-if="!store.getDrillComplete()">
-    <button
-      class="noStyleButt control make"
-      :class="{ disabled: store.getDrillComplete() }"
-      @click="handleMake"
-      :disabled="store.getDrillComplete()"
-    >
-      &#x2714;
-    </button>
-    <button
-      class="muButt control undo"
-      :class="{ hidden: disableUndo }"
-      @click="store.undo"
-      :disable="disableUndo"
-    >
-      <font-awesome-icon icon="fa-solid fa-rotate-left" />
-    </button>
-    <button
-      class="noStyleButt control miss"
-      :class="{ disabled: store.getDrillComplete() }"
-      @click="handleMiss"
-      :disabled="store.getDrillComplete()"
-    >
-      X
-    </button>
-  </div>
+  <ControlsComponent />
   <div class="mt my">
     <router-link
       to="/results"
@@ -81,12 +56,11 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
 import { useDrillStore } from '../../stores/drill'
-import { useScoreStore } from '../../stores/scores'
 import { RouterLink } from 'vue-router'
 import ScorebarComponent from '../ScorebarComponent.vue'
+import ControlsComponent from '../ControlsComponent.vue'
 
 const store = useDrillStore()
-const scoreStore = useScoreStore()
 
 //emits
 
@@ -101,19 +75,6 @@ const showInstructions = ref(false)
 
 const toggleShowInstructions = () => {
   showInstructions.value = !showInstructions.value
-}
-
-const handleMake = () => {
-  store.updatePreviousState()
-  store.incrementScore()
-  store.incrementPosition()
-  store.incrementShot()
-}
-
-const handleMiss = () => {
-  store.updatePreviousState()
-  store.decrementPosition()
-  store.incrementShot()
 }
 
 const handleNext = () => {
@@ -155,16 +116,6 @@ const endGameMessage = computed(() => {
   return 'Drill complete'
 })
 
-const disableUndo = computed(() => {
-  if (store.getShot() === 1) {
-    return true
-  }
-  if (store.getPreviousState().shot === store.getShot()) {
-    return true
-  }
-  return false
-})
-
 const setInstructions = computed(() => {
   return store.currentDrill!.instructions
 })
@@ -197,53 +148,6 @@ watch(store, (newV, oldV) => {
   width: 100%;
 }
 
-.controls {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 2rem;
-  width: 50%;
-}
-
-.control {
-  height: 3rem;
-  width: 3rem;
-  border: 1px solid black;
-  border-radius: 50%;
-}
-
-.make {
-  font-size: 30px;
-  background-color: rgb(0, 255, 0);
-}
-
-.miss {
-  font-size: 30px;
-  font-weight: bolder;
-  background-color: rgb(255, 0, 0);
-}
-
-.undo {
-  height: 2rem;
-  width: 2rem;
-  font-size: 15px;
-  background-color: black;
-  color: lime;
-  border: 1px solid lime;
-}
-
-.hidden {
-  visibility: hidden;
-}
-
-.disabled {
-  background-color: rgb(200, 200, 200);
-}
-
-.smFont {
-  font-size: 10px;
-}
-
 #image-wrapper {
   padding: 0;
   width: 100%;
@@ -264,9 +168,5 @@ watch(store, (newV, oldV) => {
   color: lime;
   text-decoration: underline;
   font-size: 10px;
-}
-
-.center {
-  margin: auto;
 }
 </style>
