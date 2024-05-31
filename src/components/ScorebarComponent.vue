@@ -6,6 +6,7 @@
     <div id="scoremid" v-if="!isStandard">
       Position: <span>{{ store.getPosition() }}</span>
     </div>
+    <div id="filler" v-if="isStandard"></div>
     <div>
       Score: <span>{{ store.getScore() }}</span>
     </div>
@@ -29,8 +30,6 @@ const isStandard = computed(() => {
 
 <style scoped>
 #scoremid {
-  /* margin-left: 1rem;
-  margin-right: 1rem; */
   padding: 0.5rem 1rem;
   border-left: 1px solid lime;
   border-right: 1px solid lime;
@@ -50,5 +49,12 @@ const isStandard = computed(() => {
 
 .progscore {
   gap: 1rem;
+}
+
+#filler {
+  width: 1px;
+  background-color: lime;
+  height: 2.3rem;
+  margin: 0 1rem;
 }
 </style>

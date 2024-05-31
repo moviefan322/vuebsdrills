@@ -12,18 +12,6 @@
     <div id="image-container" :style="backgroundImageStyle"></div>
   </div>
   <ScorebarComponent />
-  <div
-    class="scorebar mt progscore"
-    v-if="!store.getDrillComplete() && store.currentDrill!.type! === 'standard'"
-  >
-    <div>
-      Shot: <span>{{ store.getShot() }}</span>
-    </div>
-    <div id="filler"></div>
-    <div>
-      Score: <span>{{ store.getScore() }}</span>
-    </div>
-  </div>
   <div v-if="store.getDrillComplete()" class="endGameMes">
     {{ endGameMessage }} <br />
     You scored {{ store.getScore() }} point{{ store.getScore() !== 1 ? 's' : '' }}!
@@ -280,11 +268,5 @@ watch(store, (newV, oldV) => {
 
 .center {
   margin: auto;
-}
-
-#filler {
-  width: 1px;
-  background-color: lime;
-  height: 2.3rem;
 }
 </style>
