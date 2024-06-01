@@ -44,26 +44,20 @@ export default {
       const tableWidth = this.tableWidth
       const tableHeight = tableWidth / 2
       return {
-        x: (this.pottingPocketProp.x * tableWidth) / 800,
-        y: (this.pottingPocketProp.y * tableHeight) / 400
+        x: (this.pottingPocketProp.x * tableWidth) / 8,
+        y: (this.pottingPocketProp.y * tableHeight) / 4
       }
     },
     objectBall() {
-      if (this.ballPositions.length === 2) {
-        return this.ballPositions.find((ball) => ball.number !== 0)
-      } else return null
+      return this.ballPositions.find((ball) => ball.number !== 0)
     },
     pottingLine() {
       const objectBall = this.objectBall
       if (!objectBall) return null
 
-      // Convert pocket coordinates to pixel values
-      const tableWidth = this.tableWidth
-      const tableHeight = tableWidth / 2
-      const pocketX = (this.pottingPocket.x * tableWidth) / 8
-      const pocketY = (this.pottingPocket.y * tableHeight) / 4
+      const pocketX = this.pottingPocket.x
+      const pocketY = this.pottingPocket.y
 
-      // Adjust line to be just outside the object ball
       const angle = Math.atan2(pocketY - objectBall.y, pocketX - objectBall.x)
       const objectBallEdgeX = objectBall.x + Math.cos(angle) * objectBall.radius
       const objectBallEdgeY = objectBall.y + Math.sin(angle) * objectBall.radius
@@ -78,14 +72,10 @@ export default {
       const objectBall = this.objectBall
       if (!cueBall || !objectBall) return null
 
-      // Calculate angle from object ball to pocket
-      const tableWidth = this.tableWidth
-      const tableHeight = tableWidth / 2
-      const pocketX = (this.pottingPocket.x * tableWidth) / 8
-      const pocketY = (this.pottingPocket.y * tableHeight) / 4
+      const pocketX = this.pottingPocket.x
+      const pocketY = this.pottingPocket.y
       const pocketAngle = Math.atan2(pocketY - objectBall.y, pocketX - objectBall.x)
 
-      // Adjust shot line to be just outside the balls and aligned with the pocket line
       const cueBallAngle = Math.atan2(objectBall.y - cueBall.y, objectBall.x - cueBall.x)
       const cueBallEdgeX = cueBall.x + Math.cos(cueBallAngle) * cueBall.radius
       const cueBallEdgeY = cueBall.y + Math.sin(cueBallAngle) * cueBall.radius
@@ -97,18 +87,17 @@ export default {
         end: { x: objectBallEdgeX, y: objectBallEdgeY }
       }
     },
-
     cuePosition() {
       const shotLine = this.shotLine
       if (!shotLine) return { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } }
 
       const cueBall = this.cueBallPosition
       const ballRadius = this.tableWidth / 80
-      const cueLength = (this.tableWidth / 8) * 4 // 4 diamond lengths
+      const cueLength = (this.tableWidth / 8) * 4
 
       const angle = Math.atan2(shotLine.end.y - shotLine.start.y, shotLine.end.x - shotLine.start.x)
-      const cueEndX = cueBall.x - Math.cos(angle) * (ballRadius + 10) // 1 ball radius away from the cue ball
-      const cueEndY = cueBall.y - Math.sin(angle) * (ballRadius + 10) // 1 ball radius away from the cue ball
+      const cueEndX = cueBall.x - Math.cos(angle) * (ballRadius + 10)
+      const cueEndY = cueBall.y - Math.sin(angle) * (ballRadius + 10)
       const cueStartX = cueEndX - Math.cos(angle) * cueLength
       const cueStartY = cueEndY - Math.sin(angle) * cueLength
 
@@ -251,8 +240,8 @@ export default {
         .attr('id', (d) => d.id)
         .attr('x', (d) => d.x - 5)
         .attr('y', (d) => d.y - 5)
-        .attr('width', 10)
-        .attr('height', 10)
+        .attr('width', tableWidth / 60)
+        .attr('height', tableWidth / 60)
         .attr('fill', 'white')
 
       // Draw balls
@@ -350,7 +339,7 @@ export default {
           .attr('stroke', 'red')
           .attr('stroke-width', 2)
           .attr('stroke-dasharray', '5,5')
-          .attr('marker-end', 'url(#arrowhead)');
+          .attr('marker-end', 'url(#arrowhead)')
       }
     },
     modifySpecificDiamonds() {
@@ -365,6 +354,13 @@ export default {
       d3.select('#diamond-short-right-0').attr('display', 'none')
       d3.select('#diamond-long-bottom-8').attr('display', 'none')
       d3.select('#diamond-short-right-4').attr('display', 'none')
+    }
+  },
+  watch: {
+    ballPositions() {
+      d3.select('#pool-table').selectAll('*').remove()
+      this.drawPoolTable()
+      this.modifySpecificDiamonds()
     }
   }
 }

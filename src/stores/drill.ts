@@ -205,6 +205,10 @@ export const useDrillStore = defineStore('drill', () => {
     return drillComplete.value
   }
 
+  const getDrillId = () => {
+    return currentDrill.value!.id
+  }
+
   watch([shot, score], () => {
     if (currentDrill.value!.type === 'progressive') {
       if (shot.value >= 8 && score.value >= 12) {
@@ -248,6 +252,7 @@ export const useDrillStore = defineStore('drill', () => {
     getPreviousState,
     getIsSet,
     getScore,
-    getDrillComplete
+    getDrillComplete,
+    getDrillId
   }
 })

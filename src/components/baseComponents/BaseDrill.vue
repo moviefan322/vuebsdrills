@@ -9,7 +9,8 @@
   </div>
   <div v-if="showInstructions" id="instruct" class="smFont mt mb" v-html="setInstructions"></div>
   <div id="image-wrapper" class="mb">
-    <div id="image-container" :style="backgroundImageStyle"></div>
+    <!-- <div id="image-container" :style="backgroundImageStyle"></div> -->
+    <TableComponent />
   </div>
   <ScorebarComponent />
   <div v-if="store.getDrillComplete()" class="endGameMes">
@@ -59,6 +60,7 @@ import { useDrillStore } from '../../stores/drill'
 import { RouterLink } from 'vue-router'
 import ScorebarComponent from '../ScorebarComponent.vue'
 import ControlsComponent from '../ControlsComponent.vue'
+import TableComponent from '../TableComponent.vue'
 
 const store = useDrillStore()
 

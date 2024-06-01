@@ -3,7 +3,7 @@ import DrillsPage from '../pages/DrillsPage.vue'
 import DrillSetPage from '../pages/DrillSetPage.vue'
 import MainMenuPage from '../pages/MainMenuPage.vue'
 import ResultsPage from '../pages/ResultsPage.vue'
-import TablePage  from '../pages/TablePage.vue'
+import TableComponent from '../components/TableComponent.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -31,7 +31,7 @@ const router = createRouter({
     {
       path: '/table',
       name: 'pooltable',
-      component: TablePage
+      component: TableComponent
     },
     {
       path: '/about',
