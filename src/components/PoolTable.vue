@@ -253,7 +253,7 @@ export default {
         .attr('class', 'ball')
         .attr('cx', (d) => d.x + borderSize)
         .attr('cy', (d) => d.y + borderSize)
-        .attr('r', ballRadius)
+        .attr('r', ballRadius * 1.2)
         .attr('fill', (d) => this.getColor(d.number))
         .attr('stroke', 'black')
         .attr('stroke-width', 1)
@@ -268,7 +268,7 @@ export default {
         .attr('x', (d) => d.x + borderSize - ballRadius)
         .attr('y', (d) => d.y + borderSize - ballRadius / 3)
         .attr('width', ballRadius * 2)
-        .attr('height', ballRadius / 1.5)
+        .attr('height', ballRadius)
         .attr('fill', 'white')
         .attr('rx', ballRadius / 4)
         .attr('ry', ballRadius / 4)
@@ -282,9 +282,9 @@ export default {
         .attr('class', 'white')
         .attr('cx', (d) => d.x + borderSize)
         .attr('cy', (d) => d.y + borderSize)
-        .attr('r', ballRadius / 1.8)
+        .attr('r', ballRadius / 2)
         .attr('fill', 'white')
-        .attr('stroke', 'black')
+        .attr('stroke', 'white')
         .attr('stroke-width', 1)
 
       // Draw ball numbers
@@ -299,7 +299,7 @@ export default {
         .attr('dy', '.35em')
         .attr('text-anchor', 'middle')
         .attr('fill', 'black')
-        .attr('font-size', '8px')
+        .attr('font-size', `${ballRadius}px`)
         .attr('font-weight', 'bold')
         .text((d) => (d.number !== 0 ? d.number : ''))
 
