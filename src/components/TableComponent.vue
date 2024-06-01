@@ -4,6 +4,7 @@
       :tableWidth="350"
       :ballPositionsProp="ballPositionProps"
       :pottingPocketProp="pottingPocketProp"
+      :targetSpecs="targetProp"
     />
   </div>
 </template>
@@ -37,7 +38,25 @@ const ballPositionProps = computed(() => {
       { number: 0, x: 8 - store.getPosition(), y: 0.25 }
     ]
   }
-  return null
+  if (store.getDrillId() === 4) {
+    return [
+      { number: +store.getShot(), x: 7.5, y: 0.15 },
+      // Cue ball
+      { number: 0, x: 8 - store.getPosition(), y: 0.2 }
+    ]
+  }
+  if (store.getDrillId() === 5) {
+    return [
+      { number: +store.getShot(), x: 4, y: 2 },
+      // Cue ball
+      { number: 0, x: 3.7, y: 1.5 }
+    ]
+  }
+  return [
+    { number: +store.getShot(), x: 7.5, y: 0.15 },
+    // Cue ball
+    { number: 0, x: 8 - store.getPosition(), y: 0.2 }
+  ]
 })
 
 const pottingPocketProp = computed(() => {
@@ -45,19 +64,40 @@ const pottingPocketProp = computed(() => {
     return { x: 8, y: 4 }
   }
 
-  if (store.getDrillId() === 2) {
+  if (store.getDrillId() === 2 || store.getDrillId() === 3 || store.getDrillId() === 4) {
     return { x: 8, y: 0 }
   }
 
-  if (store.getDrillId() === 3) {
-    return { x: 8, y: 0 }
+  if (store.getDrillId() === 5) {
+    return { x: 4, y: 4 }
   }
-  return []
+
+  return { x: 8, y: 2 }
 })
 
-watch(store.getShot, () => {
-  console.log('shot changed')
-  console.log(store.getShot())
+const targetProp = computed(() => {
+  if (store.getDrillId() === 3) {
+    return { isTarget: true, x: 7.65, y: 0.5, rotate: false, w: 0.65, h: 0.8 }
+  }
+  if (store.getDrillId() === 4) {
+    return { isTarget: true, x: 4.5, y: 0.5, rotate: false, w: 2, h: 1 }
+  }
+  if (store.getDrillId() === 5) {
+    if (store.getPosition() === 4) {
+      return { isTarget: true, x: 7.6, y: 1.95, rotate: false, w: 0.65, h: 0.8 }
+    }
+    if (store.getPosition() === 3 || store.getPosition() === 5) {
+      return { isTarget: true, x: 6.9, y: 1.95, rotate: true, w: 0.65, h: 0.8 }
+    }
+    if (store.getPosition() === 2 || store.getPosition() === 6) {
+      return { isTarget: true, x: 5.9, y: 1.95, rotate: true, w: 0.65, h: 0.8 }
+    }
+    if (store.getPosition() === 1 || store.getPosition() === 7) {
+      return { isTarget: true, x: 4.9, y: 1.95, rotate: true, w: 0.65, h: 0.8 }
+    }
+    return { isTarget: false, x: 5.9, y: 1.95, rotate: true, w: 0.65, h: 0.8 }
+  }
+  return { isTarget: false, x: 4.5, y: 0.5, rotate: false, w: 2, h: 1 }
 })
 </script>
 

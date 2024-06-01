@@ -23,6 +23,11 @@ export default {
     pottingPocketProp: {
       type: Object,
       default: () => ({ x: 8, y: 4 }) // Diamond coordinates for the pocket
+    },
+    targetSpecs: {
+      type: Object,
+      required: false,
+      default: () => ({ isTarget: false, x: 7.5, y: 0.5, rotate: false, w: 0.65, h: 0.8 })
     }
   },
   computed: {
@@ -140,6 +145,7 @@ export default {
       const borderSize = tableWidth / 20
       const ballRadius = tableWidth / 80
       const pocketRadius = tableWidth / 53
+      const diamondWidth = tableWidth / 8
 
       const svg = d3
         .select('#pool-table')
@@ -243,6 +249,27 @@ export default {
         .attr('width', tableWidth / 60)
         .attr('height', tableWidth / 60)
         .attr('fill', 'white')
+
+      // draw target
+      if (this.targetSpecs.isTarget) {
+        const targetRect = svg
+          .append('rect')
+          .attr('class', 'target')
+          .attr('x', this.targetSpecs.x * diamondWidth)
+          .attr('y', this.targetSpecs.y * diamondWidth)
+          .attr('width', diamondWidth * this.targetSpecs.w)
+          .attr('height', diamondWidth * this.targetSpecs.h)
+          .attr('fill', 'none')
+          .attr('stroke', 'white')
+          .attr('stroke-width', 3)
+          .attr('stroke-dasharray', '5,5')
+
+        if (this.targetSpecs.rotate) {
+          const cx = this.targetSpecs.x * diamondWidth + (diamondWidth * 0.8) / 2
+          const cy = this.targetSpecs.y * diamondWidth + diamondWidth / 2
+          targetRect.attr('transform', `rotate(90, ${cx}, ${cy})`)
+        }
+      }
 
       // Draw balls
       svg
