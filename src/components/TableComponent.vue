@@ -23,12 +23,34 @@ const ballPositionProps = computed(() => {
       { number: 0, x: 8 - store.getPosition(), y: 1 }
     ]
   }
-  return []
+  if (store.getDrillId() === 2) {
+    return [
+      { number: +store.getShot(), x: 7.5, y: 0.15 },
+      // Cue ball
+      { number: 0, x: 8 - store.getPosition(), y: 0.2 }
+    ]
+  }
+  if (store.getDrillId() === 3) {
+    return [
+      { number: +store.getShot(), x: 9 - store.getPosition(), y: 0.2 },
+      // Cue ball
+      { number: 0, x: 8 - store.getPosition(), y: 0.25 }
+    ]
+  }
+  return null
 })
 
 const pottingPocketProp = computed(() => {
-  if (store.getDrillId()  === 1) {
+  if (store.getDrillId() === 1) {
     return { x: 8, y: 4 }
+  }
+
+  if (store.getDrillId() === 2) {
+    return { x: 8, y: 0 }
+  }
+
+  if (store.getDrillId() === 3) {
+    return { x: 8, y: 0 }
   }
   return []
 })
