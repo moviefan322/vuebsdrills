@@ -32,6 +32,13 @@ const ballPositionProps = computed(() => {
     ]
   }
   if (store.getDrillId() === 3) {
+    if(store.getPosition() === 1) {
+      return [
+      { number: +store.getShot(), x: 7.7, y: 0.15 },
+      // Cue ball
+      { number: 0, x: 8 - store.getPosition(), y: 0.25 }
+    ]
+    } 
     return [
       { number: +store.getShot(), x: 9 - store.getPosition(), y: 0.2 },
       // Cue ball
