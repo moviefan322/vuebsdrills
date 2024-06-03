@@ -227,6 +227,19 @@ const ballPositionProps = computed(() => {
     }
     return null
   }
+  if (store.getDrillId() === 8) {
+    const ballNumber = () => {
+      if (store.getShot() > 15) {
+        return store.getShot() - 15
+      }
+      return store.getShot()
+    }
+    return [
+      { number: ballNumber(), x: 7, y: 1 },
+      // Cue ball
+      { number: 0, x: 6.5, y: 2 }
+    ]
+  }
   return [
     { number: +store.getShot(), x: 7.5, y: 0.15 },
     // Cue ball
@@ -274,6 +287,10 @@ const pottingPocketProp = computed(() => {
     return { x: 4, y: 0 }
   }
 
+  if (store.getDrillId() === 8) {
+    return { x: 8, y: 0 }
+  }
+
   return { x: 8, y: 2 }
 })
 
@@ -298,6 +315,23 @@ const targetProp = computed(() => {
       return { isTarget: true, x: 4.9, y: 1.95, rotate: true, w: 0.65, h: 0.8 }
     }
     return { isTarget: false, x: 5.9, y: 1.95, rotate: true, w: 0.65, h: 0.8 }
+  }
+  if (store.getDrillId() === 8) {
+    if (store.getShot() < 5) {
+      return { isTarget: true, x: 5.9, y: 0.5, rotate: false, w: 0.9, h: 0.65 }
+    }
+    if (store.getShot() > 4 && store.getShot() < 9) {
+      return { isTarget: true, x: 1.9, y: 0.5, rotate: false, w: 0.9, h: 0.65 }
+    }
+    if (store.getShot() > 8 && store.getShot() < 13) {
+      return { isTarget: true, x: 3.9, y: 2, rotate: false, w: 0.9, h: 0.65 }
+    }
+    if (store.getShot() > 12 && store.getShot() < 17) {
+      return { isTarget: true, x: 1.9, y: 3.65, rotate: false, w: 0.9, h: 0.65 }
+    }
+    if (store.getShot() > 16) {
+      return { isTarget: true, x: 5.9, y: 3.65, rotate: false, w: 0.9, h: 0.65 }
+    }
   }
   return { isTarget: false, x: 4.5, y: 0.5, rotate: false, w: 2, h: 1 }
 })
