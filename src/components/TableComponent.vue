@@ -5,6 +5,7 @@
       :ballPositionsProp="ballPositionProps"
       :pottingPocketProp="pottingPocketProp"
       :targetSpecs="targetProp"
+      :leaveLineProp="leaveLineProp"
     />
   </div>
 </template>
@@ -32,13 +33,13 @@ const ballPositionProps = computed(() => {
     ]
   }
   if (store.getDrillId() === 3) {
-    if(store.getPosition() === 1) {
+    if (store.getPosition() === 1) {
       return [
-      { number: +store.getShot(), x: 7.7, y: 0.15 },
-      // Cue ball
-      { number: 0, x: 8 - store.getPosition(), y: 0.25 }
-    ]
-    } 
+        { number: +store.getShot(), x: 7.7, y: 0.15 },
+        // Cue ball
+        { number: 0, x: 8 - store.getPosition(), y: 0.25 }
+      ]
+    }
     return [
       { number: +store.getShot(), x: 9 - store.getPosition(), y: 0.2 },
       // Cue ball
@@ -59,6 +60,173 @@ const ballPositionProps = computed(() => {
       { number: 0, x: 3.7, y: 1.5 }
     ]
   }
+  if (store.getDrillId() === 6) {
+    if (store.getShot() === 1 || store.getShot() === 2) {
+      return [
+        { number: +store.getShot(), x: 3, y: 1 },
+        // Cue ball
+        { number: 0, x: 2, y: 1 }
+      ]
+    }
+    if (store.getShot() === 3 || store.getShot() === 4) {
+      return [
+        { number: +store.getShot(), x: 4, y: 2 },
+        // Cue ball
+        { number: 0, x: 2, y: 1 }
+      ]
+    }
+    if (store.getShot() === 5) {
+      return [
+        { number: +store.getShot(), x: 6, y: 2 },
+        // Cue ball
+        { number: 0, x: 2, y: 1 }
+      ]
+    }
+    if (store.getShot() === 6 || store.getShot() === 7) {
+      return [
+        { number: +store.getShot(), x: 3, y: 3 },
+        // Cue ball
+        { number: 0, x: 2, y: 3 }
+      ]
+    }
+    if (store.getShot() === 8 || store.getShot() === 9) {
+      return [
+        { number: +store.getShot(), x: 4, y: 2 },
+        // Cue ball
+        { number: 0, x: 2, y: 3 }
+      ]
+    }
+    if (store.getShot() === 10) {
+      return [
+        { number: +store.getShot(), x: 6, y: 2 },
+        // Cue ball
+        { number: 0, x: 2, y: 3 }
+      ]
+    }
+    return [
+      { number: +store.getShot(), x: 4, y: 2 },
+      // Cue ball
+      { number: 0, x: 3.7, y: 1.5 }
+    ]
+  }
+  if (store.getDrillId() === 7) {
+    if (store.getShot() === 1 || store.getShot() === 2) {
+      return [
+        { number: 0, x: 3.6, y: 2 },
+        { number: 15, x: 4, y: 1 },
+        { number: 1, x: 4.95, y: 0.2 },
+        { number: 2, x: 5.95, y: 0.2 },
+        { number: 3, x: 6.95, y: 0.2 },
+        { number: 4, x: 7.8, y: 0.2 },
+        { number: 5, x: 7.8, y: 0.95 },
+        { number: 6, x: 7.8, y: 1.95 },
+        { number: 7, x: 7.8, y: 2.95 },
+        { number: 8, x: 7.8, y: 3.8 },
+        { number: 9, x: 6.95, y: 3.8 },
+        { number: 10, x: 5.95, y: 3.8 }
+      ]
+    }
+    if (store.getShot() === 3 || store.getShot() === 4) {
+      return [
+        { number: 0, x: 3.6, y: 2 },
+        { number: 15, x: 4, y: 1 },
+        { number: 2, x: 5.95, y: 0.2 },
+        { number: 3, x: 6.95, y: 0.2 },
+        { number: 4, x: 7.8, y: 0.2 },
+        { number: 5, x: 7.8, y: 0.95 },
+        { number: 6, x: 7.8, y: 1.95 },
+        { number: 7, x: 7.8, y: 2.95 },
+        { number: 8, x: 7.8, y: 3.8 },
+        { number: 9, x: 6.95, y: 3.8 },
+        { number: 10, x: 5.95, y: 3.8 }
+      ]
+    }
+    if (store.getShot() === 5 || store.getShot() === 6) {
+      return [
+        { number: 0, x: 3.6, y: 2 },
+        { number: 15, x: 4, y: 1 },
+        { number: 3, x: 6.95, y: 0.2 },
+        { number: 4, x: 7.8, y: 0.2 },
+        { number: 5, x: 7.8, y: 0.95 },
+        { number: 6, x: 7.8, y: 1.95 },
+        { number: 7, x: 7.8, y: 2.95 },
+        { number: 8, x: 7.8, y: 3.8 },
+        { number: 9, x: 6.95, y: 3.8 },
+        { number: 10, x: 5.95, y: 3.8 }
+      ]
+    }
+    if (store.getShot() === 7 || store.getShot() === 8) {
+      return [
+        { number: 0, x: 3.6, y: 2 },
+        { number: 15, x: 4, y: 1 },
+        { number: 4, x: 7.8, y: 0.2 },
+        { number: 5, x: 7.8, y: 0.95 },
+        { number: 6, x: 7.8, y: 1.95 },
+        { number: 7, x: 7.8, y: 2.95 },
+        { number: 8, x: 7.8, y: 3.8 },
+        { number: 9, x: 6.95, y: 3.8 },
+        { number: 10, x: 5.95, y: 3.8 }
+      ]
+    }
+    if (store.getShot() === 9 || store.getShot() === 10) {
+      return [
+        { number: 0, x: 3.6, y: 2 },
+        { number: 15, x: 4, y: 1 },
+        { number: 5, x: 7.8, y: 0.95 },
+        { number: 6, x: 7.8, y: 1.95 },
+        { number: 7, x: 7.8, y: 2.95 },
+        { number: 8, x: 7.8, y: 3.8 },
+        { number: 9, x: 6.95, y: 3.8 },
+        { number: 10, x: 5.95, y: 3.8 }
+      ]
+    }
+    if (store.getShot() === 11 || store.getShot() === 12) {
+      return [
+        { number: 0, x: 3.6, y: 2 },
+        { number: 15, x: 4, y: 1 },
+        { number: 6, x: 7.8, y: 1.95 },
+        { number: 7, x: 7.8, y: 2.95 },
+        { number: 8, x: 7.8, y: 3.8 },
+        { number: 9, x: 6.95, y: 3.8 },
+        { number: 10, x: 5.95, y: 3.8 }
+      ]
+    }
+    if (store.getShot() === 13 || store.getShot() === 14) {
+      return [
+        { number: 0, x: 3.6, y: 2 },
+        { number: 15, x: 4, y: 1 },
+        { number: 7, x: 7.8, y: 2.95 },
+        { number: 8, x: 7.8, y: 3.8 },
+        { number: 9, x: 6.95, y: 3.8 },
+        { number: 10, x: 5.95, y: 3.8 }
+      ]
+    }
+    if (store.getShot() === 15 || store.getShot() === 16) {
+      return [
+        { number: 0, x: 3.6, y: 2 },
+        { number: 15, x: 4, y: 1 },
+        { number: 8, x: 7.8, y: 3.8 },
+        { number: 9, x: 6.95, y: 3.8 },
+        { number: 10, x: 5.95, y: 3.8 }
+      ]
+    }
+    if (store.getShot() === 17 || store.getShot() === 18) {
+      return [
+        { number: 0, x: 3.6, y: 2 },
+        { number: 15, x: 4, y: 1 },
+        { number: 9, x: 6.95, y: 3.8 },
+        { number: 10, x: 5.95, y: 3.8 }
+      ]
+    }
+    if (store.getShot() === 19 || store.getShot() === 20) {
+      return [
+        { number: 0, x: 3.6, y: 2 },
+        { number: 15, x: 4, y: 1 },
+        { number: 10, x: 5.95, y: 3.8 }
+      ]
+    }
+    return null
+  }
   return [
     { number: +store.getShot(), x: 7.5, y: 0.15 },
     // Cue ball
@@ -77,6 +245,33 @@ const pottingPocketProp = computed(() => {
 
   if (store.getDrillId() === 5) {
     return { x: 4, y: 4 }
+  }
+
+  if (store.getDrillId() === 6) {
+    if (store.getShot() === 1 || store.getShot() === 9) {
+      return { x: 4, y: 0 }
+    }
+    if (store.getShot() === 2 || store.getShot() === 10) {
+      return { x: 8, y: 0 }
+    }
+    if (store.getShot() === 3) {
+      return { x: 8, y: 4 }
+    }
+    if (store.getShot() === 6 || store.getShot() === 4) {
+      return { x: 4, y: 4 }
+    }
+    if (store.getShot() === 7 || store.getShot() === 5) {
+      return { x: 8, y: 4 }
+    }
+    if (store.getShot() === 8) {
+      return { x: 8, y: 0 }
+    }
+
+    return { x: 4, y: 4 }
+  }
+
+  if (store.getDrillId() === 7) {
+    return { x: 4, y: 0 }
   }
 
   return { x: 8, y: 2 }
@@ -105,6 +300,42 @@ const targetProp = computed(() => {
     return { isTarget: false, x: 5.9, y: 1.95, rotate: true, w: 0.65, h: 0.8 }
   }
   return { isTarget: false, x: 4.5, y: 0.5, rotate: false, w: 2, h: 1 }
+})
+
+const leaveLineProp = computed(() => {
+  if (store.getDrillId() === 7) {
+    if (store.getShot() === 1 || store.getShot() === 2) {
+      return { draw: true, x: 4.8, y: 0.35 }
+    }
+    if (store.getShot() === 3 || store.getShot() === 4) {
+      return { draw: true, x: 5.8, y: 0.35 }
+    }
+    if (store.getShot() === 5 || store.getShot() === 6) {
+      return { draw: true, x: 6.7, y: 0.35 }
+    }
+    if (store.getShot() === 7 || store.getShot() === 8) {
+      return { draw: true, x: 7.5, y: 0.25 }
+    }
+    if (store.getShot() === 9 || store.getShot() === 10) {
+      return { draw: true, x: 7.5, y: 0.96 }
+    }
+    if (store.getShot() === 11 || store.getShot() === 12) {
+      return { draw: true, x: 7.5, y: 1.9 }
+    }
+    if (store.getShot() === 13 || store.getShot() === 14) {
+      return { draw: true, x: 7.5, y: 2.8 }
+    }
+    if (store.getShot() === 15 || store.getShot() === 16) {
+      return { draw: true, x: 7.6, y: 3.65 }
+    }
+    if (store.getShot() === 17 || store.getShot() === 18) {
+      return { draw: true, x: 6.75, y: 3.6 }
+    }
+    if (store.getShot() === 19 || store.getShot() === 20) {
+      return { draw: true, x: 5.8, y: 3.6 }
+    }
+  }
+  return { draw: false, x: 0, y: 0 }
 })
 </script>
 

@@ -28,6 +28,10 @@ export default {
       type: Object,
       required: false,
       default: () => ({ isTarget: false, x: 7.5, y: 0.5, rotate: false, w: 0.65, h: 0.8 })
+    },
+    leaveLineProp: {
+      type: Object,
+      default: () => ({ draw: false, x: 0, y: 0 })
     }
   },
   computed: {
@@ -64,8 +68,8 @@ export default {
       const pocketY = this.pottingPocket.y
 
       const angle = Math.atan2(pocketY - objectBall.y, pocketX - objectBall.x)
-      const objectBallEdgeX = objectBall.x + Math.cos(angle) * objectBall.radius
-      const objectBallEdgeY = objectBall.y + Math.sin(angle) * objectBall.radius
+      const objectBallEdgeX = objectBall.x + Math.cos(angle) * (objectBall.radius * 2)
+      const objectBallEdgeY = objectBall.y + Math.sin(angle) * (objectBall.radius * 2)
 
       return {
         start: { x: objectBallEdgeX, y: objectBallEdgeY },
@@ -92,6 +96,25 @@ export default {
         end: { x: objectBallEdgeX, y: objectBallEdgeY }
       }
     },
+    leaveLine() {
+      const diamondWidth = this.tableWidth / 8
+      const objectBall = this.objectBall
+      const pocketX = this.pottingPocket.x
+      const pocketY = this.pottingPocket.y
+      const pocketAngle = Math.atan2(pocketY - objectBall.y, pocketX - objectBall.x)
+      const leaveLine = this.leaveLineProp
+      if (!leaveLine.draw) return null
+
+      const xEnd = this.leaveLineProp.x * diamondWidth
+      const yEnd = this.leaveLineProp.y * diamondWidth
+      const objectBallEdgeX = objectBall.x - Math.cos(pocketAngle) * objectBall.radius
+      const objectBallEdgeY = objectBall.y - Math.sin(pocketAngle) * objectBall.radius
+
+      return {
+        start: { x: objectBallEdgeX, y: objectBallEdgeY },
+        end: { x: xEnd, y: yEnd }
+      }
+    },
     cuePosition() {
       const shotLine = this.shotLine
       if (!shotLine) return { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } }
@@ -115,7 +138,6 @@ export default {
   mounted() {
     this.drawPoolTable()
     this.modifySpecificDiamonds()
-    console.log(this.ballPositions)
   },
   methods: {
     getColor(number) {
@@ -293,7 +315,7 @@ export default {
         .append('rect')
         .attr('class', 'stripe')
         .attr('x', (d) => d.x + borderSize - ballRadius)
-        .attr('y', (d) => d.y + borderSize - ballRadius / 3)
+        .attr('y', (d) => d.y + borderSize - ballRadius * 0.5)
         .attr('width', ballRadius * 2)
         .attr('height', ballRadius)
         .attr('fill', 'white')
@@ -349,9 +371,9 @@ export default {
           .attr('y1', shotLine.start.y + borderSize)
           .attr('x2', shotLine.end.x + borderSize)
           .attr('y2', shotLine.end.y + borderSize)
-          .attr('stroke', 'blue')
-          .attr('stroke-width', 2)
-          .attr('stroke-dasharray', '5,5')
+          .attr('stroke', 'black')
+          .attr('stroke-width', 1)
+          .attr('stroke-dasharray', '5')
       }
 
       // Draw potting line
@@ -364,8 +386,23 @@ export default {
           .attr('x2', pottingLine.end.x + borderSize)
           .attr('y2', pottingLine.end.y + borderSize)
           .attr('stroke', 'red')
-          .attr('stroke-width', 2)
-          .attr('stroke-dasharray', '5,5')
+          .attr('stroke-width', 1)
+          .attr('stroke-dasharray', '4')
+          .attr('marker-end', 'url(#arrowhead)')
+      }
+
+      // Draw leave line
+      const leaveLine = this.leaveLine
+      if (leaveLine) {
+        svg
+          .append('line')
+          .attr('x1', leaveLine.start.x + borderSize)
+          .attr('y1', leaveLine.start.y + borderSize)
+          .attr('x2', leaveLine.end.x + borderSize)
+          .attr('y2', leaveLine.end.y + borderSize)
+          .attr('stroke', 'red')
+          .attr('stroke-width', 1)
+          .attr('stroke-dasharray', '4')
           .attr('marker-end', 'url(#arrowhead)')
       }
     },
@@ -385,6 +422,11 @@ export default {
   },
   watch: {
     ballPositions() {
+      d3.select('#pool-table').selectAll('*').remove()
+      this.drawPoolTable()
+      this.modifySpecificDiamonds()
+    },
+    leaveLine() {
       d3.select('#pool-table').selectAll('*').remove()
       this.drawPoolTable()
       this.modifySpecificDiamonds()
