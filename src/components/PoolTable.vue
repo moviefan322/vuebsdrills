@@ -22,7 +22,7 @@ export default {
     },
     pottingPocketProp: {
       type: Object,
-      default: () => ({ x: 8, y: 4 }) // Diamond coordinates for the pocket
+      default: () => ({ show: false, x: 8, y: 4 }) // Diamond coordinates for the pocket
     },
     targetSpecs: {
       type: Object,
@@ -302,7 +302,7 @@ export default {
         .attr('class', 'ball')
         .attr('cx', (d) => d.x + borderSize)
         .attr('cy', (d) => d.y + borderSize)
-        .attr('r', ballRadius * 1.2)
+        .attr('r', ballRadius)
         .attr('fill', (d) => this.getColor(d.number))
         .attr('stroke', 'black')
         .attr('stroke-width', 1)
@@ -314,10 +314,10 @@ export default {
         .enter()
         .append('rect')
         .attr('class', 'stripe')
-        .attr('x', (d) => d.x + borderSize - ballRadius)
-        .attr('y', (d) => d.y + borderSize - ballRadius * 0.5)
-        .attr('width', ballRadius * 2)
-        .attr('height', ballRadius)
+        .attr('x', (d) => d.x + borderSize - ballRadius * 0.82)
+        .attr('y', (d) => d.y + borderSize - ballRadius * 0.47)
+        .attr('width', ballRadius * 1.7)
+        .attr('height', ballRadius * .85)
         .attr('fill', 'white')
         .attr('rx', ballRadius / 4)
         .attr('ry', ballRadius / 4)
@@ -378,7 +378,7 @@ export default {
 
       // Draw potting line
       const pottingLine = this.pottingLine
-      if (pottingLine) {
+      if (pottingLine && this.pottingPocketProp.show) {
         svg
           .append('line')
           .attr('x1', pottingLine.start.x + borderSize)

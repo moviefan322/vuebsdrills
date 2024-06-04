@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, computed, watch } from 'vue'
 import { useScoreStore } from './scores'
+import { useRouter } from 'vue-router'
 import type { Drill, DrillSet } from '../types/types'
 import drills from '../data/bufDrills'
 import drillSets from '../data/drillSets'
@@ -15,6 +16,7 @@ export const useDrillStore = defineStore('drill', () => {
   const bonus = ref(0)
   const pots = ref(0)
   const drillComplete = ref(false)
+  const router = useRouter()
   const previousState = ref({
     shot: 1,
     position: 4,
@@ -59,7 +61,7 @@ export const useDrillStore = defineStore('drill', () => {
       drill.value = data
       drillSet.value = null
     } else {
-      console.error('Drill not found')
+      router.push('/notfound')
     }
   }
 
@@ -209,6 +211,10 @@ export const useDrillStore = defineStore('drill', () => {
     return currentDrill.value!.id
   }
 
+  const isCurrentDrill = () => {
+    return currentDrill.value !== null
+  }
+
   watch([shot, score], () => {
     if (currentDrill.value!.type === 'progressive') {
       if (shot.value >= 8 && score.value >= 12) {
@@ -253,6 +259,7 @@ export const useDrillStore = defineStore('drill', () => {
     getIsSet,
     getScore,
     getDrillComplete,
-    getDrillId
+    getDrillId,
+    isCurrentDrill
   }
 })

@@ -6,18 +6,30 @@
       :pottingPocketProp="pottingPocketProp"
       :targetSpecs="targetProp"
       :leaveLineProp="leaveLineProp"
+      v-if="useProps"
     />
+    <PoolTable :tableWidth="350" v-else />
   </div>
 </template>
 
 <script setup lang="ts">
 import PoolTable from '../components/PoolTable.vue'
 import { useDrillStore } from '../stores/drill'
-import { computed, watch } from 'vue'
+import { computed, ref, onBeforeMount } from 'vue'
 
 const store = useDrillStore()
+const useProps = ref(false)
+
+onBeforeMount(() => {
+  if (store.isCurrentDrill()) {
+    useProps.value = true
+  }
+})
 
 const ballPositionProps = computed(() => {
+  if (!store.isCurrentDrill) {
+    return null
+  }
   if (store.getDrillId() === 1) {
     return [
       { number: +store.getShot(), x: 7.7, y: 3 },
@@ -240,6 +252,34 @@ const ballPositionProps = computed(() => {
       { number: 0, x: 6.5, y: 2 }
     ]
   }
+  if (store.getDrillId() === 11 || store.getDrillId() === 21 || store.getDrillId() === 31) {
+    const beginnerBalls = [
+      { number: 1, x: 7.65, y: 1.95 },
+      { number: 2, x: 7.25, y: 1.95 },
+      { number: 3, x: 6.85, y: 1.95 },
+      { number: 4, x: 6.45, y: 1.95 }
+    ]
+    const intermediateBalls = [
+      { number: 5, x: 6.05, y: 1.95 },
+      { number: 6, x: 5.65, y: 1.95 },
+      { number: 7, x: 5.25, y: 1.95 }
+    ]
+
+    const advancedBalls = [
+      { number: 8, x: 4.85, y: 1.95 },
+      { number: 9, x: 4.45, y: 1.95 },
+      { number: 10, x: 4.05, y: 1.95 }
+    ]
+    if (store.getDrillId() === 11) {
+      return beginnerBalls
+    }
+    if (store.getDrillId() === 21) {
+      return [...beginnerBalls, ...intermediateBalls]
+    }
+    if (store.getDrillId() === 31) {
+      return [...beginnerBalls, ...intermediateBalls, ...advancedBalls]
+    }
+  }
   return [
     { number: +store.getShot(), x: 7.5, y: 0.15 },
     // Cue ball
@@ -248,6 +288,9 @@ const ballPositionProps = computed(() => {
 })
 
 const pottingPocketProp = computed(() => {
+  if (!store.isCurrentDrill) {
+    return null
+  }
   if (store.getDrillId() === 1) {
     return { x: 8, y: 4 }
   }
@@ -291,10 +334,13 @@ const pottingPocketProp = computed(() => {
     return { x: 8, y: 0 }
   }
 
-  return { x: 8, y: 2 }
+  return { show: false, x: 0, y: 0 }
 })
 
 const targetProp = computed(() => {
+  if (!store.isCurrentDrill) {
+    return null
+  }
   if (store.getDrillId() === 3) {
     return { isTarget: true, x: 7.65, y: 0.5, rotate: false, w: 0.65, h: 0.8 }
   }
@@ -337,6 +383,9 @@ const targetProp = computed(() => {
 })
 
 const leaveLineProp = computed(() => {
+  if (!store.isCurrentDrill) {
+    return null
+  }
   if (store.getDrillId() === 7) {
     if (store.getShot() === 1 || store.getShot() === 2) {
       return { draw: true, x: 4.8, y: 0.35 }

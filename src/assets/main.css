@@ -93,3 +93,15 @@ body {
 .smFont {
   font-size: 10px;
 }
+
+.lime {
+  color: lime;
+}
+
+.lime:hover {
+  color: yellow;
+}
+
+.red {
+  color: red;
+}

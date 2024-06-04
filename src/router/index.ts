@@ -5,6 +5,7 @@ import MainMenuPage from '../pages/MainMenuPage.vue'
 import ResultsPage from '../pages/ResultsPage.vue'
 import TableComponent from '../components/TableComponent.vue'
 import DummyPage from '../pages/DummyPage.vue'
+import NotFoundPage from '../pages/NotFoundPage.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -46,6 +47,11 @@ const router = createRouter({
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../pages/AboutPage.vue')
+    },
+    {
+      path: '/:notFound(.*)',
+      name: 'not-found',
+      component: NotFoundPage
     }
   ]
 })

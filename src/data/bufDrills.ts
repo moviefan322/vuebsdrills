@@ -1,4 +1,5 @@
 import type { Drill } from '../types/types'
+import allDrills from './skills1'
 
 export const cutShotDrill: Drill = {
   id: 1,
@@ -146,7 +147,8 @@ const drills: Drill[] = [
   stunShotDrill,
   pocketingDrill,
   wagonWheel,
-  landingZone
+  landingZone,
+  ...allDrills
 ]
 
 export default drills

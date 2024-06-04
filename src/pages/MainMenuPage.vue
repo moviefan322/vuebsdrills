@@ -68,6 +68,7 @@ watch(showMainMenu, (newVal) => {
 
 .lime:hover,
 .menulist li:hover {
+  list-style-type:disc;
   color: yellow;
   cursor: pointer;
 }
