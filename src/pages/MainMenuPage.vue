@@ -1,23 +1,91 @@
 <script setup lang="ts">
+import { ref, watch } from 'vue'
 import { RouterLink } from 'vue-router'
+
+const showExams = ref(false)
+const showMainMenu = ref(true)
+
+const handleShowExams = () => {
+  showMainMenu.value = false
+  showExams.value = true
+}
+
+const handleGoBack = () => {
+  showMainMenu.value = true
+}
+
+watch(showMainMenu, (newVal) => {
+  if (newVal === true) {
+    showExams.value = false
+  }
+})
 </script>
 
 <template>
-  <div>
-    <h1>Welcome</h1>
-    <button class="myButt">
-      <router-link to="/set/1" class="noStyleLink lime">BU Fundamentals</router-link>
-    </button>
+  <div class="container">
+    <h1 class="mb">Welcome!</h1>
+    <div v-if="showMainMenu">
+      <ul class="menulist mb">
+        <li @click="handleShowExams">Take Exam</li>
+        <li>Browse Drills</li>
+      </ul>
+    </div>
+    <div v-if="showExams">
+      <ul class="menulist mb">
+        <li><router-link to="/set/1" class="noStyleLink lime">BU Fundamentals</router-link></li>
+        <li>
+          <router-link to="/dummy" class="noStyleLink lime">BU Skills I (Bachelors)</router-link>
+        </li>
+        <li>
+          <router-link to="/dummy" class="noStyleLink lime">BU Skills II (Masters)</router-link>
+        </li>
+        <li>
+          <router-link to="/dummy" class="noStyleLink lime">BU Skills III (Doctorate)</router-link>
+        </li>
+      </ul>
+    </div>
+    <div class="mt" v-if="!showMainMenu">
+      <div class="back" @click="handleGoBack">
+        <font-awesome-icon :icon="['fas', 'arrow-left']" /> Go Back
+      </div>
+    </div>
   </div>
 </template>
 
-
 <style scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  width: 100%;
+  padding: 1rem;
+}
+
 .lime {
   color: lime;
 }
 
-.lime:hover {
-  color: black;
+.lime:hover,
+.menulist li:hover {
+  color: yellow;
+  cursor: pointer;
+}
+
+.menulist {
+  list-style-type: square;
+  padding: 0;
+}
+
+.back {
+  color: lime;
+  cursor: pointer;
+  text-align: start;
+  justify-self: center;
+  width: 100%;
+}
+
+.back:hover {
+  color: yellow;
 }
 </style>

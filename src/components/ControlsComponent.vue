@@ -9,7 +9,7 @@
       &#x2714;
     </button>
     <button
-      class="muButt control undo"
+      class="myButt control undo"
       :class="{ hidden: disableUndo }"
       @click="store.undo"
       :disable="disableUndo"

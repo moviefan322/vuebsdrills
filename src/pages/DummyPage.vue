@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>Welcome</h1>
-    <p>This is the Welcome page</p>
+    <p>This page hasn't been built yet</p>
   </div>
 </template>
