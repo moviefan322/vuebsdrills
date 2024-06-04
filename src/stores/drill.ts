@@ -16,6 +16,8 @@ export const useDrillStore = defineStore('drill', () => {
   const bonus = ref(0)
   const pots = ref(0)
   const drillComplete = ref(false)
+  const currentAttempt = ref(0)
+  const attemptResults = ref<number[]>([])
   const router = useRouter()
   const previousState = ref({
     shot: 1,
@@ -215,6 +217,36 @@ export const useDrillStore = defineStore('drill', () => {
     return currentDrill.value !== null
   }
 
+  const getMaxScore = () => {
+    return currentDrill.value!.maxScore
+  }
+
+  const isAttempts = () => {
+    return currentDrill.value!.attempts
+  }
+
+  const getCurrentAttempt = () => {
+    return currentAttempt.value
+  }
+
+  const getAttemptResults = () => {
+    return attemptResults.value
+  }
+
+  const pushAttemptResult = (result: number) => {
+    attemptResults.value.push(result)
+  }
+
+  const incrementCurrentAttempt = () => {
+    if (currentAttempt.value === currentDrill.value!.attempts! - 1) {
+      const highestAttempt = Math.max(...attemptResults.value)
+      pots.value = highestAttempt
+      drillComplete.value = true
+      return
+    }
+    currentAttempt.value++
+  }
+
   watch([shot, score], () => {
     if (currentDrill.value!.type === 'progressive') {
       if (shot.value >= 8 && score.value >= 12) {
@@ -260,6 +292,12 @@ export const useDrillStore = defineStore('drill', () => {
     getScore,
     getDrillComplete,
     getDrillId,
-    isCurrentDrill
+    isCurrentDrill,
+    getMaxScore,
+    isAttempts,
+    getCurrentAttempt,
+    getAttemptResults,
+    pushAttemptResult,
+    incrementCurrentAttempt
   }
 })

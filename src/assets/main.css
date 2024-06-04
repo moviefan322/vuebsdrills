@@ -105,3 +105,12 @@ body {
 .red {
   color: red;
 }
+
+.w100 {
+  width: 100%;
+}
+
+.center {
+  text-align: center;
+  margin: auto;
+}

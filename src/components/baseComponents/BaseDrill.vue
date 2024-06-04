@@ -17,7 +17,10 @@
     {{ endGameMessage }} <br />
     You scored {{ store.getScore() }} point{{ store.getScore() !== 1 ? 's' : '' }}!
   </div>
-  <ControlsComponent />
+  <div class="w100">
+    <ControlsComponent v-if="!store.getDrillComplete()" />
+  </div>
+
   <div class="mt my">
     <router-link
       to="/results"

@@ -1,9 +1,22 @@
 <template>
-  <div class="scorebar mt" :class="scorebarClass">
+  <div class="scorebar2" v-if="store.currentDrill?.attempts">
+    <div
+      class="attempt"
+      v-for="attempt in store.currentDrill?.attempts"
+      :key="attempt"
+      :class="{ highlight: store.getCurrentAttempt() === attempt - 1 }"
+    >
+      Attempt {{ attempt }}:
+      <span>{{
+        store.getAttemptResults()[attempt - 1] ? store.getAttemptResults()[attempt - 1] : '?'
+      }}</span>
+    </div>
+  </div>
+  <div class="scorebar mt" v-if="!store.currentDrill?.attempts" :class="scorebarClass">
     <div>
       Shot: <span>{{ store.getShot() }}</span>
     </div>
-    <div id="scoremid" v-if="!isStandard">
+    <div class="scoremid" v-if="!isStandard">
       Position: <span>{{ store.getPosition() }}</span>
     </div>
     <div id="filler" v-if="isStandard"></div>
@@ -29,7 +42,7 @@ const isStandard = computed(() => {
 </script>
 
 <style scoped>
-#scoremid {
+.scoremid {
   padding: 0.5rem 1rem;
   border-left: 1px solid lime;
   border-right: 1px solid lime;
@@ -47,7 +60,16 @@ const isStandard = computed(() => {
   color: lime;
 }
 
-.progscore {
+.scorebar2 {
+  display: flex;
+}
+
+.attempt {
+  border: lime 1px solid;
+  padding: 0.5rem 1rem;
+}
+
+.attempt .progscore {
   gap: 1rem;
 }
 
@@ -56,5 +78,10 @@ const isStandard = computed(() => {
   background-color: lime;
   height: 2.3rem;
   margin: 0 1rem;
+}
+
+.highlight {
+  background-color: yellow;
+  color: black;
 }
 </style>

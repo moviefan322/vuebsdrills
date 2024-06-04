@@ -1,5 +1,19 @@
 <template>
-  <div class="controls" v-if="!store.getDrillComplete()">
+  <div v-if="store.currentDrill?.attempts">
+    <h5 class="center mt mb">How many Balls did you pot?</h5>
+    <div class="buttonRow">
+      <div class="lime">0</div>
+      <div
+        class="lime"
+        v-for="score in maxScore"
+        :key="score"
+        @click="submitAttemptScore(score)"
+      >
+        {{ score }}
+      </div>
+    </div>
+  </div>
+  <div class="controls" v-if="!store.getDrillComplete() && !store.currentDrill?.attempts">
     <button
       class="noStyleButt control make"
       :class="{ disabled: store.getDrillComplete() }"
@@ -33,6 +47,13 @@ import { computed } from 'vue'
 
 const store = useDrillStore()
 
+//emits
+
+const submitAttemptScore = (score: number) => {
+  store.pushAttemptResult(score)
+  store.incrementCurrentAttempt()
+}
+
 const handleMake = () => {
   store.updatePreviousState()
   store.incrementScore()
@@ -54,6 +75,10 @@ const disableUndo = computed(() => {
     return true
   }
   return false
+})
+
+const maxScore = computed(() => {
+  return store.getMaxScore()
 })
 </script>
 
@@ -91,5 +116,31 @@ const disableUndo = computed(() => {
   background-color: black;
   color: lime;
   border: 1px solid lime;
+}
+
+.buttonRow {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.buttonRow div {
+  border: lime 1px solid;
+  padding: 0.5rem;
+}
+
+.mt {
+  margin-top: 1rem;
+}
+
+.mb {
+  margin-bottom: 1rem;
+}
+
+.lime:hover {
+  cursor: pointer;
+  background-color: yellow;
+  color: black;
 }
 </style>
