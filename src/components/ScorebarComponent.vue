@@ -6,7 +6,7 @@
       :key="attempt"
       :class="{ highlight: store.getCurrentAttempt() === attempt - 1 }"
     >
-      Attempt {{ attempt }}:
+      Attempt {{ toRomanNumeral(attempt) }}:
       <span>{{
         store.getAttemptResults()[attempt - 1] ? store.getAttemptResults()[attempt - 1] : '?'
       }}</span>
@@ -31,6 +31,11 @@ import { computed } from 'vue'
 import { useDrillStore } from '@/stores/drill'
 
 const store = useDrillStore()
+
+const toRomanNumeral = (num: number) => {
+  const romanNumeral = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X']
+  return romanNumeral[num - 1]
+}
 
 const scorebarClass = computed(() => {
   return store.currentDrill!.type === 'progressive' ? 'progscore' : ''

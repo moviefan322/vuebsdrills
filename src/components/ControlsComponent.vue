@@ -121,13 +121,15 @@ const maxScore = computed(() => {
 .buttonRow {
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-evenly;
 }
 
 .buttonRow div {
   border: lime 1px solid;
   padding: 0.5rem;
+  margin: .1rem
 }
 
 .mt {

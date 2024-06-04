@@ -252,7 +252,7 @@ const ballPositionProps = computed(() => {
       { number: 0, x: 6.5, y: 2 }
     ]
   }
-  if (store.getDrillId() === 11 || store.getDrillId() === 21 || store.getDrillId() === 31) {
+  if (store.getDrillId() === 11 || store.getDrillId() === 12 || store.getDrillId() === 13) {
     const beginnerBalls = [
       { number: 1, x: 7.65, y: 1.95 },
       { number: 2, x: 7.25, y: 1.95 },
@@ -273,11 +273,63 @@ const ballPositionProps = computed(() => {
     if (store.getDrillId() === 11) {
       return beginnerBalls
     }
-    if (store.getDrillId() === 21) {
+    if (store.getDrillId() === 12) {
       return [...beginnerBalls, ...intermediateBalls]
     }
-    if (store.getDrillId() === 31) {
+    if (store.getDrillId() === 13) {
       return [...beginnerBalls, ...intermediateBalls, ...advancedBalls]
+    }
+  }
+
+  if (store.getDrillId() === 14 || store.getDrillId() === 15 || store.getDrillId() === 16) {
+    const beginnerBalls = [
+      { number: 1, x: 1.95, y: 0.15 },
+      { number: 2, x: 5.95, y: 0.15 },
+      { number: 3, x: 7.83, y: 1.95 },
+      { number: 4, x: 5.95, y: 3.85 },
+      { number: 5, x: 1.95, y: 3.85 },
+      { number: 6, x: 0.15, y: 1.95 },
+      { number: 7, x: 4.03, y: 1.95 }
+    ]
+    const intermediateBalls = [
+      { number: 1, x: 1.95, y: 0.15 },
+      { number: 2, x: 5.95, y: 0.15 },
+      { number: 3, x: 7.83, y: 0.95 },
+      { number: 4, x: 7.83, y: 1.95 },
+      { number: 5, x: 7.83, y: 2.95 },
+      { number: 6, x: 5.95, y: 3.85 },
+      { number: 7, x: 1.95, y: 3.85 },
+      { number: 8, x: 0.15, y: 2.95 },
+      { number: 9, x: 0.15, y: 1.95 },
+      { number: 10, x: 0.15, y: 0.95 },
+      { number: 11, x: 4.03, y: 1.95 }
+    ]
+
+    const advancedBalls = [
+      { number: 1, x: .95, y: 0.15 },
+      { number: 2, x: 1.95, y: 0.15 },
+      { number: 3, x: 5.95, y: 0.15 },
+      { number: 4, x: 6.95, y: 0.15 },
+      { number: 5, x: 7.83, y: 0.95 },
+      { number: 6, x: 7.83, y: 1.95 },
+      { number: 7, x: 7.83, y: 2.95 },
+      { number: 8, x: 6.95, y: 3.85 },
+      { number: 9, x: 5.95, y: 3.85 },
+      { number: 10, x: 1.95, y: 3.85 },
+      { number: 11, x: .95, y: 3.85 },
+      { number: 12, x: 0.15, y: 2.95 },
+      { number: 13, x: 0.15, y: 1.95 },
+      { number: 14, x: 0.15, y: 0.95 },
+      { number: 15, x: 4.03, y: 1.95 }
+    ]
+    if (store.getDrillId() === 14) {
+      return beginnerBalls
+    }
+    if (store.getDrillId() === 15) {
+      return intermediateBalls
+    }
+    if (store.getDrillId() === 16) {
+      return advancedBalls
     }
   }
   return [
