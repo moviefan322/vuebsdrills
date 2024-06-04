@@ -3,12 +3,7 @@
     <h5 class="center mt mb">How many Balls did you pot?</h5>
     <div class="buttonRow">
       <div class="lime">0</div>
-      <div
-        class="lime"
-        v-for="score in maxScore"
-        :key="score"
-        @click="submitAttemptScore(score)"
-      >
+      <div class="lime" v-for="score in maxScore" :key="score" @click="submitAttemptScore(score)">
         {{ score }}
       </div>
     </div>
@@ -129,7 +124,9 @@ const maxScore = computed(() => {
 .buttonRow div {
   border: lime 1px solid;
   padding: 0.5rem;
-  margin: .1rem
+  margin: 0.1rem;
+  flex: 1 0 10%;
+  text-align: center;
 }
 
 .mt {
