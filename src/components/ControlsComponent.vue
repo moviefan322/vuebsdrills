@@ -84,6 +84,7 @@ const maxScore = computed(() => {
   align-items: center;
   margin-top: 2rem;
   width: 50%;
+  margin: 2rem auto;
 }
 
 .control {
@@ -105,12 +106,15 @@ const maxScore = computed(() => {
 }
 
 .undo {
+  display: flex;
   height: 2rem;
   width: 2rem;
   font-size: 15px;
   background-color: black;
   color: lime;
   border: 1px solid lime;
+  margin: auto;
+  justify-content: center;
 }
 
 .buttonRow {

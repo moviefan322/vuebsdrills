@@ -9,8 +9,8 @@
   </div>
   <div v-if="showInstructions" id="instruct" class="smFont mt mb" v-html="setInstructions"></div>
   <div id="image-wrapper" class="mb">
-    <!-- <div id="image-container" :style="backgroundImageStyle"></div> -->
-    <TableComponent />
+    <div id="image-container" :style="backgroundImageStyle" v-if="store.isLayout()"></div>
+    <TableComponent v-else />
   </div>
   <ScorebarComponent />
   <div v-if="store.getDrillComplete()" class="endGameMes">
@@ -95,11 +95,11 @@ const handlePrevious = () => {
 // computed
 
 const backgroundImageStyle = computed(() => ({
-  backgroundImage: `url(${store.currentDrill!.image})`,
+  backgroundImage: `url(${store.currentDrill!.image[store.getCurrentLayout()]})`,
   backgroundSize: 'cover',
   backgroundPosition: 'fit-content',
   width: 'inherit',
-  height: '14.5rem' // Adjust height as needed
+  height: '14rem' // Adjust height as needed
 }))
 
 const endGameMessage = computed(() => {

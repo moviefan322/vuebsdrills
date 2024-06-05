@@ -12,15 +12,14 @@
       }}</span>
     </div>
   </div>
-  <div class="scorebar mt" v-if="!store.currentDrill?.attempts" :class="scorebarClass">
-    <div>
+  <div class="scorebar2 mt" v-if="!store.currentDrill?.attempts" :class="scorebarClass">
+    <div class="attempt">
       Shot: <span>{{ store.getShot() }}</span>
     </div>
-    <div class="scoremid" v-if="!isStandard">
+    <div class="attempt" v-if="!isStandard">
       Position: <span>{{ store.getPosition() }}</span>
     </div>
-    <div id="filler" v-if="isStandard"></div>
-    <div>
+    <div class="attempt">
       Score: <span>{{ store.getScore() }}</span>
     </div>
   </div>
