@@ -8,6 +8,7 @@ export interface Drill {
   skills: string[]
   attempts?: number
   layouts?: number
+  layoutMaxScore?: number
 }
 
 export interface DrillSet {

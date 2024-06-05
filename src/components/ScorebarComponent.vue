@@ -12,7 +12,20 @@
       }}</span>
     </div>
   </div>
-  <div class="scorebar2 mt" v-if="!store.currentDrill?.attempts" :class="scorebarClass">
+  <div class="scorebar2 column" v-if="store.isLayout()">
+    <div
+      class="attempt"
+      v-for="layout in store.currentDrill?.layouts"
+      :key="layout"
+      :class="{ highlight: store.getCurrentLayout() === layout - 1 }"
+    >
+      Layout {{ toRomanNumeral(layout) }}:
+      <span>{{
+        store.getLayoutResults()[layout - 1] ? store.getLayoutResults()[layout - 1] : '?'
+      }}</span>
+    </div>
+  </div>
+  <div class="scorebar2 mt" v-else :class="scorebarClass">
     <div class="attempt">
       Shot: <span>{{ store.getShot() }}</span>
     </div>
@@ -87,5 +100,9 @@ const isStandard = computed(() => {
 .highlight {
   background-color: yellow;
   color: black;
+}
+
+.column {
+  flex-direction: column;
 }
 </style>

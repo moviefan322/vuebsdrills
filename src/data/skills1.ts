@@ -100,6 +100,7 @@ export const pattern9Ball1: Drill = {
   ],
   type: 'layout',
   layouts: 3,
+  layoutMaxScore: 5,
   skills: ['potting', 'pattern play']
 }
 
@@ -119,6 +120,7 @@ export const pattern9Ball2: Drill = {
   ],
   type: 'layout',
   layouts: 3,
+  layoutMaxScore: 6,
   skills: ['potting', 'pattern play']
 }
 
@@ -138,6 +140,7 @@ export const pattern9Ball3: Drill = {
   ],
   type: 'layout',
   layouts: 3,
+  layoutMaxScore: 7,
   skills: ['potting', 'pattern play']
 }
 

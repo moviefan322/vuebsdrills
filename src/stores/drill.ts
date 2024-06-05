@@ -223,6 +223,10 @@ export const useDrillStore = defineStore('drill', () => {
     return currentDrill.value!.maxScore
   }
 
+  const getLayoutMaxScore = () => {
+    return currentDrill.value!.layoutMaxScore
+  }
+
   const isAttempts = () => {
     return currentDrill.value!.attempts
   }
@@ -322,6 +326,7 @@ export const useDrillStore = defineStore('drill', () => {
     getDrillId,
     isCurrentDrill,
     getMaxScore,
+    getLayoutMaxScore,
     isAttempts,
     getCurrentAttempt,
     getAttemptResults,

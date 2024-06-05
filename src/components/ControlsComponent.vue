@@ -1,9 +1,25 @@
 <template>
-  <div v-if="store.currentDrill?.attempts">
+  <div v-if="store.isAttempts() || store.isLayout()">
     <h5 class="center mt mb">How many Balls did you pot?</h5>
-    <div class="buttonRow">
+    <div class="buttonRow" v-if="store.isAttempts()">
       <div class="lime">0</div>
-      <div class="lime" v-for="score in maxScore" :key="score" @click="submitAttemptScore(score)">
+      <div
+        class="lime"
+        v-for="score in store.getMaxScore()"
+        :key="score"
+        @click="submitAttemptScore(score)"
+      >
+        {{ score }}
+      </div>
+    </div>
+    <div class="buttonRow" v-if="store.isLayout()">
+      <div class="lime">0</div>
+      <div
+        class="lime"
+        v-for="score in store.getLayoutMaxScore()"
+        :key="score"
+        @click="submitLayoutScore(score)"
+      >
         {{ score }}
       </div>
     </div>
@@ -49,6 +65,11 @@ const submitAttemptScore = (score: number) => {
   store.incrementCurrentAttempt()
 }
 
+const submitLayoutScore = (score: number) => {
+  store.pushLayoutResult(score)
+  store.incrementCurrentLayout()
+}
+
 const handleMake = () => {
   store.updatePreviousState()
   store.incrementScore()
@@ -70,10 +91,6 @@ const disableUndo = computed(() => {
     return true
   }
   return false
-})
-
-const maxScore = computed(() => {
-  return store.getMaxScore()
 })
 </script>
 
