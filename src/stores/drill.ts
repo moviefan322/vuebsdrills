@@ -17,7 +17,9 @@ export const useDrillStore = defineStore('drill', () => {
   const pots = ref(0)
   const drillComplete = ref(false)
   const currentAttempt = ref(0)
+  const currentLayout = ref(0)
   const attemptResults = ref<number[]>([])
+  const layoutResults = ref<number[]>([])
   const router = useRouter()
   const previousState = ref({
     shot: 1,
@@ -232,9 +234,24 @@ export const useDrillStore = defineStore('drill', () => {
   const getAttemptResults = () => {
     return attemptResults.value
   }
+  const isLayout = () => {
+    return currentDrill.value!.type === 'layout'
+  }
+
+  const getCurrentLayout = () => {
+    return currentLayout.value
+  }
+
+  const getLayoutResults = () => {
+    return layoutResults.value
+  }
 
   const pushAttemptResult = (result: number) => {
     attemptResults.value.push(result)
+  }
+
+  const pushLayoutResult = (result: number) => {
+    layoutResults.value.push(result)
   }
 
   const incrementCurrentAttempt = () => {
@@ -245,6 +262,17 @@ export const useDrillStore = defineStore('drill', () => {
       return
     }
     currentAttempt.value++
+  }
+
+  const incrementCurrentLayout = () => {
+    if (currentLayout.value === currentDrill.value!.layouts! - 1) {
+      const sortedResults = layoutResults.value.sort((a, b) => a - b)
+      const twoLowestLayoutScores = sortedResults[0] + sortedResults[1]
+      pots.value = twoLowestLayoutScores
+      drillComplete.value = true
+      return
+    }
+    currentLayout.value++
   }
 
   watch([shot, score], () => {
@@ -298,6 +326,11 @@ export const useDrillStore = defineStore('drill', () => {
     getCurrentAttempt,
     getAttemptResults,
     pushAttemptResult,
-    incrementCurrentAttempt
+    incrementCurrentAttempt,
+    isLayout,
+    getCurrentLayout,
+    getLayoutResults,
+    pushLayoutResult,
+    incrementCurrentLayout
   }
 })

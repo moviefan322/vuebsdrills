@@ -3,10 +3,11 @@ export interface Drill {
   name: string
   maxScore: number
   instructions: string
-  image: string
-  type: 'progressive' | 'standard' | 'highscore'
+  image: string | string[]
+  type: 'progressive' | 'standard' | 'highscore' | 'layout'
   skills: string[]
   attempts?: number
+  layouts?: number
 }
 
 export interface DrillSet {

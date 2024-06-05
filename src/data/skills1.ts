@@ -84,8 +84,65 @@ export const RailCutShot3: Drill = {
   skills: ['aim', 'pattern play']
 }
 
-export const skills1: Drill[] = [lineOfBalls1, RailCutShot1]
-export const skills2: Drill[] = [lineOfBalls2, RailCutShot2]
-export const skills3: Drill[] = [lineOfBalls3, RailCutShot3]
+export const pattern9Ball1: Drill = {
+  id: 17,
+  name: '9 Pattern Drills (I)',
+  maxScore: 10,
+  instructions: `• Attempt and score all three layouts. Then add the two lowest scores.  <br />
+  • You receive 1 point for each ball pocketed legally (w/o scratching) under 9-ball “rotation” rules,
+  always hitting the lowest-numbered ball first.  <br />
+  • If the 9-ball is pocketed early (e.g., with a combo or carom shot), you must still pocket the
+  remaining balls in rotation.`,
+  image: [
+    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717612727/Screenshot_2024-06-05_at_2.38.40_PM_zjocqi.png',
+    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717613150/Screenshot_2024-06-05_at_2.45.42_PM_amjh6m.png',
+    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717613264/Screenshot_2024-06-05_at_2.47.35_PM_txpzc6.png'
+  ],
+  type: 'layout',
+  layouts: 3,
+  skills: ['potting', 'pattern play']
+}
+
+export const pattern9Ball2: Drill = {
+  id: 18,
+  name: '9 Pattern Drills (II)',
+  maxScore: 12,
+  instructions: `• Attempt and score all three layouts. Then add the two lowest scores.  <br />
+  • You receive 1 point for each ball pocketed legally (w/o scratching) under 9-ball “rotation” rules,
+  always hitting the lowest-numbered ball first.  <br />
+  • If the 9-ball is pocketed early (e.g., with a combo or carom shot), you must still pocket the
+  remaining balls in rotation.`,
+  image: [
+    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717613075/Screenshot_2024-06-05_at_2.44.26_PM_gjjn4f.png',
+    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717613315/Screenshot_2024-06-05_at_2.48.26_PM_yytvhp.png',
+    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717613346/Screenshot_2024-06-05_at_2.48.57_PM_dsbzkg.png'
+  ],
+  type: 'layout',
+  layouts: 3,
+  skills: ['potting', 'pattern play']
+}
+
+export const pattern9Ball3: Drill = {
+  id: 19,
+  name: '9 Pattern Drills (III)',
+  maxScore: 14,
+  instructions: `• Attempt and score all three layouts. Then add the two lowest scores.  <br />
+  • You receive 1 point for each ball pocketed legally (w/o scratching) under 9-ball “rotation” rules,
+  always hitting the lowest-numbered ball first.  <br />
+  • If the 9-ball is pocketed early (e.g., with a combo or carom shot), you must still pocket the
+  remaining balls in rotation.`,
+  image: [
+    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717613075/Screenshot_2024-06-05_at_2.44.26_PM_gjjn4f.png',
+    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717613384/Screenshot_2024-06-05_at_2.49.34_PM_ftntvg.png',
+    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717613447/Screenshot_2024-06-05_at_2.50.37_PM_g6t7tl.png'
+  ],
+  type: 'layout',
+  layouts: 3,
+  skills: ['potting', 'pattern play']
+}
+
+export const skills1: Drill[] = [lineOfBalls1, RailCutShot1, pattern9Ball1]
+export const skills2: Drill[] = [lineOfBalls2, RailCutShot2, pattern9Ball2]
+export const skills3: Drill[] = [lineOfBalls3, RailCutShot3, pattern9Ball3]
 
 export default [...skills1, ...skills2, ...skills3]
