@@ -306,7 +306,7 @@ const ballPositionProps = computed(() => {
     ]
 
     const advancedBalls = [
-      { number: 1, x: .95, y: 0.15 },
+      { number: 1, x: 0.95, y: 0.15 },
       { number: 2, x: 1.95, y: 0.15 },
       { number: 3, x: 5.95, y: 0.15 },
       { number: 4, x: 6.95, y: 0.15 },
@@ -316,7 +316,7 @@ const ballPositionProps = computed(() => {
       { number: 8, x: 6.95, y: 3.85 },
       { number: 9, x: 5.95, y: 3.85 },
       { number: 10, x: 1.95, y: 3.85 },
-      { number: 11, x: .95, y: 3.85 },
+      { number: 11, x: 0.95, y: 3.85 },
       { number: 12, x: 0.15, y: 2.95 },
       { number: 13, x: 0.15, y: 1.95 },
       { number: 14, x: 0.15, y: 0.95 },
@@ -332,10 +332,107 @@ const ballPositionProps = computed(() => {
       return advancedBalls
     }
   }
+
+  if (store.getDrillId() === 17) {
+    if (store.getCurrentLayout() === 0) {
+      return [
+        { number: 5, x: 1, y: 1 },
+        { number: 6, x: 3, y: 3 },
+        { number: 7, x: 1, y: 3 },
+        { number: 8, x: 3, y: 1 },
+        { number: 9, x: 5, y: 1 }
+      ]
+    }
+    if (store.getCurrentLayout() === 1) {
+      return [
+        { number: 5, x: 0.25, y: 0.95 },
+        { number: 6, x: 0.25, y: 2.95 },
+        { number: 7, x: 7.75, y: 2.95 },
+        { number: 8, x: 2.95, y: 3.75 },
+        { number: 9, x: 7.75, y: 0.95 }
+      ]
+    }
+    if (store.getCurrentLayout() === 2) {
+      return [
+        { number: 5, x: 5.8, y: 2.55 },
+        { number: 6, x: 7.5, y: 0.5 },
+        { number: 7, x: 6.15, y: 1.95 },
+        { number: 8, x: 5.95, y: 1.95 },
+        { number: 9, x: 0.95, y: 0.25 }
+      ]
+    }
+  }
+  if (store.getDrillId() === 18) {
+    if (store.getCurrentLayout() === 0) {
+      return [
+        { number: 4, x: 6.95, y: 2.95 },
+        { number: 5, x: 5.95, y: 1.95 },
+        { number: 6, x: 3, y: 1 },
+        { number: 7, x: 2, y: 2 },
+        { number: 8, x: 1, y: 1 },
+        { number: 9, x: 4.95, y: 0.25 }
+      ]
+    }
+    if (store.getCurrentLayout() === 1) {
+      return [
+        { number: 4, x: 6.95, y: 1.95 },
+        { number: 5, x: 6.95, y: 3.75 },
+        { number: 6, x: 6.95, y: 0.25 },
+        { number: 7, x: 4.95, y: 3.75 },
+        { number: 8, x: 4.95, y: 0.25 },
+        { number: 9, x: 0.25, y: 1.95 }
+      ]
+    }
+    if (store.getCurrentLayout() === 2) {
+      return [
+        { number: 4, x: 4.95, y: 0.95 },
+        { number: 5, x: 3.95, y: 2.95 },
+        { number: 6, x: 0.95, y: 0.95 },
+        { number: 7, x: 3.6, y: 3.85 },
+        { number: 8, x: 3.8, y: 3.85 },
+        { number: 9, x: 7.75, y: 0.95 }
+      ]
+    }
+  }
+  if (store.getDrillId() === 19) {
+    if (store.getCurrentLayout() === 0) {
+      return [
+        { number: 3, x: 1, y: 2.95 },
+        { number: 4, x: 1, y: 0.95 },
+        { number: 5, x: 3.95, y: 1.95 },
+        { number: 6, x: 1.95, y: 3.75 },
+        { number: 7, x: 2.95, y: 1.95 },
+        { number: 8, x: 4.95, y: 0.25 },
+        { number: 9, x: 7.75, y: 1.95 }
+      ]
+    }
+    if (store.getCurrentLayout() === 1) {
+      return [
+        { number: 3, x: 3.95, y: 0.95 },
+        { number: 4, x: 3.95, y: 2.95 },
+        { number: 5, x: 0.15, y: 2.95 },
+        { number: 6, x: 0.95, y: 3.85 },
+        { number: 7, x: 5.95, y: 3.85 },
+        { number: 8, x: 2.95, y: 0.15 },
+        { number: 9, x: 0.15, y: 1.95 }
+      ]
+    }
+    if (store.getCurrentLayout() === 2) {
+      return [
+        { number: 3, x: 4.95, y: 0.95 },
+        { number: 4, x: 4.95, y: 2.95 },
+        { number: 5, x: 3.95, y: 0.95 },
+        { number: 6, x: 6.95, y: 0.95 },
+        { number: 7, x: 0.15, y: 2.95 },
+        { number: 8, x: 6.95, y: 2.95 },
+        { number: 9, x: 0.15, y: 0.95 }
+      ]
+    }
+  }
   return [
-    { number: +store.getShot(), x: 7.5, y: 0.15 },
+    { number: +store.getShot(), x: 7.5, y: 0.15 }
     // Cue ball
-    { number: 0, x: 8 - store.getPosition(), y: 0.2 }
+    // { number: 0, x: 8 - store.getPosition(), y: 0.2 }
   ]
 })
 

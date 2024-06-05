@@ -9,8 +9,8 @@
   </div>
   <div v-if="showInstructions" id="instruct" class="smFont mt mb" v-html="setInstructions"></div>
   <div id="image-wrapper" class="mb">
-    <div id="image-container" :style="backgroundImageStyle" v-if="store.isLayout()"></div>
-    <TableComponent v-else />
+    <!-- <div id="image-container" :style="backgroundImageStyle" v-if="store.isLayout()"></div> -->
+    <TableComponent />
   </div>
   <ScorebarComponent />
   <div v-if="store.getDrillComplete()" class="endGameMes">

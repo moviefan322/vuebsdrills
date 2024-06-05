@@ -134,7 +134,7 @@ export const pattern9Ball3: Drill = {
   • If the 9-ball is pocketed early (e.g., with a combo or carom shot), you must still pocket the
   remaining balls in rotation.`,
   image: [
-    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717613075/Screenshot_2024-06-05_at_2.44.26_PM_gjjn4f.png',
+    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717619273/Screenshot_2024-06-05_at_4.27.43_PM_yx7o1e.png',
     'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717613384/Screenshot_2024-06-05_at_2.49.34_PM_ftntvg.png',
     'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717613447/Screenshot_2024-06-05_at_2.50.37_PM_g6t7tl.png'
   ],
