@@ -144,6 +144,63 @@ export const pattern9Ball3: Drill = {
   skills: ['potting', 'pattern play']
 }
 
+export const pattern8Ball1: Drill = {
+  id: 20,
+  name: '8 Pattern Drills (I)',
+  maxScore: 10,
+  instructions: `• Attempt and score all three layouts. Then add the two lowest scores<br />.
+  • Pocket the stripes in any order, then the 8, starting with ball in hand. <br />
+  • You receive 1 point for each ball pocketed legally (w/o scratching) before a miss<br />.
+  • You are allowed to contact the obstacle balls.  <br />`,
+  image: [
+    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717692565/Screenshot_2024-06-06_at_12.48.14_PM_apspfq.png',
+    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717692559/Screenshot_2024-06-06_at_12.48.43_PM_rpl6lh.png',
+    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717692552/Screenshot_2024-06-06_at_12.48.56_PM_aazagy.png'
+  ],
+  type: 'layout',
+  layouts: 3,
+  layoutMaxScore: 5,
+  skills: ['potting', 'pattern play']
+}
+
+export const pattern8Ball2: Drill = {
+  id: 21,
+  name: '8 Pattern Drills (II)',
+  maxScore: 12,
+  instructions: `• Attempt and score all three layouts. Then add the two lowest scores<br />.
+  • Pocket the stripes in any order, then the 8, starting with ball in hand. <br />
+  • You receive 1 point for each ball pocketed legally (w/o scratching) before a miss<br />.
+  • You are allowed to contact the obstacle balls.  <br />`,
+  image: [
+    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717692844/Screenshot_2024-06-06_at_12.53.41_PM_sonhlf.png',
+    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717692876/Screenshot_2024-06-06_at_12.54.24_PM_z4ufay.png',
+    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717692905/Screenshot_2024-06-06_at_12.54.54_PM_sayqpe.png'
+  ],
+  type: 'layout',
+  layouts: 3,
+  layoutMaxScore: 6,
+  skills: ['potting', 'pattern play']
+}
+
+export const pattern8Ball3: Drill = {
+  id: 22,
+  name: '8 Pattern Drills (III)',
+  maxScore: 14,
+  instructions: `• Attempt and score all three layouts. Then add the two lowest scores<br />.
+  • Pocket the stripes in any order, then the 8, starting with ball in hand. <br />
+  • You receive 1 point for each ball pocketed legally (w/o scratching) before a miss<br />.
+  • You are allowed to contact the obstacle balls.  <br />`,
+  image: [
+    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717692844/Screenshot_2024-06-06_at_12.53.41_PM_sonhlf.png',
+    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717692876/Screenshot_2024-06-06_at_12.54.24_PM_z4ufay.png',
+    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717692905/Screenshot_2024-06-06_at_12.54.54_PM_sayqpe.png'
+  ],
+  type: 'layout',
+  layouts: 3,
+  layoutMaxScore: 7,
+  skills: ['potting', 'pattern play']
+}
+
 export const skills1: Drill[] = [lineOfBalls1, RailCutShot1, pattern9Ball1]
 export const skills2: Drill[] = [lineOfBalls2, RailCutShot2, pattern9Ball2]
 export const skills3: Drill[] = [lineOfBalls3, RailCutShot3, pattern9Ball3]
