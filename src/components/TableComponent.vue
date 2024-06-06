@@ -448,21 +448,102 @@ const ballPositionProps = computed(() => {
         { number: 17, x: 4, y: 2.95 },
         { number: 8, x: 7.85, y: 2.95 },
         { number: 16, x: 6, y: 1.95 },
-        { number: 16, x: 5, y: 2.95 },
+        { number: 16, x: 5, y: 2.95 }
       ]
     }
     if (store.getCurrentLayout() === 2) {
       return [
-      { number: 17, x: 6.95, y: .25 },
+        { number: 17, x: 6.95, y: 0.25 },
         { number: 17, x: 6.95, y: 3.75 },
-        { number: 17, x: .15, y: .95 },
-        { number: 17, x: .15, y: 2.95 },
-        { number: 8, x: .95, y: 3.75 },
+        { number: 17, x: 0.15, y: 0.95 },
+        { number: 17, x: 0.15, y: 2.95 },
+        { number: 8, x: 0.95, y: 3.75 },
         { number: 16, x: 6, y: 1.95 },
         { number: 16, x: 6.2, y: 1.95 },
         { number: 16, x: 2, y: 1.95 },
         { number: 16, x: 2.2, y: 1.95 },
-        { number: 16, x: 1.8, y: 1.85 },
+        { number: 16, x: 1.8, y: 1.85 }
+      ]
+    }
+  }
+  if (store.getDrillId() === 21) {
+    if (store.getCurrentLayout() === 0) {
+      return [
+        { number: 17, x: 0.15, y: 0.95 },
+        { number: 17, x: 4, y: 1.95 },
+        { number: 17, x: 7, y: 2.95 },
+        { number: 17, x: 1, y: 1.95 },
+        { number: 17, x: 1, y: 3.75 },
+        { number: 8, x: 7, y: 0.95 }
+      ]
+    }
+    if (store.getCurrentLayout() === 1) {
+      return [
+        { number: 17, x: 4, y: 1.95 },
+        { number: 17, x: 4, y: 0.95 },
+        { number: 17, x: 7, y: 1.95 },
+        { number: 17, x: 4, y: 2.95 },
+        { number: 17, x: 7, y: 0.95 },
+        { number: 8, x: 0.25, y: 2.95 },
+        { number: 16, x: 1.95, y: 0.25 },
+        { number: 16, x: 0.95, y: 1 }
+      ]
+    }
+    if (store.getCurrentLayout() === 2) {
+      return [
+        { number: 17, x: 1.95, y: .15 },
+        { number: 17, x: 6.95, y: 1 },
+        { number: 17, x: 6.95, y: 3.85 },
+        { number: 17, x: 5.95, y: 1.95 },
+        { number: 17, x: 0.15, y: 2.95 },
+        { number: 8, x: 0.3, y: 3.85 },
+        { number: 16, x: 1, y: 1.95 },
+        { number: 16, x: 2, y: 1.95 },
+        { number: 16, x: 2.95, y: 3.65 },
+        { number: 16, x: 2.95, y: 3.45 },
+      ]
+    }
+  }
+  if (store.getDrillId() === 22) {
+    if (store.getCurrentLayout() === 0) {
+      return [
+        { number: 17, x: 4.25, y: 0.3 },
+        { number: 17, x: 4, y: 2.95 },
+        { number: 17, x: 6, y: 2.95 },
+        { number: 17, x: .15, y: .95 },
+        { number: 17, x: 2, y: 2.95 },
+        { number: 17, x: 4.95, y: 3.7 },
+        { number: 8, x: 7, y: 0.95 }
+      ]
+    }
+    if (store.getCurrentLayout() === 1) {
+      return [
+        { number: 17, x: 6, y: 1.95 },
+        { number: 17, x: 1.95, y: 0.15 },
+        { number: 17, x: 7, y: 3.85 },
+        { number: 17, x: .15, y: 2.95 },
+        { number: 17, x: 7, y: 0.95 },
+        { number: 8, x: 0.3, y: 3.85 },
+        { number: 16, x: 1, y: 1.95 },
+        { number: 16, x: 2, y: 1.95 },
+        { number: 16, x: 2.95, y: 3.65 },
+        { number: 16, x: 2.95, y: 3.45 },
+      ]
+    }
+    if (store.getCurrentLayout() === 2) {
+      return [
+        { number: 17, x: 1.95, y: 2.95 },
+        { number: 17, x: 7.85, y: 1 },
+        { number: 17, x: 7.85, y: 2.95 },
+        { number: 17, x: 5.95, y: 2.95 },
+        { number: 17, x: 0.15, y: 2.95 },
+        { number: 17, x: 3.95, y: 2.95 },
+        { number: 8, x: 0.3, y: 3.85 },
+        { number: 16, x: 1, y: 1.95 },
+        { number: 16, x: 2, y: 1.95 },
+        { number: 16, x: 2.95, y: 3.65 },
+        { number: 16, x: 2.95, y: 3.45 },
+        { number: 16, x: 6.95, y: 1.95 },
       ]
     }
   }

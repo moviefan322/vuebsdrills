@@ -191,9 +191,9 @@ export const pattern8Ball3: Drill = {
   • You receive 1 point for each ball pocketed legally (w/o scratching) before a miss<br />.
   • You are allowed to contact the obstacle balls.  <br />`,
   image: [
-    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717692844/Screenshot_2024-06-06_at_12.53.41_PM_sonhlf.png',
-    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717692876/Screenshot_2024-06-06_at_12.54.24_PM_z4ufay.png',
-    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717692905/Screenshot_2024-06-06_at_12.54.54_PM_sayqpe.png'
+    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717694909/Screenshot_2024-06-06_at_1.28.14_PM_t7vgtt.png',
+    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717695127/Screenshot_2024-06-06_at_1.31.49_PM_ibacab.png',
+    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717694942/Screenshot_2024-06-06_at_1.28.49_PM_d9gi3m.png'
   ],
   type: 'layout',
   layouts: 3,
