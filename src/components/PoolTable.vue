@@ -157,6 +157,8 @@ export default {
         13: '#FF4500',
         14: '#008000',
         15: '#800000',
+        16: '#D1D8D1', // generic solid
+        17: '#D1D8D1', // generic stripe
         0: '#FFFFFF' // Cue ball
       }
       return colors[number] || '#FFFFFF'
@@ -317,8 +319,22 @@ export default {
         .attr('x', (d) => d.x + borderSize - ballRadius * 0.82)
         .attr('y', (d) => d.y + borderSize - ballRadius * 0.47)
         .attr('width', ballRadius * 1.7)
-        .attr('height', ballRadius * .85)
+        .attr('height', ballRadius * 0.85)
         .attr('fill', 'white')
+        .attr('rx', ballRadius / 4)
+        .attr('ry', ballRadius / 4)
+
+        svg
+        .selectAll('rect.stripe')
+        .data(this.ballPositions.filter((d) => d.number === 17))
+        .enter()
+        .append('rect')
+        .attr('class', 'stripe')
+        .attr('x', (d) => d.x + borderSize - ballRadius * 0.84)
+        .attr('y', (d) => d.y + borderSize - ballRadius * 0.47)
+        .attr('width', ballRadius * 1.7)
+        .attr('height', ballRadius * 0.85)
+        .attr('fill', 'black')
         .attr('rx', ballRadius / 4)
         .attr('ry', ballRadius / 4)
 
@@ -339,7 +355,7 @@ export default {
       // Draw ball numbers
       svg
         .selectAll('text.ball-number')
-        .data(this.ballPositions)
+        .data(this.ballPositions.filter((d) => d.number >= 1 && d.number <= 15))
         .enter()
         .append('text')
         .attr('class', 'ball-number')

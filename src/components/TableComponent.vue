@@ -429,6 +429,43 @@ const ballPositionProps = computed(() => {
       ]
     }
   }
+  if (store.getDrillId() === 20) {
+    if (store.getCurrentLayout() === 0) {
+      return [
+        { number: 17, x: 1, y: 2.95 },
+        { number: 17, x: 4, y: 2.95 },
+        { number: 17, x: 7, y: 2.95 },
+        { number: 17, x: 1, y: 0.95 },
+        { number: 17, x: 1, y: 2.95 },
+        { number: 8, x: 7, y: 0.95 }
+      ]
+    }
+    if (store.getCurrentLayout() === 1) {
+      return [
+        { number: 17, x: 7, y: 1.95 },
+        { number: 17, x: 5.95, y: 3.75 },
+        { number: 17, x: 7, y: 2.95 },
+        { number: 17, x: 4, y: 2.95 },
+        { number: 8, x: 7.85, y: 2.95 },
+        { number: 16, x: 6, y: 1.95 },
+        { number: 16, x: 5, y: 2.95 },
+      ]
+    }
+    if (store.getCurrentLayout() === 2) {
+      return [
+      { number: 17, x: 6.95, y: .25 },
+        { number: 17, x: 6.95, y: 3.75 },
+        { number: 17, x: .15, y: .95 },
+        { number: 17, x: .15, y: 2.95 },
+        { number: 8, x: .95, y: 3.75 },
+        { number: 16, x: 6, y: 1.95 },
+        { number: 16, x: 6.2, y: 1.95 },
+        { number: 16, x: 2, y: 1.95 },
+        { number: 16, x: 2.2, y: 1.95 },
+        { number: 16, x: 1.8, y: 1.85 },
+      ]
+    }
+  }
   return [
     { number: +store.getShot(), x: 7.5, y: 0.15 }
     // Cue ball

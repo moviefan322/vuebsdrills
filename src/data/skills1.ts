@@ -201,8 +201,8 @@ export const pattern8Ball3: Drill = {
   skills: ['potting', 'pattern play']
 }
 
-export const skills1: Drill[] = [lineOfBalls1, RailCutShot1, pattern9Ball1]
-export const skills2: Drill[] = [lineOfBalls2, RailCutShot2, pattern9Ball2]
-export const skills3: Drill[] = [lineOfBalls3, RailCutShot3, pattern9Ball3]
+export const skills1: Drill[] = [lineOfBalls1, RailCutShot1, pattern9Ball1, pattern8Ball1]
+export const skills2: Drill[] = [lineOfBalls2, RailCutShot2, pattern9Ball2, pattern8Ball2]
+export const skills3: Drill[] = [lineOfBalls3, RailCutShot3, pattern9Ball3, pattern8Ball3]
 
 export default [...skills1, ...skills2, ...skills3]
