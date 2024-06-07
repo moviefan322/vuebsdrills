@@ -32,6 +32,10 @@ export default {
     leaveLineProp: {
       type: Object,
       default: () => ({ draw: false, x: 0, y: 0 })
+    },
+    showShotLine: {
+      type: Boolean,
+      default: true
     }
   },
   computed: {
@@ -77,9 +81,10 @@ export default {
       }
     },
     shotLine() {
+      const showShotLine = this.showShotLine
       const cueBall = this.cueBallPosition
       const objectBall = this.objectBall
-      if (!cueBall || !objectBall) return null
+      if (!cueBall || !objectBall || !showShotLine) return null
 
       const pocketX = this.pottingPocket.x
       const pocketY = this.pottingPocket.y
@@ -324,7 +329,7 @@ export default {
         .attr('rx', ballRadius / 4)
         .attr('ry', ballRadius / 4)
 
-        svg
+      svg
         .selectAll('rect.stripe')
         .data(this.ballPositions.filter((d) => d.number === 17))
         .enter()

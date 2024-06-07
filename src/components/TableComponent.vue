@@ -6,6 +6,7 @@
       :pottingPocketProp="pottingPocketProp"
       :targetSpecs="targetProp"
       :leaveLineProp="leaveLineProp"
+      :showShotLine="showShotLine"
       v-if="useProps"
     />
     <PoolTable :tableWidth="350" v-else />
@@ -24,6 +25,15 @@ onBeforeMount(() => {
   if (store.isCurrentDrill()) {
     useProps.value = true
   }
+})
+
+const showShotLine = computed(() => {
+  const dontShow = [23, 24, 25]
+  if (dontShow.includes(store.getDrillId())) {
+    return false
+  }
+
+  return true
 })
 
 const ballPositionProps = computed(() => {
@@ -491,7 +501,7 @@ const ballPositionProps = computed(() => {
     }
     if (store.getCurrentLayout() === 2) {
       return [
-        { number: 17, x: 1.95, y: .15 },
+        { number: 17, x: 1.95, y: 0.15 },
         { number: 17, x: 6.95, y: 1 },
         { number: 17, x: 6.95, y: 3.85 },
         { number: 17, x: 5.95, y: 1.95 },
@@ -500,7 +510,7 @@ const ballPositionProps = computed(() => {
         { number: 16, x: 1, y: 1.95 },
         { number: 16, x: 2, y: 1.95 },
         { number: 16, x: 2.95, y: 3.65 },
-        { number: 16, x: 2.95, y: 3.45 },
+        { number: 16, x: 2.95, y: 3.45 }
       ]
     }
   }
@@ -510,7 +520,7 @@ const ballPositionProps = computed(() => {
         { number: 17, x: 4.25, y: 0.3 },
         { number: 17, x: 4, y: 2.95 },
         { number: 17, x: 6, y: 2.95 },
-        { number: 17, x: .15, y: .95 },
+        { number: 17, x: 0.15, y: 0.95 },
         { number: 17, x: 2, y: 2.95 },
         { number: 17, x: 4.95, y: 3.7 },
         { number: 8, x: 7, y: 0.95 }
@@ -521,13 +531,13 @@ const ballPositionProps = computed(() => {
         { number: 17, x: 6, y: 1.95 },
         { number: 17, x: 1.95, y: 0.15 },
         { number: 17, x: 7, y: 3.85 },
-        { number: 17, x: .15, y: 2.95 },
+        { number: 17, x: 0.15, y: 2.95 },
         { number: 17, x: 7, y: 0.95 },
         { number: 8, x: 0.3, y: 3.85 },
         { number: 16, x: 1, y: 1.95 },
         { number: 16, x: 2, y: 1.95 },
         { number: 16, x: 2.95, y: 3.65 },
-        { number: 16, x: 2.95, y: 3.45 },
+        { number: 16, x: 2.95, y: 3.45 }
       ]
     }
     if (store.getCurrentLayout() === 2) {
@@ -543,10 +553,69 @@ const ballPositionProps = computed(() => {
         { number: 16, x: 2, y: 1.95 },
         { number: 16, x: 2.95, y: 3.65 },
         { number: 16, x: 2.95, y: 3.45 },
-        { number: 16, x: 6.95, y: 1.95 },
+        { number: 16, x: 6.95, y: 1.95 }
       ]
     }
   }
+  if (store.getDrillId() === 23 || store.getDrillId() === 24 || store.getDrillId() === 25) {
+    let cueBallPositions
+    if (store.getDrillId() === 23) {
+      cueBallPositions = [
+        { number: 0, x: 0.95, y: 1.95 },
+        { number: 0, x: 0.95, y: 1.95 },
+        { number: 0, x: 0.95, y: 3.45 },
+        { number: 0, x: 0.95, y: 3.45 },
+        { number: 0, x: 1.95, y: 3.45 },
+        { number: 0, x: 1.95, y: 3.45 }
+      ]
+    }
+    if (store.getDrillId() === 24) {
+      cueBallPositions = [
+        { number: 0, x: 1.95, y: 1.95 },
+        { number: 0, x: 1.95, y: 1.95 },
+        { number: 0, x: 0.95, y: 1.95 },
+        { number: 0, x: 0.95, y: 1.95 },
+        { number: 0, x: 0.95, y: 2.95 },
+        { number: 0, x: 0.95, y: 2.95 },
+        { number: 0, x: 0.95, y: 3.45 },
+        { number: 0, x: 0.95, y: 3.45 },
+        { number: 0, x: 1.95, y: 3.45 },
+        { number: 0, x: 1.95, y: 3.45 }
+      ]
+    }
+    if (store.getDrillId() === 25) {
+      cueBallPositions = [
+        { number: 0, x: 1.95, y: 1.95 },
+        { number: 0, x: 1.95, y: 1.95 },
+        { number: 0, x: 0.95, y: 1.95 },
+        { number: 0, x: 0.95, y: 1.95 },
+        { number: 0, x: 0.95, y: 2.45 },
+        { number: 0, x: 0.95, y: 2.45 },
+        { number: 0, x: 0.95, y: 2.95 },
+        { number: 0, x: 0.95, y: 2.95 },
+        { number: 0, x: 0.95, y: 3.45 },
+        { number: 0, x: 0.95, y: 3.45 },
+        { number: 0, x: 1.95, y: 3.45 },
+        { number: 0, x: 1.95, y: 3.45 },
+        { number: 0, x: 2.45, y: 3.45 },
+        { number: 0, x: 2.45, y: 3.45 }
+      ]
+    }
+    const rack = [
+      { number: 1, x: 1.95, y: 2.95 },
+      { number: 2, x: 5.55, y: 0.95 },
+      { number: 3, x: 5.75, y: 0.85 },
+      { number: 4, x: 5.75, y: 1.05 },
+      { number: 6, x: 5.95, y: 0.95 },
+      { number: 5, x: 5.95, y: 0.75 },
+      { number: 7, x: 5.95, y: 1.15 },
+      { number: 8, x: 6.15, y: 0.85 },
+      { number: 9, x: 6.15, y: 1.05 },
+      { number: 10, x: 6.35, y: 0.95 }
+    ]
+    return [...rack, cueBallPositions![store.getShot() - 1]]
+  }
+
   return [
     { number: +store.getShot(), x: 7.5, y: 0.15 }
     // Cue ball

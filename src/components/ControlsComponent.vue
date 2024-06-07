@@ -24,7 +24,10 @@
       </div>
     </div>
   </div>
-  <div class="controls" v-if="!store.getDrillComplete() && !store.currentDrill?.attempts">
+  <div
+    class="controls"
+    v-if="!store.getDrillComplete() && !store.currentDrill?.attempts && !store.isLayout()"
+  >
     <button
       class="noStyleButt control make"
       :class="{ disabled: store.getDrillComplete() }"

@@ -86,7 +86,7 @@ export const RailCutShot3: Drill = {
 
 export const pattern9Ball1: Drill = {
   id: 17,
-  name: '9 Pattern Drills (I)',
+  name: '9B Patterns (I)',
   maxScore: 10,
   instructions: `• Attempt and score all three layouts. Then add the two lowest scores.  <br />
   • You receive 1 point for each ball pocketed legally (w/o scratching) under 9-ball “rotation” rules,
@@ -106,7 +106,7 @@ export const pattern9Ball1: Drill = {
 
 export const pattern9Ball2: Drill = {
   id: 18,
-  name: '9 Pattern Drills (II)',
+  name: '9B Patterns (II)',
   maxScore: 12,
   instructions: `• Attempt and score all three layouts. Then add the two lowest scores.  <br />
   • You receive 1 point for each ball pocketed legally (w/o scratching) under 9-ball “rotation” rules,
@@ -126,7 +126,7 @@ export const pattern9Ball2: Drill = {
 
 export const pattern9Ball3: Drill = {
   id: 19,
-  name: '9 Pattern Drills (III)',
+  name: '9B Patterns (III)',
   maxScore: 14,
   instructions: `• Attempt and score all three layouts. Then add the two lowest scores.  <br />
   • You receive 1 point for each ball pocketed legally (w/o scratching) under 9-ball “rotation” rules,
@@ -215,8 +215,36 @@ export const safety1: Drill = {
   skills: ['cue ball control', 'safety']
 }
 
+export const safety2: Drill = {
+  id: 24,
+  name: 'Safety (II)',
+  maxScore: 10,
+  instructions: `• Attempt and score all three layouts. Then add the two lowest scores<br />.
+  • Pocket the stripes in any order, then the 8, starting with ball in hand. <br />
+  • You receive 1 point for each ball pocketed legally (w/o scratching) before a miss<br />.
+  • You are allowed to contact the obstacle balls.  <br />`,
+  image:
+    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717795677/Screenshot_2024-06-07_at_5.27.12_PM_zgrxdy.png',
+  type: 'standard',
+  skills: ['cue ball control', 'safety']
+}
+
+export const safety3: Drill = {
+  id: 25,
+  name: 'Safety (III)',
+  maxScore: 14,
+  instructions: `• Attempt and score all three layouts. Then add the two lowest scores<br />.
+  • Pocket the stripes in any order, then the 8, starting with ball in hand. <br />
+  • You receive 1 point for each ball pocketed legally (w/o scratching) before a miss<br />.
+  • You are allowed to contact the obstacle balls.  <br />`,
+  image:
+    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717796173/Screenshot_2024-06-07_at_5.36.08_PM_jtt0zq.png',
+  type: 'standard',
+  skills: ['cue ball control', 'safety']
+}
+
 export const skills1: Drill[] = [lineOfBalls1, RailCutShot1, pattern9Ball1, pattern8Ball1, safety1]
-export const skills2: Drill[] = [lineOfBalls2, RailCutShot2, pattern9Ball2, pattern8Ball2]
-export const skills3: Drill[] = [lineOfBalls3, RailCutShot3, pattern9Ball3, pattern8Ball3]
+export const skills2: Drill[] = [lineOfBalls2, RailCutShot2, pattern9Ball2, pattern8Ball2, safety2]
+export const skills3: Drill[] = [lineOfBalls3, RailCutShot3, pattern9Ball3, pattern8Ball3, safety3]
 
 export default [...skills1, ...skills2, ...skills3]

@@ -9,7 +9,7 @@
   </div>
   <div v-if="showInstructions" id="instruct" class="smFont mt mb" v-html="setInstructions"></div>
   <div id="image-wrapper" class="mb">
-    <!-- <div id="image-container" :style="backgroundImageStyle" v-if="store.isLayout()"></div> -->
+    <div id="image-container" :style="backgroundImageStyle"></div>
     <TableComponent />
   </div>
   <ScorebarComponent />
@@ -95,7 +95,7 @@ const handlePrevious = () => {
 // computed
 
 const backgroundImageStyle = computed(() => ({
-  backgroundImage: `url(${store.currentDrill!.image[store.getCurrentLayout()]})`,
+  backgroundImage: `url(${store.currentDrill!.image})`,
   backgroundSize: 'cover',
   backgroundPosition: 'fit-content',
   width: 'inherit',
