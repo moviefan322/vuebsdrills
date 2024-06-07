@@ -205,10 +205,11 @@ export const safety1: Drill = {
   id: 23,
   name: 'Safety (I)',
   maxScore: 6,
-  instructions: `• Attempt and score all three layouts. Then add the two lowest scores<br />.
-  • Pocket the stripes in any order, then the 8, starting with ball in hand. <br />
-  • You receive 1 point for each ball pocketed legally (w/o scratching) before a miss<br />.
-  • You are allowed to contact the obstacle balls.  <br />`,
+  instructions: `• Take two attempts from each CB position, getting 1 point for each successful snooker, where
+  the OB is hidden from the CB with no direct path of contact between the balls. <br />
+  • The 1 ball may not be pocketed. <br />
+  • You are allowed to contact the balls in the obstacle cluster, but all of them must remain within
+  or overlapping the target.  <br />`,
   image:
     'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717740461/Screenshot_2024-06-07_at_2.07.26_AM_z3kjxq.png',
   type: 'standard',
@@ -219,10 +220,11 @@ export const safety2: Drill = {
   id: 24,
   name: 'Safety (II)',
   maxScore: 10,
-  instructions: `• Attempt and score all three layouts. Then add the two lowest scores<br />.
-  • Pocket the stripes in any order, then the 8, starting with ball in hand. <br />
-  • You receive 1 point for each ball pocketed legally (w/o scratching) before a miss<br />.
-  • You are allowed to contact the obstacle balls.  <br />`,
+  instructions: `• Take two attempts from each CB position, getting 1 point for each successful snooker, where
+  the OB is hidden from the CB with no direct path of contact between the balls. <br />
+  • The 1 ball may not be pocketed. <br />
+  • You are allowed to contact the balls in the obstacle cluster, but all of them must remain within
+  or overlapping the target.  <br />`,
   image:
     'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717795677/Screenshot_2024-06-07_at_5.27.12_PM_zgrxdy.png',
   type: 'standard',
@@ -233,18 +235,60 @@ export const safety3: Drill = {
   id: 25,
   name: 'Safety (III)',
   maxScore: 14,
-  instructions: `• Attempt and score all three layouts. Then add the two lowest scores<br />.
-  • Pocket the stripes in any order, then the 8, starting with ball in hand. <br />
-  • You receive 1 point for each ball pocketed legally (w/o scratching) before a miss<br />.
-  • You are allowed to contact the obstacle balls.  <br />`,
+  instructions: `• Take two attempts from each CB position, getting 1 point for each successful snooker, where
+  the OB is hidden from the CB with no direct path of contact between the balls. <br />
+  • The 1 ball may not be pocketed. <br />
+  • You are allowed to contact the balls in the obstacle cluster, but all of them must remain within
+  or overlapping the target.  <br />`,
   image:
     'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717796173/Screenshot_2024-06-07_at_5.36.08_PM_jtt0zq.png',
   type: 'standard',
   skills: ['cue ball control', 'safety']
 }
 
-export const skills1: Drill[] = [lineOfBalls1, RailCutShot1, pattern9Ball1, pattern8Ball1, safety1]
-export const skills2: Drill[] = [lineOfBalls2, RailCutShot2, pattern9Ball2, pattern8Ball2, safety2]
-export const skills3: Drill[] = [lineOfBalls3, RailCutShot3, pattern9Ball3, pattern8Ball3, safety3]
+export const kick1: Drill = {
+  id: 26,
+  name: 'Kick Shot (I)',
+  maxScore: 3,
+  instructions: `• Kick at each OB off the same long rail (as shown), with the CB in the same starting position for
+  each kick, getting 1 point for each successful and legal shot (i.e., no scratch, ball to rail).`,
+  image:
+    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717798362/Screenshot_2024-06-07_at_6.12.36_PM_kkxj24.png',
+  type: 'standard',
+  skills: ['cue ball control', 'safety']
+}
+
+export const kick2: Drill = {
+  id: 27,
+  name: 'Kick Shot (II)',
+  maxScore: 5,
+  instructions: `• Shots 1-4: Kick at each OB off the same long rail (as shown), with the CB in the same starting
+  position for each kick, getting 1 point for each successful and legal shot (i.e., no scratch, ball to
+  rail). <br />
+  • Shot 5: With CB in hand, kick off any two rails at the 1 ball.`,
+  image:
+    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717798483/Screenshot_2024-06-07_at_6.14.25_PM_nnf6bx.png',
+  type: 'standard',
+  skills: ['cue ball control', 'safety']
+}
+
+export const kick3: Drill = {
+  id: 28,
+  name: 'Kick Shot (III)',
+  maxScore: 7,
+  instructions: `• Shots 1-4: Kick at each OB off the same long rail (as shown), with the CB in the same starting
+  position for each kick, getting 1 point for each successful and legal shot (i.e., no scratch, ball to
+  rail). <br />
+  • Shots 5,6: With CB in hand on each shot, kick off any two rails at the 1 ball and the 3 ball. <br />
+  • Shot 7: With CB in hand, kick off any three rails at the 2 ball.`,
+  image:
+    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717798483/Screenshot_2024-06-07_at_6.14.25_PM_nnf6bx.png',
+  type: 'standard',
+  skills: ['cue ball control', 'safety']
+}
+
+export const skills1: Drill[] = [lineOfBalls1, RailCutShot1, pattern9Ball1, pattern8Ball1, safety1, kick1]
+export const skills2: Drill[] = [lineOfBalls2, RailCutShot2, pattern9Ball2, pattern8Ball2, safety2, kick2]
+export const skills3: Drill[] = [lineOfBalls3, RailCutShot3, pattern9Ball3, pattern8Ball3, safety3, kick3]
 
 export default [...skills1, ...skills2, ...skills3]

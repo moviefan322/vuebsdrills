@@ -7,6 +7,7 @@
       :targetSpecs="targetProp"
       :leaveLineProp="leaveLineProp"
       :showShotLine="showShotLine"
+      :kickShotLineProp="kickShotLineProp"
       v-if="useProps"
     />
     <PoolTable :tableWidth="350" v-else />
@@ -28,7 +29,7 @@ onBeforeMount(() => {
 })
 
 const showShotLine = computed(() => {
-  const dontShow = [23, 24, 25]
+  const dontShow = [23, 24, 25, 26, 27, 28]
   if (dontShow.includes(store.getDrillId())) {
     return false
   }
@@ -615,6 +616,18 @@ const ballPositionProps = computed(() => {
     ]
     return [...rack, cueBallPositions![store.getShot() - 1]]
   }
+  if (store.getDrillId() === 26 || store.getDrillId() === 27 || store.getDrillId() === 28) {
+    const objBall = [
+      { number: 1, x: 1.95, y: 1.95 },
+      { number: 2, x: 2.95, y: 1.95 },
+      { number: 3, x: 3.95, y: 1.95 },
+      { number: 4, x: 5.75, y: 1.95 },
+      { number: 5, x: 1.95, y: 1.95 },
+      { number: 6, x: 3.95, y: 1.95 },
+      { number: 7, x: 2.95, y: 1.95 }
+    ]
+    return [{ number: 0, x: 0.95, y: 0.95 }, objBall[store.getShot() - 1]]
+  }
 
   return [
     { number: +store.getShot(), x: 7.5, y: 0.15 }
@@ -715,6 +728,10 @@ const targetProp = computed(() => {
       return { isTarget: true, x: 5.9, y: 3.65, rotate: false, w: 0.9, h: 0.65 }
     }
   }
+  if (store.getDrillId() === 23 || store.getDrillId() === 24 || store.getDrillId() === 25) {
+    return { isTarget: true, x: 5.8, y: 1, rotate: false, w: 1.1, h: 0.7 }
+  }
+
   return { isTarget: false, x: 4.5, y: 0.5, rotate: false, w: 2, h: 1 }
 })
 
@@ -755,6 +772,20 @@ const leaveLineProp = computed(() => {
     }
   }
   return { draw: false, x: 0, y: 0 }
+})
+
+const kickShotLineProp = computed(() => {
+  console.log(store.getShot())
+  if (store.getDrillId() === 26 || store.getDrillId() === 27 || store.getDrillId() === 28) {
+    let rails = 1
+    if (store.getShot() > 6) {
+      rails = 3
+    } else if (store.getShot() > 4) {
+      rails = 2
+    }
+    return { draw: true, rails: rails, objectBall: store.getShot() }
+  }
+  return { draw: false, rails: 0, objectBall: null }
 })
 </script>
 

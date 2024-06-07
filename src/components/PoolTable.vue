@@ -36,6 +36,10 @@ export default {
     showShotLine: {
       type: Boolean,
       default: true
+    },
+    kickShotLineProp: {
+      type: Object,
+      default: () => ({ draw: false, rails: 0, objectBall: null })
     }
   },
   computed: {
@@ -52,6 +56,60 @@ export default {
         y: (ball.y * tableHeight) / 4,
         radius: ballRadius
       }))
+    },
+    kickShotLine() {
+      const kickShotLine = this.kickShotLineProp
+      if (!kickShotLine.draw || !kickShotLine.rails) return null
+
+      const tableWidth = this.tableWidth
+      const tableHeight = tableWidth / 2
+
+      const cueBall = this.cueBallPosition
+      const objectBall = this.ballPositions.find((ball) => ball.number === kickShotLine.objectBall)
+      if (!cueBall || !objectBall) return null
+
+      let railHit = { x: 0, y: 0 }
+
+      if (kickShotLine.rails === 1) {
+        // Calculate rail hit assuming top rail hit
+        railHit.y = tableHeight
+        railHit.x = cueBall.x + (objectBall.x - cueBall.x) / 2
+        return {
+          start: { x: cueBall.x, y: cueBall.y },
+          railHit,
+          end: { x: objectBall.x, y: objectBall.y }
+        }
+      }
+
+      if (kickShotLine.rails === 2) {
+        let railHit1 = { x: 0, y: 0 }
+        let railHit2 = { x: 0, y: 0 }
+        // Calculate rail hit assuming top rail hit
+        railHit1.y = tableHeight
+        railHit1.x = cueBall.x + (objectBall.x - cueBall.x) / 3
+        railHit2.y = 0
+        railHit2.x = cueBall.x + (objectBall.x - cueBall.x) * 0.66
+        return {
+          start: { x: cueBall.x, y: cueBall.y },
+          railHit1,
+          railHit2,
+          end: { x: objectBall.x, y: objectBall.y }
+        }
+      }
+
+      if (kickShotLine.rails === 3) {
+        const diamondWidth = tableWidth / 8
+        // Calculate rail hit assuming top rail hit
+        return {
+          start: { x: cueBall.x, y: cueBall.y },
+          railHit1: { x: 2 * diamondWidth, y: 0.1 * diamondWidth },
+          railHit2: { x: 7.9 * diamondWidth, y: 3.1 * diamondWidth },
+          railHit3: { x: 6.9 * diamondWidth, y: 3.9 * diamondWidth },
+          end: { x: objectBall.x, y: objectBall.y }
+        }
+      }
+
+      return null
     },
     pottingPocket() {
       const tableWidth = this.tableWidth
@@ -102,13 +160,13 @@ export default {
       }
     },
     leaveLine() {
+      const leaveLine = this.leaveLineProp
+      if (!leaveLine.draw) return null
       const diamondWidth = this.tableWidth / 8
       const objectBall = this.objectBall
       const pocketX = this.pottingPocket.x
       const pocketY = this.pottingPocket.y
       const pocketAngle = Math.atan2(pocketY - objectBall.y, pocketX - objectBall.x)
-      const leaveLine = this.leaveLineProp
-      if (!leaveLine.draw) return null
 
       const xEnd = this.leaveLineProp.x * diamondWidth
       const yEnd = this.leaveLineProp.y * diamondWidth
@@ -426,6 +484,104 @@ export default {
           .attr('stroke-dasharray', '4')
           .attr('marker-end', 'url(#arrowhead)')
       }
+
+      // Draw kick shot line
+      const kickShotLine = this.kickShotLine
+      if (kickShotLine && this.kickShotLineProp.rails === 1) {
+        svg
+          .append('line')
+          .attr('x1', kickShotLine.start.x + borderSize)
+          .attr('y1', kickShotLine.start.y + borderSize)
+          .attr('x2', kickShotLine.railHit.x + borderSize)
+          .attr('y2', kickShotLine.railHit.y + borderSize)
+          .attr('stroke', 'blue')
+          .attr('stroke-width', 2)
+          .attr('stroke-dasharray', '5')
+
+        svg
+          .append('line')
+          .attr('x1', kickShotLine.railHit.x + borderSize)
+          .attr('y1', kickShotLine.railHit.y + borderSize)
+          .attr('x2', kickShotLine.end.x + borderSize)
+          .attr('y2', kickShotLine.end.y + borderSize)
+          .attr('stroke', 'blue')
+          .attr('stroke-width', 2)
+          .attr('stroke-dasharray', '5')
+      }
+      if (kickShotLine && this.kickShotLineProp.rails === 2) {
+        console.log('here boss')
+        svg
+          .append('line')
+          .attr('x1', kickShotLine.start.x + borderSize)
+          .attr('y1', kickShotLine.start.y + borderSize)
+          .attr('x2', kickShotLine.railHit1.x + borderSize)
+          .attr('y2', kickShotLine.railHit1.y + borderSize)
+          .attr('stroke', 'blue')
+          .attr('stroke-width', 2)
+          .attr('stroke-dasharray', '5')
+
+        svg
+          .append('line')
+          .attr('x1', kickShotLine.railHit1.x + borderSize)
+          .attr('y1', kickShotLine.railHit1.y + borderSize)
+          .attr('x2', kickShotLine.railHit2.x + borderSize)
+          .attr('y2', kickShotLine.railHit2.y + borderSize)
+          .attr('stroke', 'blue')
+          .attr('stroke-width', 2)
+          .attr('stroke-dasharray', '5')
+
+        svg
+          .append('line')
+          .attr('x1', kickShotLine.railHit2.x + borderSize)
+          .attr('y1', kickShotLine.railHit2.y + borderSize)
+          .attr('x2', kickShotLine.end.x + borderSize)
+          .attr('y2', kickShotLine.end.y + borderSize)
+          .attr('stroke', 'blue')
+          .attr('stroke-width', 2)
+          .attr('stroke-dasharray', '5')
+      }
+
+      if (kickShotLine && this.kickShotLineProp.rails === 3) {
+        svg
+          .append('line')
+          .attr('x1', kickShotLine.start.x + borderSize)
+          .attr('y1', kickShotLine.start.y + borderSize)
+          .attr('x2', kickShotLine.railHit1.x + borderSize)
+          .attr('y2', kickShotLine.railHit1.y + borderSize)
+          .attr('stroke', 'blue')
+          .attr('stroke-width', 2)
+          .attr('stroke-dasharray', '5')
+
+        svg
+          .append('line')
+          .attr('x1', kickShotLine.railHit1.x + borderSize)
+          .attr('y1', kickShotLine.railHit1.y + borderSize)
+          .attr('x2', kickShotLine.railHit2.x + borderSize)
+          .attr('y2', kickShotLine.railHit2.y + borderSize)
+          .attr('stroke', 'blue')
+          .attr('stroke-width', 2)
+          .attr('stroke-dasharray', '5')
+
+        svg
+          .append('line')
+          .attr('x1', kickShotLine.railHit2.x + borderSize)
+          .attr('y1', kickShotLine.railHit2.y + borderSize)
+          .attr('x2', kickShotLine.railHit3.x + borderSize)
+          .attr('y2', kickShotLine.railHit3.y + borderSize)
+          .attr('stroke', 'blue')
+          .attr('stroke-width', 2)
+          .attr('stroke-dasharray', '5')
+
+        svg
+          .append('line')
+          .attr('x1', kickShotLine.railHit3.x + borderSize)
+          .attr('y1', kickShotLine.railHit3.y + borderSize)
+          .attr('x2', kickShotLine.end.x + borderSize)
+          .attr('y2', kickShotLine.end.y + borderSize)
+          .attr('stroke', 'blue')
+          .attr('stroke-width', 2)
+          .attr('stroke-dasharray', '5')
+      }
     },
     modifySpecificDiamonds() {
       // Example: Modify a specific diamond by its ID
@@ -448,6 +604,11 @@ export default {
       this.modifySpecificDiamonds()
     },
     leaveLine() {
+      d3.select('#pool-table').selectAll('*').remove()
+      this.drawPoolTable()
+      this.modifySpecificDiamonds()
+    },
+    kickShotLine() {
       d3.select('#pool-table').selectAll('*').remove()
       this.drawPoolTable()
       this.modifySpecificDiamonds()
