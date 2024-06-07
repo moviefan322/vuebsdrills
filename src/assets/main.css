@@ -114,3 +114,7 @@ body {
   text-align: center;
   margin: auto;
 }
+
+.borderBottom {
+  border-bottom: 1px solid lime;
+}

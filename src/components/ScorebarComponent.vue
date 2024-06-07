@@ -12,17 +12,15 @@
       }}</span>
     </div>
   </div>
-  <div class="scorebar2 column" v-if="store.isLayout()">
-    <div
-      class="attempt"
-      v-for="layout in store.currentDrill?.layouts"
-      :key="layout"
-      :class="{ highlight: store.getCurrentLayout() === layout - 1 }"
-    >
-      Layout {{ toRomanNumeral(layout) }}:
-      <span>{{
-        store.getLayoutResults()[layout - 1] ? store.getLayoutResults()[layout - 1] : '?'
-      }}</span>
+  <div class="scorebar2" v-if="store.isLayout()">
+    <div class="attempt layout" v-for="layout in store.currentDrill?.layouts" :key="layout">
+      <div class="borderBottom" :class="{ highlight: store.getCurrentLayout() === layout - 1 }">
+        Layout {{ toRomanNumeral(layout) }}
+      </div>
+
+      <div>
+        {{ store.getLayoutResults()[layout - 1] ? store.getLayoutResults()[layout - 1] : '?' }}
+      </div>
     </div>
   </div>
   <div class="scorebar2 mt" v-else :class="scorebarClass">
@@ -84,6 +82,20 @@ const isStandard = computed(() => {
 .attempt {
   border: lime 1px solid;
   padding: 0.5rem 1rem;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.layout div {
+  width: 100%;
+  padding: 0.5rem;
+  text-align: center;
 }
 
 .attempt .progscore {
