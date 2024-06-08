@@ -175,6 +175,10 @@ export const useDrillStore = defineStore('drill', () => {
     }
   })
 
+  const getAllDrills = () => {
+    return drills
+  }
+
   const getShot = () => {
     return shot.value
   }
@@ -313,6 +317,7 @@ export const useDrillStore = defineStore('drill', () => {
   return {
     drill,
     fetchDrill,
+    getAllDrills,
     nextDrill,
     previousDrill,
     fetchDrillSet,

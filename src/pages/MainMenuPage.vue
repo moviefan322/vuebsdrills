@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import { RouterLink } from 'vue-router'
+import BrowseDrills from '@/components/menuComponents/BrowseDrills.vue'
 
 const showExams = ref(false)
 const showMainMenu = ref(true)
+const showDrills = ref(false)
 
 const handleShowExams = () => {
   showMainMenu.value = false
@@ -14,20 +16,27 @@ const handleGoBack = () => {
   showMainMenu.value = true
 }
 
+const handleShowDrills = () => {
+  showMainMenu.value = false
+  showDrills.value = true
+}
+
 watch(showMainMenu, (newVal) => {
   if (newVal === true) {
     showExams.value = false
+    showDrills.value = false
   }
 })
 </script>
 
 <template>
   <div class="container">
-    <h1 class="mb">Welcome!</h1>
+    <BrowseDrills v-if="showDrills" />
     <div v-if="showMainMenu">
+      <h1 class="mb">Welcome!</h1>
       <ul class="menulist mb">
         <li @click="handleShowExams">Take Exam</li>
-        <li>Browse Drills</li>
+        <li @click="handleShowDrills">Browse Drills</li>
       </ul>
     </div>
     <div v-if="showExams">

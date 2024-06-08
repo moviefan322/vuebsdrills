@@ -1,6 +1,11 @@
 import type { Drill } from '../types/types'
 import allDrills from './skills1'
 
+// remove doubles from allDrills
+const curatedDrills = allDrills.filter((drill, index, self) => {
+  return index === self.findIndex((d) => d.id === drill.id)
+})
+
 export const cutShotDrill: Drill = {
   id: 1,
   name: 'Cut Shot',
@@ -148,7 +153,7 @@ const drills: Drill[] = [
   pocketingDrill,
   wagonWheel,
   landingZone,
-  ...allDrills
+  ...curatedDrills
 ]
 
 export default drills
