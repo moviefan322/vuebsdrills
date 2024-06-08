@@ -355,6 +355,45 @@ export const elevated3: Drill = {
   skills: ['cueing', 'potting']
 }
 
+export const jumpMasse1: Drill = {
+  id: 35,
+  name: 'Jump/Massé (I)',
+  maxScore: 3,
+  instructions: `• You get 1 point for each successful shot (OB pocketed, no obstacle-ball contact) of 3 attempts. <br />
+  • You are allowed to scratch. <br />
+  • Remove one of the obstacle balls if attempting to curve rather than jump <br />`,
+  image:
+    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717817781/Screenshot_2024-06-07_at_11.36.11_PM_ojfhlc.png',
+  type: 'standard',
+  skills: ['cueing', 'potting']
+}
+
+export const jumpMasse2: Drill = {
+  id: 36,
+  name: 'Jump/Massé (II)',
+  maxScore: 5,
+  instructions: `• You get 1 point for each successful shot (OB pocketed, no obstacle-ball contact) of 3 attempts. <br />
+  • You are allowed to scratch. <br />
+  • Remove one of the obstacle balls if attempting to curve rather than jump <br />`,
+  image:
+    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717818010/Screenshot_2024-06-07_at_11.40.00_PM_uidmmy.png',
+  type: 'standard',
+  skills: ['cueing', 'potting']
+}
+
+export const jumpMasse3: Drill = {
+  id: 37,
+  name: 'Jump/Massé (III)',
+  maxScore: 7,
+  instructions: `• You get 1 point for each successful shot (OB pocketed, no obstacle-ball contact) of 3 attempts. <br />
+  • You are allowed to scratch. <br />
+  • Remove one of the obstacle balls if attempting to curve rather than jump <br />`,
+  image:
+    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717818147/Screenshot_2024-06-07_at_11.42.15_PM_lfhdac.png',
+  type: 'standard',
+  skills: ['cueing', 'potting']
+}
+
 export const skills1: Drill[] = [
   lineOfBalls1,
   RailCutShot1,
@@ -363,7 +402,8 @@ export const skills1: Drill[] = [
   safety1,
   kick1,
   bank1,
-  elevated1
+  elevated1,
+  jumpMasse1
 ]
 export const skills2: Drill[] = [
   lineOfBalls2,
@@ -373,7 +413,8 @@ export const skills2: Drill[] = [
   safety2,
   kick2,
   bank2,
-  elevated2
+  elevated2,
+  jumpMasse2
 ]
 export const skills3: Drill[] = [
   lineOfBalls3,
@@ -383,7 +424,8 @@ export const skills3: Drill[] = [
   safety3,
   kick3,
   bank3,
-  elevated3
+  elevated3,
+  jumpMasse3
 ]
 
 export default [...skills1, ...skills2, ...skills3]

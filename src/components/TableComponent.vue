@@ -664,23 +664,23 @@ const ballPositionProps = computed(() => {
   }
   if (store.getDrillId() === 32 || store.getDrillId() === 33 || store.getDrillId() === 34) {
     let obstacleBall = { number: 17, x: 20, y: 0.15 }
-    if(store.getShot() === 3) {
+    if (store.getShot() === 3) {
       obstacleBall = { number: 17, x: 4.95, y: 0.15 }
     }
-    if(store.getShot() === 5) {
+    if (store.getShot() === 5) {
       obstacleBall = { number: 17, x: 2.95, y: 0.95 }
     }
-    if(store.getShot() === 7) {
+    if (store.getShot() === 7) {
       obstacleBall = { number: 17, x: 1.95, y: 2.95 }
     }
     const cueBallPos = [
       { number: 0, x: 6.95, y: 0.15 },
-      { number: 0, x: 5.95, y: .15 },
-      { number: 0, x: 5.05, y: .35 },
-      { number: 0, x: 2.95, y: .15 },
+      { number: 0, x: 5.95, y: 0.15 },
+      { number: 0, x: 5.05, y: 0.35 },
+      { number: 0, x: 2.95, y: 0.15 },
       { number: 0, x: 3.12, y: 1.05 },
-      { number: 0, x: .15, y: 1.95 },
-      { number: 0, x: 2.15, y: 3 },
+      { number: 0, x: 0.15, y: 1.95 },
+      { number: 0, x: 2.15, y: 3 }
     ]
     const objBall = [
       { number: 1, x: 7.45, y: 1.95 },
@@ -689,9 +689,34 @@ const ballPositionProps = computed(() => {
       { number: 4, x: 5.15, y: 1.95 },
       { number: 5, x: 5.26, y: 2.35 },
       { number: 6, x: 3.95, y: 2.95 },
-      { number: 7, x: 4.95, y: 3.45 },
+      { number: 7, x: 4.95, y: 3.45 }
     ]
     return [objBall[store.getShot() - 1], cueBallPos[store.getShot() - 1], obstacleBall]
+  }
+
+  if (store.getDrillId() === 35) {
+    return [
+      { number: 0, x: 0.95, y: 0.95 },
+      { number: 1, x: 7.8, y: 3.8 },
+      { number: 17, x: 2, y: 1.6 },
+      { number: 17, x: 2.15, y: 1.25 }
+    ]
+  }
+
+  if (store.getDrillId() === 36) {
+    return [
+      { number: 0, x: 0.95, y: 0.95 },
+      { number: 1, x: 7.8, y: 3.8 },
+      { number: 17, x: 2, y: 1.4 },
+    ]
+  }
+
+  if (store.getDrillId() === 37) {
+    return [
+      { number: 0, x: 0.95, y: 0.95 },
+      { number: 1, x: 7.8, y: 3.8 },
+      { number: 17, x: 1.55, y: 1.2 },
+    ]
   }
 
   return [
@@ -749,6 +774,10 @@ const pottingPocketProp = computed(() => {
   }
 
   if (store.getDrillId() === 32 || store.getDrillId() === 33 || store.getDrillId() === 34) {
+    return { x: 8, y: 4, show: true }
+  }
+
+  if (store.getDrillId() === 35 || store.getDrillId() === 36 || store.getDrillId() === 37) {
     return { x: 8, y: 4, show: true }
   }
 
