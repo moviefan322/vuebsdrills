@@ -40,6 +40,10 @@ export default {
     kickShotLineProp: {
       type: Object,
       default: () => ({ draw: false, rails: 0, objectBall: null })
+    },
+    bankShotLineProp: {
+      type: Object,
+      default: () => ({ draw: false, objectBall: null, pocket: null })
     }
   },
   computed: {
@@ -56,6 +60,9 @@ export default {
         y: (ball.y * tableHeight) / 4,
         radius: ballRadius
       }))
+    },
+    objectBall() {
+      return this.ballPositions.find((ball) => ball.number !== 0)
     },
     kickShotLine() {
       const kickShotLine = this.kickShotLineProp
@@ -111,6 +118,53 @@ export default {
 
       return null
     },
+    bankShotLine() {
+      const bankShotLine = this.bankShotLineProp
+      if (!bankShotLine.draw) return null
+      const tableWidth = this.tableWidth
+      const tableHeight = tableWidth / 2
+      const diamondWidth = tableWidth / 8
+      const ballRadius = tableWidth / 80
+
+      const objectBall = this.ballPositions.find((ball) => ball.number === bankShotLine.objectBall)
+      if (!objectBall) return null
+      const pocket = {
+        x: bankShotLine.pocket.x * diamondWidth,
+        y: bankShotLine.pocket.y * diamondWidth
+      }
+
+      // Calculate the slope of the trajectory line
+      const slope = ((pocket.y - objectBall.y) / (pocket.x - objectBall.x)) * 3
+
+      // Determine the rail hit point
+      let railHit = {}
+
+      if (pocket.y > tableHeight) {
+        // Pocket is on the bottom rail
+        railHit.y = 0
+        railHit.x = objectBall.x + (tableHeight - objectBall.y) / slope
+      } else {
+        // Pocket is on the top rail
+        railHit.y = tableHeight
+        railHit.x = objectBall.x - objectBall.y / slope
+      }
+
+      const directionVector = { x: railHit.x - objectBall.x, y: railHit.y - objectBall.y }
+      const length = Math.sqrt(directionVector.x ** 2 + directionVector.y ** 2)
+
+      const normalizedVector = { x: directionVector.x / length, y: directionVector.y / length }
+
+      const start = {
+        x: objectBall.x + normalizedVector.x * (ballRadius * 1.5),
+        y: objectBall.y + normalizedVector.y * (ballRadius * 1.5)
+      }
+
+      return {
+        start,
+        railHit,
+        end: { x: pocket.x, y: pocket.y + diamondWidth * 0.1 }
+      }
+    },
     pottingPocket() {
       const tableWidth = this.tableWidth
       const tableHeight = tableWidth / 2
@@ -118,9 +172,6 @@ export default {
         x: (this.pottingPocketProp.x * tableWidth) / 8,
         y: (this.pottingPocketProp.y * tableHeight) / 4
       }
-    },
-    objectBall() {
-      return this.ballPositions.find((ball) => ball.number !== 0)
     },
     pottingLine() {
       const objectBall = this.objectBall
@@ -144,8 +195,16 @@ export default {
       const objectBall = this.objectBall
       if (!cueBall || !objectBall || !showShotLine) return null
 
-      const pocketX = this.pottingPocket.x
-      const pocketY = this.pottingPocket.y
+      let pocketX
+      let pocketY
+
+      if (this.bankShotLineProp.draw) {
+        pocketX = (this.bankShotLine.railHit.x * this.tableWidth) / 8
+        pocketY = (this.bankShotLine.railHit.y * this.tableWidth) / 8
+      } else {
+        pocketX = this.pottingPocket.x
+        pocketY = this.pottingPocket.y
+      }
       const pocketAngle = Math.atan2(pocketY - objectBall.y, pocketX - objectBall.x)
 
       const cueBallAngle = Math.atan2(objectBall.y - cueBall.y, objectBall.x - cueBall.x)
@@ -494,7 +553,7 @@ export default {
           .attr('y1', kickShotLine.start.y + borderSize)
           .attr('x2', kickShotLine.railHit.x + borderSize)
           .attr('y2', kickShotLine.railHit.y + borderSize)
-          .attr('stroke', 'blue')
+          .attr('stroke', 'yellow')
           .attr('stroke-width', 2)
           .attr('stroke-dasharray', '5')
 
@@ -504,19 +563,18 @@ export default {
           .attr('y1', kickShotLine.railHit.y + borderSize)
           .attr('x2', kickShotLine.end.x + borderSize)
           .attr('y2', kickShotLine.end.y + borderSize)
-          .attr('stroke', 'blue')
+          .attr('stroke', 'yellow')
           .attr('stroke-width', 2)
           .attr('stroke-dasharray', '5')
       }
       if (kickShotLine && this.kickShotLineProp.rails === 2) {
-        console.log('here boss')
         svg
           .append('line')
           .attr('x1', kickShotLine.start.x + borderSize)
           .attr('y1', kickShotLine.start.y + borderSize)
           .attr('x2', kickShotLine.railHit1.x + borderSize)
           .attr('y2', kickShotLine.railHit1.y + borderSize)
-          .attr('stroke', 'blue')
+          .attr('stroke', 'yellow')
           .attr('stroke-width', 2)
           .attr('stroke-dasharray', '5')
 
@@ -526,7 +584,7 @@ export default {
           .attr('y1', kickShotLine.railHit1.y + borderSize)
           .attr('x2', kickShotLine.railHit2.x + borderSize)
           .attr('y2', kickShotLine.railHit2.y + borderSize)
-          .attr('stroke', 'blue')
+          .attr('stroke', 'yellow')
           .attr('stroke-width', 2)
           .attr('stroke-dasharray', '5')
 
@@ -536,7 +594,7 @@ export default {
           .attr('y1', kickShotLine.railHit2.y + borderSize)
           .attr('x2', kickShotLine.end.x + borderSize)
           .attr('y2', kickShotLine.end.y + borderSize)
-          .attr('stroke', 'blue')
+          .attr('stroke', 'yellow')
           .attr('stroke-width', 2)
           .attr('stroke-dasharray', '5')
       }
@@ -548,7 +606,7 @@ export default {
           .attr('y1', kickShotLine.start.y + borderSize)
           .attr('x2', kickShotLine.railHit1.x + borderSize)
           .attr('y2', kickShotLine.railHit1.y + borderSize)
-          .attr('stroke', 'blue')
+          .attr('stroke', 'yellow')
           .attr('stroke-width', 2)
           .attr('stroke-dasharray', '5')
 
@@ -558,7 +616,7 @@ export default {
           .attr('y1', kickShotLine.railHit1.y + borderSize)
           .attr('x2', kickShotLine.railHit2.x + borderSize)
           .attr('y2', kickShotLine.railHit2.y + borderSize)
-          .attr('stroke', 'blue')
+          .attr('stroke', 'yellow')
           .attr('stroke-width', 2)
           .attr('stroke-dasharray', '5')
 
@@ -568,7 +626,7 @@ export default {
           .attr('y1', kickShotLine.railHit2.y + borderSize)
           .attr('x2', kickShotLine.railHit3.x + borderSize)
           .attr('y2', kickShotLine.railHit3.y + borderSize)
-          .attr('stroke', 'blue')
+          .attr('stroke', 'yellow')
           .attr('stroke-width', 2)
           .attr('stroke-dasharray', '5')
 
@@ -578,7 +636,31 @@ export default {
           .attr('y1', kickShotLine.railHit3.y + borderSize)
           .attr('x2', kickShotLine.end.x + borderSize)
           .attr('y2', kickShotLine.end.y + borderSize)
-          .attr('stroke', 'blue')
+          .attr('stroke', 'yellow')
+          .attr('stroke-width', 2)
+          .attr('stroke-dasharray', '5')
+      }
+
+      // draw bank shot line
+      const bankShotLine = this.bankShotLine
+      if (bankShotLine) {
+        svg
+          .append('line')
+          .attr('x1', bankShotLine.start.x + borderSize)
+          .attr('y1', bankShotLine.start.y + borderSize)
+          .attr('x2', bankShotLine.railHit.x + borderSize)
+          .attr('y2', bankShotLine.railHit.y + borderSize)
+          .attr('stroke', 'yellow')
+          .attr('stroke-width', 2)
+          .attr('stroke-dasharray', '5')
+
+        svg
+          .append('line')
+          .attr('x1', bankShotLine.railHit.x + borderSize)
+          .attr('y1', bankShotLine.railHit.y + borderSize)
+          .attr('x2', bankShotLine.end.x + borderSize)
+          .attr('y2', bankShotLine.end.y + borderSize)
+          .attr('stroke', 'yellow')
           .attr('stroke-width', 2)
           .attr('stroke-dasharray', '5')
       }
@@ -609,6 +691,11 @@ export default {
       this.modifySpecificDiamonds()
     },
     kickShotLine() {
+      d3.select('#pool-table').selectAll('*').remove()
+      this.drawPoolTable()
+      this.modifySpecificDiamonds()
+    },
+    bankShotLine() {
       d3.select('#pool-table').selectAll('*').remove()
       this.drawPoolTable()
       this.modifySpecificDiamonds()

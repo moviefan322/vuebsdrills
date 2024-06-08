@@ -8,6 +8,7 @@
       :leaveLineProp="leaveLineProp"
       :showShotLine="showShotLine"
       :kickShotLineProp="kickShotLineProp"
+      :bankShotLineProp="bankShotLineProp"
       v-if="useProps"
     />
     <PoolTable :tableWidth="350" v-else />
@@ -629,6 +630,26 @@ const ballPositionProps = computed(() => {
     return [{ number: 0, x: 0.95, y: 0.95 }, objBall[store.getShot() - 1]]
   }
 
+  if (store.getDrillId() === 29) {
+    const objBall = [
+      { number: 1, x: 2.95, y: 1.95 },
+      { number: 2, x: 2.55, y: 1.95 },
+      { number: 3, x: 2.15, y: 1.95 }
+    ]
+    return [objBall[store.getShot() - 1]]
+  }
+
+  if (store.getDrillId() === 30) {
+    const cueBallPos = [
+      { number: 0, x: 2.55, y: 1.95 },
+      { number: 0, x: 2.75, y: 1.95 },
+      { number: 0, x: 2.95, y: 1.95 },
+      { number: 0, x: 3.15, y: 1.95 },
+      { number: 0, x: 3.35, y: 1.95 }
+    ]
+    return [{ number: store.getShot(), x: 2.95, y: 2.95 }, cueBallPos[store.getShot() - 1]]
+  }
+
   return [
     { number: +store.getShot(), x: 7.5, y: 0.15 }
     // Cue ball
@@ -775,7 +796,6 @@ const leaveLineProp = computed(() => {
 })
 
 const kickShotLineProp = computed(() => {
-  console.log(store.getShot())
   if (store.getDrillId() === 26 || store.getDrillId() === 27 || store.getDrillId() === 28) {
     let rails = 1
     if (store.getShot() > 6) {
@@ -786,6 +806,13 @@ const kickShotLineProp = computed(() => {
     return { draw: true, rails: rails, objectBall: store.getShot() }
   }
   return { draw: false, rails: 0, objectBall: null }
+})
+
+const bankShotLineProp = computed(() => {
+  if (store.getDrillId() === 29 || store.getDrillId() === 30) {
+    return { draw: true, objectBall: store.getShot(), pocket: { x: 4, y: 0 } }
+  }
+  return { draw: false, objectBall: null }
 })
 </script>
 

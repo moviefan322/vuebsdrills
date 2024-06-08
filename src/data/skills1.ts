@@ -255,7 +255,7 @@ export const kick1: Drill = {
   image:
     'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717798362/Screenshot_2024-06-07_at_6.12.36_PM_kkxj24.png',
   type: 'standard',
-  skills: ['cue ball control', 'safety']
+  skills: ['kicking']
 }
 
 export const kick2: Drill = {
@@ -265,11 +265,11 @@ export const kick2: Drill = {
   instructions: `• Shots 1-4: Kick at each OB off the same long rail (as shown), with the CB in the same starting
   position for each kick, getting 1 point for each successful and legal shot (i.e., no scratch, ball to
   rail). <br />
-  • Shot 5: With CB in hand, kick off any two rails at the 1 ball.`,
+  • Shot 5: With CB in hand, kick off any two rails at the 5 ball.`,
   image:
     'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717798483/Screenshot_2024-06-07_at_6.14.25_PM_nnf6bx.png',
   type: 'standard',
-  skills: ['cue ball control', 'safety']
+  skills: ['kicking']
 }
 
 export const kick3: Drill = {
@@ -279,16 +279,51 @@ export const kick3: Drill = {
   instructions: `• Shots 1-4: Kick at each OB off the same long rail (as shown), with the CB in the same starting
   position for each kick, getting 1 point for each successful and legal shot (i.e., no scratch, ball to
   rail). <br />
-  • Shots 5,6: With CB in hand on each shot, kick off any two rails at the 1 ball and the 3 ball. <br />
-  • Shot 7: With CB in hand, kick off any three rails at the 2 ball.`,
+  • Shots 5,6: With CB in hand on each shot, kick off any two rails at the 5 ball and the 6 ball. <br />
+  • Shot 7: With CB in hand, kick off any three rails at the 7 ball.`,
   image:
     'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717798483/Screenshot_2024-06-07_at_6.14.25_PM_nnf6bx.png',
   type: 'standard',
-  skills: ['cue ball control', 'safety']
+  skills: ['kicking']
+}
+export const bank1: Drill = {
+  id: 29,
+  name: 'Bank Shot (I)',
+  maxScore: 3,
+  instructions: `• With CB in hand for each shot, bank each ball cross side. <br />
+  • You receive 1 point for each bank pocketed legally (w/o scratching).`,
+  image:
+    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717803152/Screenshot_2024-06-07_at_7.32.26_PM_daom3s.png',
+  type: 'standard',
+  skills: ['banking', 'potting']
 }
 
-export const skills1: Drill[] = [lineOfBalls1, RailCutShot1, pattern9Ball1, pattern8Ball1, safety1, kick1]
-export const skills2: Drill[] = [lineOfBalls2, RailCutShot2, pattern9Ball2, pattern8Ball2, safety2, kick2]
-export const skills3: Drill[] = [lineOfBalls3, RailCutShot3, pattern9Ball3, pattern8Ball3, safety3, kick3]
+export const bank2: Drill = {
+  id: 30,
+  name: 'Bank Shot (II)',
+  maxScore: 5,
+  instructions: `• With CB in hand for each shot, bank each ball cross side. <br />
+  • You receive 1 point for each bank pocketed legally (w/o scratching).`,
+  image:
+    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717803280/Screenshot_2024-06-07_at_7.34.25_PM_qcjbqx.png',
+  type: 'standard',
+  skills: ['banking', 'potting']
+}
+
+export const bank3: Drill = {
+  id: 31,
+  name: 'Bank Shot (III)',
+  maxScore: 7,
+  instructions: `• With CB in hand for each shot, bank each ball cross side. <br />
+  • You receive 1 point for each bank pocketed legally (w/o scratching).`,
+  image:
+    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717803360/Screenshot_2024-06-07_at_7.35.52_PM_uqpnq5.png',
+  type: 'standard',
+  skills: ['banking', 'potting']
+}
+
+export const skills1: Drill[] = [lineOfBalls1, RailCutShot1, pattern9Ball1, pattern8Ball1, safety1, kick1, bank1]
+export const skills2: Drill[] = [lineOfBalls2, RailCutShot2, pattern9Ball2, pattern8Ball2, safety2, kick2, bank2]
+export const skills3: Drill[] = [lineOfBalls3, RailCutShot3, pattern9Ball3, pattern8Ball3, safety3, kick3, bank3]
 
 export default [...skills1, ...skills2, ...skills3]
