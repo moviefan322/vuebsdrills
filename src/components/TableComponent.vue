@@ -650,6 +650,19 @@ const ballPositionProps = computed(() => {
     return [{ number: store.getShot(), x: 2.95, y: 2.95 }, cueBallPos[store.getShot() - 1]]
   }
 
+  if (store.getDrillId() === 31) {
+    const cueBallPos = [
+      { number: 0, x: 5.95, y: 1.95 },
+      { number: 0, x: 5.45, y: 1.95 },
+      { number: 0, x: 4.95, y: 1.95 },
+      { number: 0, x: 4.45, y: 1.95 },
+      { number: 0, x: 3.95, y: 1.95 },
+      { number: 0, x: 3.45, y: 1.95 },
+      { number: 0, x: 2.95, y: 1.95 }
+    ]
+    return [{ number: store.getShot(), x: 5.95, y: 2.95 }, cueBallPos[store.getShot() - 1]]
+  }
+
   return [
     { number: +store.getShot(), x: 7.5, y: 0.15 }
     // Cue ball
@@ -811,6 +824,9 @@ const kickShotLineProp = computed(() => {
 const bankShotLineProp = computed(() => {
   if (store.getDrillId() === 29 || store.getDrillId() === 30) {
     return { draw: true, objectBall: store.getShot(), pocket: { x: 4, y: 0 } }
+  }
+  if (store.getDrillId() === 31) {
+    return { draw: true, objectBall: store.getShot(), pocket: { x: 8, y: 0 } }
   }
   return { draw: false, objectBall: null }
 })
