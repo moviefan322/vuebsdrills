@@ -322,8 +322,68 @@ export const bank3: Drill = {
   skills: ['banking', 'potting']
 }
 
-export const skills1: Drill[] = [lineOfBalls1, RailCutShot1, pattern9Ball1, pattern8Ball1, safety1, kick1, bank1]
-export const skills2: Drill[] = [lineOfBalls2, RailCutShot2, pattern9Ball2, pattern8Ball2, safety2, kick2, bank2]
-export const skills3: Drill[] = [lineOfBalls3, RailCutShot3, pattern9Ball3, pattern8Ball3, safety3, kick3, bank3]
+export const elevated1: Drill = {
+  id: 32,
+  name: 'Elevated Cue (I)',
+  maxScore: 3,
+  instructions: `• Pocket each OB from the indicated CB position without scratching.`,
+  image:
+    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717807988/Screenshot_2024-06-07_at_8.53.00_PM_ibqkpx.png',
+  type: 'standard',
+  skills: ['cueing', 'potting']
+}
+
+export const elevated2: Drill = {
+  id: 33,
+  name: 'Elevated Cue (II)',
+  maxScore: 5,
+  instructions: `• Pocket each OB from the indicated CB position without scratching.`,
+  image:
+    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717808084/Screenshot_2024-06-07_at_8.54.34_PM_sghsen.png',
+  type: 'standard',
+  skills: ['cueing', 'potting']
+}
+
+export const elevated3: Drill = {
+  id: 34,
+  name: 'Elevated Cue (III)',
+  maxScore: 7,
+  instructions: `• Pocket each OB from the indicated CB position without scratching.`,
+  image:
+    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717808136/Screenshot_2024-06-07_at_8.55.26_PM_jwijyu.png',
+  type: 'standard',
+  skills: ['cueing', 'potting']
+}
+
+export const skills1: Drill[] = [
+  lineOfBalls1,
+  RailCutShot1,
+  pattern9Ball1,
+  pattern8Ball1,
+  safety1,
+  kick1,
+  bank1,
+  elevated1
+]
+export const skills2: Drill[] = [
+  lineOfBalls2,
+  RailCutShot2,
+  pattern9Ball2,
+  pattern8Ball2,
+  safety2,
+  kick2,
+  bank2,
+  elevated2
+]
+export const skills3: Drill[] = [
+  lineOfBalls3,
+  RailCutShot3,
+  pattern9Ball3,
+  pattern8Ball3,
+  safety3,
+  kick3,
+  bank3,
+  elevated3
+]
 
 export default [...skills1, ...skills2, ...skills3]

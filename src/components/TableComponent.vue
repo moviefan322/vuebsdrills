@@ -662,6 +662,23 @@ const ballPositionProps = computed(() => {
     ]
     return [{ number: store.getShot(), x: 5.95, y: 2.95 }, cueBallPos[store.getShot() - 1]]
   }
+  if (store.getDrillId() === 32) {
+    let obstacleBall = { number: 17, x: 20, y: 0.15 }
+    if(store.getShot() === 3) {
+      obstacleBall = { number: 17, x: 4.95, y: 0.15 }
+    }
+    const cueBallPos = [
+      { number: 0, x: 6.95, y: 0.15 },
+      { number: 0, x: 5.95, y: .15 },
+      { number: 0, x: 5.05, y: .35 }
+    ]
+    const objBall = [
+      { number: 1, x: 7.45, y: 1.95 },
+      { number: 2, x: 6.9, y: 1.95 },
+      { number: 3, x: 6.45, y: 2.15 }
+    ]
+    return [objBall[store.getShot() - 1], cueBallPos[store.getShot() - 1], obstacleBall]
+  }
 
   return [
     { number: +store.getShot(), x: 7.5, y: 0.15 }
@@ -675,46 +692,50 @@ const pottingPocketProp = computed(() => {
     return null
   }
   if (store.getDrillId() === 1) {
-    return { x: 8, y: 4 }
+    return { x: 8, y: 4, show: true }
   }
 
   if (store.getDrillId() === 2 || store.getDrillId() === 3 || store.getDrillId() === 4) {
-    return { x: 8, y: 0 }
+    return { x: 8, y: 0, show: true }
   }
 
   if (store.getDrillId() === 5) {
-    return { x: 4, y: 4 }
+    return { x: 4, y: 4, show: true }
   }
 
   if (store.getDrillId() === 6) {
     if (store.getShot() === 1 || store.getShot() === 9) {
-      return { x: 4, y: 0 }
+      return { x: 4, y: 0, show: true }
     }
     if (store.getShot() === 2 || store.getShot() === 10) {
-      return { x: 8, y: 0 }
+      return { x: 8, y: 0, show: true }
     }
     if (store.getShot() === 3) {
-      return { x: 8, y: 4 }
+      return { x: 8, y: 4, show: true }
     }
     if (store.getShot() === 6 || store.getShot() === 4) {
-      return { x: 4, y: 4 }
+      return { x: 4, y: 4, show: true }
     }
     if (store.getShot() === 7 || store.getShot() === 5) {
-      return { x: 8, y: 4 }
+      return { x: 8, y: 4, show: true }
     }
     if (store.getShot() === 8) {
-      return { x: 8, y: 0 }
+      return { x: 8, y: 0, show: true }
     }
 
-    return { x: 4, y: 4 }
+    return { x: 4, y: 4, show: true }
   }
 
   if (store.getDrillId() === 7) {
-    return { x: 4, y: 0 }
+    return { x: 4, y: 0, show: true }
   }
 
   if (store.getDrillId() === 8) {
-    return { x: 8, y: 0 }
+    return { x: 8, y: 0, show: true }
+  }
+
+  if (store.getDrillId() === 32 || store.getDrillId() === 33 || store.getDrillId() === 34) {
+    return { x: 8, y: 4, show: true }
   }
 
   return { show: false, x: 0, y: 0 }
@@ -818,7 +839,7 @@ const kickShotLineProp = computed(() => {
     }
     return { draw: true, rails: rails, objectBall: store.getShot() }
   }
-  return { draw: false, rails: 0, objectBall: null }
+  return { draw: false, rails: null, objectBall: null }
 })
 
 const bankShotLineProp = computed(() => {
@@ -828,7 +849,7 @@ const bankShotLineProp = computed(() => {
   if (store.getDrillId() === 31) {
     return { draw: true, objectBall: store.getShot(), pocket: { x: 8, y: 0 } }
   }
-  return { draw: false, objectBall: null }
+  return { draw: false, objectBall: null, pocket: null }
 })
 </script>
 
