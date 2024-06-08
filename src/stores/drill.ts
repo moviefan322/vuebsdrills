@@ -228,7 +228,7 @@ export const useDrillStore = defineStore('drill', () => {
   }
 
   const isAttempts = () => {
-    return currentDrill.value!.attempts
+    return currentDrill.value!.type === 'attempt'
   }
 
   const getCurrentAttempt = () => {
@@ -261,7 +261,12 @@ export const useDrillStore = defineStore('drill', () => {
   const incrementCurrentAttempt = () => {
     if (currentAttempt.value === currentDrill.value!.attempts! - 1) {
       const highestAttempt = Math.max(...attemptResults.value)
-      pots.value = highestAttempt
+      const medianAttempt = attemptResults.value.sort((a, b) => a - b)[1]
+      if (currentDrill.value!.id === 38) {
+        pots.value = medianAttempt
+      } else {
+        pots.value = highestAttempt
+      }
       drillComplete.value = true
       return
     }

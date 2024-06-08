@@ -1,8 +1,9 @@
 <template>
   <div v-if="store.isAttempts() || store.isLayout()">
-    <h5 class="center mt mb">How many Balls did you pot?</h5>
+    <h5 v-if="store.getDrillId() === 38" class="center mt mb">How many points did you score?</h5>
+    <h5 v-else class="center mt mb">How many Balls did you pot?</h5>
     <div class="buttonRow" v-if="store.isAttempts()">
-      <div class="lime">0</div>
+      <div class="lime" @click="submitAttemptScore(0)">0</div>
       <div
         class="lime"
         v-for="score in store.getMaxScore()"

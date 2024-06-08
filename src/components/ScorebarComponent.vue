@@ -1,18 +1,25 @@
 <template>
-  <div class="scorebar2" v-if="store.currentDrill?.attempts">
+  <div class="scorebar2" v-if="store.isAttempts()">
     <div
-      class="attempt"
+      class="attempt layout"
       v-for="attempt in store.currentDrill?.attempts"
       :key="attempt"
       :class="{ highlight: store.getCurrentAttempt() === attempt - 1 }"
     >
-      Attempt {{ toRomanNumeral(attempt) }}:
-      <span>{{
-        store.getAttemptResults()[attempt - 1] ? store.getAttemptResults()[attempt - 1] : '?'
-      }}</span>
+      <div class="borderBottom" :class="{ highlight: store.getCurrentAttempt() === attempt - 1 }">
+        Attempt {{ toRomanNumeral(attempt) }}
+      </div>
+
+      <div>
+        {{
+          store.getAttemptResults()[attempt - 1] !== undefined
+            ? store.getAttemptResults()[attempt - 1]
+            : '?'
+        }}
+      </div>
     </div>
   </div>
-  <div class="scorebar2" v-if="store.isLayout()">
+  <div class="scorebar2" v-else-if="store.isLayout()">
     <div class="attempt layout" v-for="layout in store.currentDrill?.layouts" :key="layout">
       <div class="borderBottom" :class="{ highlight: store.getCurrentLayout() === layout - 1 }">
         Layout {{ toRomanNumeral(layout) }}
@@ -112,6 +119,7 @@ const isStandard = computed(() => {
 .highlight {
   background-color: yellow;
   color: black;
+  border-color: rgb(0, 0, 0);
 }
 
 .column {

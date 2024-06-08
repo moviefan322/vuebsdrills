@@ -707,7 +707,7 @@ const ballPositionProps = computed(() => {
     return [
       { number: 0, x: 0.95, y: 0.95 },
       { number: 1, x: 7.8, y: 3.8 },
-      { number: 17, x: 2, y: 1.4 },
+      { number: 17, x: 2, y: 1.4 }
     ]
   }
 
@@ -715,7 +715,21 @@ const ballPositionProps = computed(() => {
     return [
       { number: 0, x: 0.95, y: 0.95 },
       { number: 1, x: 7.8, y: 3.8 },
-      { number: 17, x: 1.55, y: 1.2 },
+      { number: 17, x: 1.55, y: 1.2 }
+    ]
+  }
+
+  if (store.getDrillId() === 38) {
+    return [
+      { number: 1, x: 5.9, y: 1.95 },
+      { number: 2, x: 6.1, y: 1.85 },
+      { number: 3, x: 6.1, y: 2.05 },
+      { number: 9, x: 6.3, y: 1.95 },
+      { number: 4, x: 6.3, y: 1.75 },
+      { number: 5, x: 6.3, y: 2.15 },
+      { number: 6, x: 6.5, y: 1.85 },
+      { number: 8, x: 6.5, y: 2.05 },
+      { number: 7, x: 6.7, y: 1.95 }
     ]
   }
 
@@ -828,6 +842,9 @@ const targetProp = computed(() => {
   }
   if (store.getDrillId() === 23 || store.getDrillId() === 24 || store.getDrillId() === 25) {
     return { isTarget: true, x: 5.8, y: 1, rotate: false, w: 1.1, h: 0.7 }
+  }
+  if (store.getDrillId() === 38) {
+    return { isTarget: true, x: 2.35, y: .5, rotate: false, w: 4, h: 3.8 }
   }
 
   return { isTarget: false, x: 4.5, y: 0.5, rotate: false, w: 2, h: 1 }

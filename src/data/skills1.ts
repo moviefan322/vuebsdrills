@@ -10,7 +10,7 @@ export const lineOfBalls1: Drill = {
   • Shoot the drill twice and use the higher score of the two attempts <br />`,
   image:
     'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717526801/Screenshot_2024-06-04_at_2.44.12_PM_zraapz.png',
-  type: 'standard',
+  type: 'attempt',
   attempts: 2,
   skills: ['position', 'cue ball control', 'pattern play']
 }
@@ -25,7 +25,7 @@ export const lineOfBalls2: Drill = {
   • Shoot the drill twice and use the higher score of the two attempts <br />`,
   image:
     'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717527553/Screenshot_2024-06-04_at_2.59.04_PM_obzasb.png',
-  type: 'standard',
+  type: 'attempt',
   attempts: 2,
   skills: ['position', 'cue ball control', 'pattern play']
 }
@@ -40,7 +40,7 @@ export const lineOfBalls3: Drill = {
   • Shoot the drill twice and use the higher score of the two attempts <br />`,
   image:
     'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717527553/Screenshot_2024-06-04_at_2.59.04_PM_obzasb.png',
-  type: 'standard',
+  type: 'attempt',
   attempts: 2,
   skills: ['position', 'cue ball control', 'pattern play']
 }
@@ -53,7 +53,7 @@ export const RailCutShot1: Drill = {
   • You are not allowed to scratch, shoot combinations, or disturb any of the remaining balls. <br />`,
   image:
     'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717537740/Screenshot_2024-06-04_at_5.48.55_PM_pbytyt.png',
-  type: 'standard',
+  type: 'attempt',
   attempts: 2,
   skills: ['aim', 'pattern play']
 }
@@ -66,7 +66,7 @@ export const RailCutShot2: Drill = {
   • You are not allowed to scratch, shoot combinations, or disturb any of the remaining balls. <br />`,
   image:
     'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717537849/Screenshot_2024-06-04_at_5.50.42_PM_oq3gra.png',
-  type: 'standard',
+  type: 'attempt',
   attempts: 2,
   skills: ['aim', 'pattern play']
 }
@@ -79,7 +79,7 @@ export const RailCutShot3: Drill = {
   • You are not allowed to scratch, shoot combinations, or disturb any of the remaining balls. <br />`,
   image:
     'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717537849/Screenshot_2024-06-04_at_5.50.42_PM_oq3gra.png',
-  type: 'standard',
+  type: 'attempt',
   attempts: 2,
   skills: ['aim', 'pattern play']
 }
@@ -394,6 +394,24 @@ export const jumpMasse3: Drill = {
   skills: ['cueing', 'potting']
 }
 
+export const breakDrill: Drill = {
+  id: 38,
+  name: 'Break',
+  maxScore: 5,
+  instructions: `• Break three times and score each break, awarding 1 point for each of the following: <br />
+  a.) no scratch. <br />
+  b.) no scratch, and the CB not driven to a cushion. <br />
+  c.) no scratch, and the center of the CB remains within the center 4-diamond target zone
+  during the entire break. <br />
+  d.) no scratch and 1 or more balls pocketed. <br />
+  e.) no scratch and 3 or more OBs either pocketed and/or driven above the head string. <br />`,
+  image:
+    'https://res.cloudinary.com/dnc2xvyms/image/upload/v1717824006/Screenshot_2024-06-08_at_1.19.02_AM_pg8lpq.png',
+  type: 'attempt',
+  attempts: 3,
+  skills: ['break']
+}
+
 export const skills1: Drill[] = [
   lineOfBalls1,
   RailCutShot1,
@@ -403,7 +421,8 @@ export const skills1: Drill[] = [
   kick1,
   bank1,
   elevated1,
-  jumpMasse1
+  jumpMasse1,
+  breakDrill
 ]
 export const skills2: Drill[] = [
   lineOfBalls2,
@@ -414,7 +433,8 @@ export const skills2: Drill[] = [
   kick2,
   bank2,
   elevated2,
-  jumpMasse2
+  jumpMasse2,
+  breakDrill
 ]
 export const skills3: Drill[] = [
   lineOfBalls3,
@@ -425,7 +445,8 @@ export const skills3: Drill[] = [
   kick3,
   bank3,
   elevated3,
-  jumpMasse3
+  jumpMasse3,
+  breakDrill
 ]
 
 export default [...skills1, ...skills2, ...skills3]
