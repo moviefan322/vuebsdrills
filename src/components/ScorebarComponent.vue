@@ -26,7 +26,11 @@
       </div>
 
       <div>
-        {{ store.getLayoutResults()[layout - 1] ? store.getLayoutResults()[layout - 1] : '?' }}
+        {{
+          store.getLayoutResults()[layout - 1] !== undefined
+            ? store.getLayoutResults()[layout - 1]
+            : '?'
+        }}
       </div>
     </div>
   </div>

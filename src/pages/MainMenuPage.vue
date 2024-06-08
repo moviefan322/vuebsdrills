@@ -34,13 +34,13 @@ watch(showMainMenu, (newVal) => {
       <ul class="menulist mb">
         <li><router-link to="/set/1" class="noStyleLink lime">BU Fundamentals</router-link></li>
         <li>
-          <router-link to="/dummy" class="noStyleLink lime">BU Skills I (Bachelors)</router-link>
+          <router-link to="/set/2" class="noStyleLink lime">BU Skills I (Bachelors)</router-link>
         </li>
         <li>
-          <router-link to="/dummy" class="noStyleLink lime">BU Skills II (Masters)</router-link>
+          <router-link to="/set/3" class="noStyleLink lime">BU Skills II (Masters)</router-link>
         </li>
         <li>
-          <router-link to="/dummy" class="noStyleLink lime">BU Skills III (Doctorate)</router-link>
+          <router-link to="/set/4" class="noStyleLink lime">BU Skills III (Doctorate)</router-link>
         </li>
       </ul>
     </div>
@@ -68,7 +68,7 @@ watch(showMainMenu, (newVal) => {
 
 .lime:hover,
 .menulist li:hover {
-  list-style-type:disc;
+  list-style-type: disc;
   color: yellow;
   cursor: pointer;
 }

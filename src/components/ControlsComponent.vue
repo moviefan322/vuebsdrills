@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="buttonRow" v-if="store.isLayout()">
-      <div class="lime">0</div>
+      <div class="lime" @click="submitLayoutScore(0)">0</div>
       <div
         class="lime"
         v-for="score in store.getLayoutMaxScore()"

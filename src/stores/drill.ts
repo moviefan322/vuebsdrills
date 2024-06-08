@@ -106,6 +106,10 @@ export const useDrillStore = defineStore('drill', () => {
       bonus: 0,
       pots: 0
     }
+    currentAttempt.value = 0
+    currentLayout.value = 0
+    attemptResults.value = []
+    layoutResults.value = []
   }
 
   const incrementShot = () => {
@@ -299,6 +303,11 @@ export const useDrillStore = defineStore('drill', () => {
       }
       submitScore()
     }
+  })
+
+  // reset values when drill changes
+  watch(currentDrill, () => {
+    resetValues()
   })
 
   return {
