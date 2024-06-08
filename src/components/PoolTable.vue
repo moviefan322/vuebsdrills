@@ -517,7 +517,6 @@ export default {
 
       // Draw potting line
       const pottingLine = this.pottingLine
-      console.log(pottingLine)
       if (pottingLine && this.pottingPocketProp.show) {
         svg
           .append('line')
