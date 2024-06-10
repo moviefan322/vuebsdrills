@@ -6,6 +6,7 @@ import ResultsPage from '../pages/ResultsPage.vue'
 import TableComponent from '../components/TableComponent.vue'
 import DummyPage from '../pages/DummyPage.vue'
 import NotFoundPage from '../pages/NotFoundPage.vue'
+import UserAuth from '../pages/UserAuth.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -29,6 +30,11 @@ const router = createRouter({
       path: '/results',
       name: 'results',
       component: ResultsPage
+    },
+    {
+      path: '/auth',
+      name: 'auth',
+      component: UserAuth
     },
     {
       path: '/table',

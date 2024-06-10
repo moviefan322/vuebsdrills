@@ -14,6 +14,11 @@ body {
   margin: auto;
 }
 
+.center {
+  text-align: center;
+  margin: auto;
+}
+
 .noStyleButt {
   font-size: 1rem;
   cursor: pointer;
@@ -108,11 +113,6 @@ body {
 
 .w100 {
   width: 100%;
-}
-
-.center {
-  text-align: center;
-  margin: auto;
 }
 
 .borderBottom {

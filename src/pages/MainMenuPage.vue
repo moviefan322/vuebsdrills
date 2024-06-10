@@ -40,6 +40,7 @@ watch(showMainMenu, (newVal) => {
       </ul>
     </div>
     <div v-if="showExams">
+      <h2 class="center mb">BU Exams</h2>
       <ul class="menulist mb">
         <li><router-link to="/set/1" class="noStyleLink lime">BU Fundamentals</router-link></li>
         <li>
@@ -97,5 +98,9 @@ watch(showMainMenu, (newVal) => {
 
 .back:hover {
   color: yellow;
+}
+
+.mb {
+  margin-bottom: 1rem;
 }
 </style>

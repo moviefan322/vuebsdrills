@@ -1,19 +1,19 @@
 <template>
   <teleport to="body">
-    <div v-if="props.show" @click="tryClose" class="backdrop"></div>
+    <div v-if="show" @click="tryClose" class="backdrop"></div>
     <transition name="dialog">
-      <dialog open v-if="props.show">
+      <dialog open v-if="show">
         <header>
           <slot name="header">
-            <h2>{{ props.title }}</h2>
+            <h2>{{ title }}</h2>
           </slot>
         </header>
         <section class="mainSec">
           <slot></slot>
         </section>
-        <menu v-if="!props.fixed">
+        <menu v-if="!fixed">
           <slot name="actions">
-            <button class="myButt" @click="tryClose">Close</button>
+            <base-button @click="tryClose">Close</base-button>
           </slot>
         </menu>
       </dialog>
@@ -22,19 +22,14 @@
 </template>
 
 <script setup lang="ts">
-interface Props {
-  show: boolean
-  title: string
-  fixed: boolean
-}
-
-const props = defineProps<Props>()
+const props = defineProps(['show', 'title', 'fixed'])
 const emits = defineEmits(['close'])
 
 const tryClose = () => {
-  if (!props.fixed) {
-    emits('close')
+  if (props.fixed) {
+    return
   }
+  emits('close')
 }
 </script>
 
