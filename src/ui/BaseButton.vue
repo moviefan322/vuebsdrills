@@ -17,9 +17,9 @@ a {
   text-decoration: none;
   padding: 0.75rem 1.5rem;
   font: inherit;
-  background-color: #3a0061;
-  border: 1px solid #3a0061;
-  color: white;
+  background-color: lime;
+  border: 1px solid lime;
+  color: black;
   cursor: pointer;
   border-radius: 30px;
   margin-right: 0.5rem;
@@ -30,26 +30,27 @@ a:hover,
 a:active,
 button:hover,
 button:active {
-  background-color: #270041;
-  border-color: #270041;
+  background-color: lime;
+  border-color: lime;
 }
 
 .flat {
   background-color: transparent;
-  color: #3a0061;
+  color: lime;
   border: none;
 }
 
 .outline {
   background-color: transparent;
-  border-color: #270041;
-  color: #270041;
+  border-color: lime;
+  color: lime;
 }
 
 .flat:hover,
 .flat:active,
 .outline:hover,
 .outline:active {
-  background-color: #edd2ff;
+  background-color: rgb(158, 248, 158);
+  color: black;
 }
 </style>
