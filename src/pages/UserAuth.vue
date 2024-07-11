@@ -31,8 +31,14 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { useAuthStore } from '../stores/auth'
+import BaseButton from '../ui/BaseButton.vue'
+import BaseCard from '../ui/BaseCard.vue'
+import BaseDialog from '../ui/BaseDialog.vue'
+import BaseSpinner from '../ui/BaseSpinner.vue'
 
 const router = useRouter()
+const store = useAuthStore()
 
 const email = ref('')
 const password = ref('')
@@ -76,7 +82,7 @@ const submitForm = () => {
       // await $store.dispatch('login', actionPayload)
     } else {
       console.log('signup', actionPayload)
-      // await this.$store.dispatch('signup', actionPayload)
+      store.createUser()
     }
     const redirectUrl = '/'
     router.replace(redirectUrl)
