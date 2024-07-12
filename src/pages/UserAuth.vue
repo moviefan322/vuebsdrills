@@ -81,8 +81,13 @@ const submitForm = () => {
       console.log('login', actionPayload)
       // await $store.dispatch('login', actionPayload)
     } else {
+      const userObject = {
+        email: email.value,
+        password: password.value,
+        name: 'John Doe'
+      }
       console.log('signup', actionPayload)
-      store.createUser()
+      store.createUser(userObject)
     }
     const redirectUrl = '/'
     router.replace(redirectUrl)
