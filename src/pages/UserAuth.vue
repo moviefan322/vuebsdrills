@@ -16,6 +16,10 @@
           <label for="password">Password</label>
           <input type="password" id="password" v-model.trim="password" />
         </div>
+        <div v-if="mode === 'signup'" class="form-control">
+          <label for="input">Name</label>
+          <input type="name" id="name" v-model.trim="userName" />
+        </div>
         <p v-if="!formIsValid">
           Please enter a valid email and password (must be at least 6 characters long).
         </p>
@@ -24,6 +28,7 @@
           switchModeButtonCaption
         }}</base-button>
       </form>
+      <p>{{ store.getError() }}</p>
     </base-card>
   </div>
 </template>
@@ -42,6 +47,7 @@ const store = useAuthStore()
 
 const email = ref('')
 const password = ref('')
+const userName = ref('')
 const formIsValid = ref(true)
 const mode = ref('login')
 const isLoading = ref(false)
@@ -62,7 +68,7 @@ const switchModeButtonCaption = computed(() => {
   }
 })
 
-const submitForm = () => {
+const submitForm = async () => {
   formIsValid.value = true
   if (email.value === '' || !email.value.includes('@') || password.value.length < 6) {
     formIsValid.value = false
@@ -84,13 +90,14 @@ const submitForm = () => {
       const userObject = {
         email: email.value,
         password: password.value,
-        name: 'John Doe'
+        name: userName.value
       }
-      console.log('signup', actionPayload)
-      store.createUser(userObject)
+      const res = await store.createUser(userObject)
+      console.log(store.getUser())
+      console.log(res)
     }
-    const redirectUrl = '/'
-    router.replace(redirectUrl)
+    // const redirectUrl = '/'
+    // router.replace(redirectUrl)
   } catch (err: any) {
     error.value = err.message || 'Failed to authenticate, try later.'
   }
@@ -107,6 +114,8 @@ const switchAuthMode = () => {
 const handleError = () => {
   error.value = null
 }
+
+console.log('getERROR', store.getError())
 </script>
 
 <style scoped>

@@ -2,10 +2,12 @@
 import { ref, watch } from 'vue'
 import { RouterLink } from 'vue-router'
 import BrowseDrills from '@/components/menuComponents/BrowseDrills.vue'
+import { useAuthStore } from '@/stores/auth'
 
 const showExams = ref(false)
 const showMainMenu = ref(true)
 const showDrills = ref(false)
+const store = useAuthStore()
 
 const handleShowExams = () => {
   showMainMenu.value = false
@@ -27,6 +29,7 @@ watch(showMainMenu, (newVal) => {
     showDrills.value = false
   }
 })
+
 </script>
 
 <template>
