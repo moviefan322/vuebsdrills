@@ -3,19 +3,32 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import axios from 'axios'
 
-interface userObject {
+interface UserObjectCreate {
   email: string
   name: string
   password: string
 }
 
+interface UserObjectLogin {
+  email: string
+  password: string
+}
+
+interface UserObject {
+  email: string
+  name: string
+}
+
 const createUrl = import.meta.env.VITE_APP_BACKEND_URL + 'api/user/create/'
+const tokenUrl = import.meta.env.VITE_APP_BACKEND_URL + 'api/user/token/'
+const meUrl = import.meta.env.VITE_APP_BACKEND_URL + 'api/user/me/'
 
 export const useAuthStore = defineStore('auth', () => {
-  const user = ref<userObject | null>(null)
+  const user = ref<UserObject | null>(null)
   const authError = ref<string | null>(null)
+  const token = ref<string | null>(null)
 
-  const createUser = async (userObject: userObject) => {
+  const createUser = async (userObject: UserObjectCreate) => {
     try {
       const response = await axios.post(createUrl, userObject)
       if (response.status === 201) {
@@ -46,6 +59,25 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
+  const loginUser = async (userObject: UserObjectLogin) => {
+    authError.value = null
+    const response = await axios.post(tokenUrl, userObject)
+    token.value = response.data.token
+    if (response.status === 200) {
+      await getMe()
+    }
+  }
+
+  const getMe = async () => {
+    if (!token.value) return
+    const response = await axios.get(meUrl, {
+      headers: {
+        Authorization: 'Token ' + token.value
+      }
+    })
+    user.value = response.data
+  }
+
   const getUser = () => {
     return user.value
   }
@@ -54,5 +86,9 @@ export const useAuthStore = defineStore('auth', () => {
     return authError.value
   }
 
-  return { createUser, getUser, getError }
+  const getToken = () => {
+    return token.value
+  }
+
+  return { createUser, loginUser, getUser, getError, getToken }
 })

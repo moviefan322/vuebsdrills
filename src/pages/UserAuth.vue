@@ -28,7 +28,6 @@
           switchModeButtonCaption
         }}</base-button>
       </form>
-      <p>{{ store.getError() }}</p>
     </base-card>
   </div>
 </template>
@@ -41,6 +40,11 @@ import BaseButton from '../ui/BaseButton.vue'
 import BaseCard from '../ui/BaseCard.vue'
 import BaseDialog from '../ui/BaseDialog.vue'
 import BaseSpinner from '../ui/BaseSpinner.vue'
+
+interface LoginPayload {
+  email: string
+  password: string
+}
 
 const router = useRouter()
 const store = useAuthStore()
@@ -60,6 +64,7 @@ const submitButtonCaption = computed(() => {
     return 'Signup'
   }
 })
+
 const switchModeButtonCaption = computed(() => {
   if (mode.value === 'login') {
     return 'Signup instead'
@@ -67,6 +72,16 @@ const switchModeButtonCaption = computed(() => {
     return 'Login instead'
   }
 })
+
+const loginUser = async (actionPayload: LoginPayload) => {
+  await store.loginUser(actionPayload)
+  if (store.getUser()!.email === email.value) {
+    const redirectUrl = '/'
+    router.replace(redirectUrl)
+  } else {
+    error.value = 'Login Failed'
+  }
+}
 
 const submitForm = async () => {
   formIsValid.value = true
@@ -84,20 +99,16 @@ const submitForm = async () => {
 
   try {
     if (mode.value === 'login') {
-      console.log('login', actionPayload)
-      // await $store.dispatch('login', actionPayload)
+      loginUser(actionPayload)
     } else {
       const userObject = {
         email: email.value,
         password: password.value,
         name: userName.value
       }
-      const res = await store.createUser(userObject)
-      console.log(store.getUser())
-      console.log(res)
+      await store.createUser(userObject)
+      loginUser(actionPayload)
     }
-    // const redirectUrl = '/'
-    // router.replace(redirectUrl)
   } catch (err: any) {
     error.value = err.message || 'Failed to authenticate, try later.'
   }
