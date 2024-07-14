@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, watch, computed } from 'vue'
 import { RouterLink } from 'vue-router'
 import BrowseDrills from '@/components/menuComponents/BrowseDrills.vue'
 import { useAuthStore } from '@/stores/auth'
@@ -30,13 +30,15 @@ watch(showMainMenu, (newVal) => {
   }
 })
 
+const userName = computed(() => store.getUser()?.name || '')
+
 </script>
 
 <template>
   <div class="container">
     <BrowseDrills v-if="showDrills" />
     <div v-if="showMainMenu">
-      <h1 class="mb">Welcome!</h1>
+      <h1 class="mb">Welcome{{ userName ? ', ' + userName : '' }}!</h1>
       <ul class="menulist mb">
         <li @click="handleShowExams">Take Exam</li>
         <li @click="handleShowDrills">Browse Drills</li>

@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
+import UserComponent from './components/UserComponent.vue'
 </script>
 
 <template>
   <div id="container">
+    <UserComponent />
     <RouterView />
   </div>
 </template>

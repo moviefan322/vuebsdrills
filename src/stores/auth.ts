@@ -79,6 +79,7 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   const getUser = () => {
+    if (!user.value) return null
     return user.value
   }
 
