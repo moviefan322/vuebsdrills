@@ -63,8 +63,18 @@ export const useAuthStore = defineStore('auth', () => {
     authError.value = null
     const response = await axios.post(tokenUrl, userObject)
     token.value = response.data.token
+
+    localStorage.setItem('butoken', JSON.stringify(token.value))
     if (response.status === 200) {
       await getMe()
+    }
+  }
+
+  const checkForToken = () => {
+    const tokenString = localStorage.getItem('butoken')
+    if (tokenString) {
+      token.value = JSON.parse(tokenString)
+      getMe()
     }
   }
 
@@ -91,5 +101,5 @@ export const useAuthStore = defineStore('auth', () => {
     return token.value
   }
 
-  return { createUser, loginUser, getUser, getError, getToken }
+  return { createUser, loginUser, getUser, getError, getToken, checkForToken }
 })

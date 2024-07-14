@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, computed } from 'vue'
+import { ref, watch, computed, onMounted } from 'vue'
 import { RouterLink } from 'vue-router'
 import BrowseDrills from '@/components/menuComponents/BrowseDrills.vue'
 import { useAuthStore } from '@/stores/auth'
@@ -23,6 +23,8 @@ const handleShowDrills = () => {
   showDrills.value = true
 }
 
+const userName = computed(() => store.getUser()?.name || '')
+
 watch(showMainMenu, (newVal) => {
   if (newVal === true) {
     showExams.value = false
@@ -30,8 +32,9 @@ watch(showMainMenu, (newVal) => {
   }
 })
 
-const userName = computed(() => store.getUser()?.name || '')
-
+onMounted(() => {
+  store.checkForToken()
+})
 </script>
 
 <template>
