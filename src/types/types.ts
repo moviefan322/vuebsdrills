@@ -17,12 +17,13 @@ export interface DrillSet {
   drills: Drill[]
 }
 
-export interface Score {
+export interface ScoreFromApi {
   id: number
+  user: number
   drillId: number
   score: number
   maxScore: number
-  date: string
+  createdAt: string
 }
 
 export interface SubmitScorePayload {
