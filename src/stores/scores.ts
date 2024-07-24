@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { useAuthStore } from './auth'
 import { ref } from 'vue'
+import axios from 'axios'
 import type { SubmitScorePayload } from '../types/types'
 
 const drillScoreUrl = import.meta.env.VITE_APP_BACKEND_URL + 'api/drillscore/'
@@ -8,36 +9,56 @@ const drillScoreUrl = import.meta.env.VITE_APP_BACKEND_URL + 'api/drillscore/'
 export const useScoreStore = defineStore('score', () => {
   const authStore = useAuthStore()
   const setScore = ref<SubmitScorePayload[]>([])
+  const token = authStore.getToken()
 
   const pushScore = (score: SubmitScorePayload) => {
     setScore.value.push(score)
   }
 
   const submitScore = async (score: SubmitScorePayload) => {
-    const response = await fetch(drillScoreUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Token ${authStore.getToken()}`
-      },
-      body: JSON.stringify(score)
-    })
+    const token = authStore.getToken()
+    console.log('Token:', token) // Log the token
+    console.log('Submitting Score:', score) // Log the score payload
+    console.log('URL:', drillScoreUrl) // Log the URL
 
-    if (!response.ok) {
+    try {
+      const response = await axios.post(drillScoreUrl, score, {
+        headers: {
+          Authorization: `Token ${token}`,
+          'Content-Type': 'application/json'
+        }
+      })
+
+      console.log('Response Status:', response.status) // Log the response status
+
+      if (response.status !== 201) {
+        throw new Error('Failed to submit scores')
+      }
+
+      setScore.value = []
+    } catch (error) {
+      console.error('Error submitting score:', error)
       throw new Error('Failed to submit scores')
     }
-
-    setScore.value = []
   }
 
   const getUserScores = async () => {
-    const response = await fetch(drillScoreUrl)
+    try {
+      const response = await axios.get(drillScoreUrl, {
+        headers: {
+          Authorization: `Token ${authStore.getToken()}`
+        }
+      })
 
-    if (!response.ok) {
-      throw new Error('Failed to fetch scores')
+      if (response.status !== 200) {
+        throw new Error('Failed to fetch scores')
+      }
+
+      return response.data // Ensure this returns the correct data
+    } catch (error) {
+      console.error('Error fetching scores:', error)
+      throw error
     }
-
-    return response.json()
   }
 
   const getSetScore = () => {

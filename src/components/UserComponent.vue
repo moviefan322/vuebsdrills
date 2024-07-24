@@ -3,7 +3,7 @@
     <p v-if="!isUserLoggedIn">
       <router-link to="/auth" class="noStyleLink lime">Login</router-link>
     </p>
-    <p v-else>Stats</p>
+    <p v-else><router-link to="/history" class="noStyleLink lime">Stats</router-link></p>
   </div>
 </template>
 
@@ -13,7 +13,7 @@ import { useAuthStore } from '../stores/auth'
 
 const store = useAuthStore()
 
-const isUserLoggedIn = computed(() => !!store.getUser()?.name)
+const isUserLoggedIn = computed(() => !!store.getToken())
 </script>
 
 <style scoped>

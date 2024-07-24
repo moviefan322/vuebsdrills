@@ -1,4 +1,3 @@
-// import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import axios from 'axios'
@@ -61,35 +60,55 @@ export const useAuthStore = defineStore('auth', () => {
 
   const loginUser = async (userObject: UserObjectLogin) => {
     authError.value = null
-    const response = await axios.post(tokenUrl, userObject)
-    token.value = response.data.token
-
-    localStorage.setItem('butoken', JSON.stringify(token.value))
-    if (response.status === 200) {
-      await getMe()
+    try {
+      const response = await axios.post(tokenUrl, userObject)
+      if (response.status === 200) {
+        token.value = response.data.token
+        localStorage.setItem('butoken', token.value as string) // Store the token as a string
+        await getMe()
+      }
+    } catch (error: any) {
+      console.error('Login error:', error)
+      if (error.response) {
+        authError.value = 'Login Failed: ' + error.response.data.message
+      } else if (error.request) {
+        authError.value = 'Network Error: No response received from the server'
+      } else {
+        authError.value = 'Error: ' + error.message
+      }
     }
   }
 
   const checkForToken = () => {
     const tokenString = localStorage.getItem('butoken')
     if (tokenString) {
-      token.value = JSON.parse(tokenString)
+      token.value = tokenString
       getMe()
     }
   }
 
   const getMe = async () => {
     if (!token.value) return
-    const response = await axios.get(meUrl, {
-      headers: {
-        Authorization: 'Token ' + token.value
+    try {
+      const response = await axios.get(meUrl, {
+        headers: {
+          Authorization: `Token ${token.value}`
+        }
+      })
+      user.value = response.data
+    } catch (error: any) {
+      console.error('Get Me error:', error)
+      if (error.response) {
+        authError.value = 'Failed to fetch user data: ' + error.response.data.message
+      } else if (error.request) {
+        authError.value = 'Network Error: No response received from the server'
+      } else {
+        authError.value = 'Error: ' + error.message
       }
-    })
-    user.value = response.data
+    }
   }
 
   const getUser = () => {
-    if (!user.value) return null
     return user.value
   }
 
@@ -98,6 +117,12 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   const getToken = () => {
+    if (!token.value) {
+      const storedToken = localStorage.getItem('butoken')
+      if (storedToken) {
+        token.value = storedToken
+      }
+    }
     return token.value
   }
 

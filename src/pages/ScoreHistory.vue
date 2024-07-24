@@ -19,7 +19,13 @@ const scores = ref<ScoreFromApi[]>([])
 const areScores = computed(() => scores.value.length > 0)
 
 onMounted(async () => {
-  scores.value = await store.getUserScores()
+  try {
+    const fetchedScores = await store.getUserScores()
+    scores.value = fetchedScores
+    console.log('Scores fetched:', fetchedScores) // Debug log to check scores
+  } catch (error) {
+    console.error('Failed to fetch scores:', error)
+  }
 })
 </script>
 
