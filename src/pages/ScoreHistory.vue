@@ -1,18 +1,26 @@
 <template>
-  <div>
-    <p v-for="score in scores" :key="score.id">This page hasn't been built yet</p>
+  <div v-if="areScores">
+    <p v-for="score in scores" :key="score.id">
+      {{ score.drillId }}: {{ score.score }}/{{ score.maxScore }}
+    </p>
+  </div>
+  <div v-else>
+    <p>No scores yet</p>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useScoreStore } from '@/stores/scores'
-import type { ScoreFromApi } from '@/types/types';
+import type { ScoreFromApi } from '@/types/types'
 
 const store = useScoreStore()
 const scores = ref<ScoreFromApi[]>([])
+const areScores = computed(() => scores.value.length > 0)
 
 onMounted(async () => {
   scores.value = await store.getUserScores()
 })
 </script>
+
+<style scoped></style>

@@ -7,6 +7,7 @@ import TableComponent from '../components/TableComponent.vue'
 import DummyPage from '../pages/DummyPage.vue'
 import NotFoundPage from '../pages/NotFoundPage.vue'
 import UserAuth from '../pages/UserAuth.vue'
+import ScoreHistory from '../pages/ScoreHistory.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -35,6 +36,11 @@ const router = createRouter({
       path: '/auth',
       name: 'auth',
       component: UserAuth
+    },
+    {
+      path: '/history',
+      name: 'history',
+      component: ScoreHistory
     },
     {
       path: '/table',

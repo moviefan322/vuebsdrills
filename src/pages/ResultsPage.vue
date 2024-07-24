@@ -21,7 +21,7 @@ const totalScore = computed(() => {
   <div class="container" v-if="scores.length > 0">
     <h1>Results</h1>
     <ul class="mt">
-      <li v-for="score in scores" :key="score.id">
+      <li v-for="score, index in scores" :key="index">
         {{ drillStore.getDrillName(score.drillId) }}: {{ score.score }}/{{ score.maxScore }}
       </li>
     </ul>
