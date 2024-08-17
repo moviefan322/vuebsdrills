@@ -3,7 +3,7 @@ export interface Drill {
   name: string
   maxScore: number
   instructions: string
-  image: string | string[]
+  image?: string | string[]
   type: 'progressive' | 'standard' | 'highscore' | 'layout' | 'attempt'
   skills: string[]
   attempts?: number
