@@ -5,7 +5,7 @@
       :tableWidth="350"
       :ballPositionsProp="ballPositionProps"
       :pottingPocketProp="currentDrillTableSetup.pottingPocketProp"
-      :targetSpecs="currentDrillTableSetup.targetSpecs"
+      :targetSpecs="targetPositionProps"
       :leaveLineProp="currentDrillTableSetup.leaveLineProp"
       :showShotLine="currentDrillTableSetup.showShotLine"
       :kickShotLineProp="currentDrillTableSetup.kickShotLineProp"
@@ -24,30 +24,58 @@ import { ref, computed, watch, onBeforeMount } from 'vue'
 const store = useDrillStore()
 const useProps = ref(false)
 
+// Match the current drill with the table setup
 const currentDrillTableSetup = computed(() => {
   return tableSetups.find((setup) => setup.drillId === store.getDrillId()) || null
 })
 
-const currentPosition = ref(store.getPosition()) // Initialize with the store's position
-const currentShot = ref(store.getShot()) // Initialize with the store's shot
+const currentPosition = ref(store.getPosition())
+const currentShot = ref(store.getShot())
 const ballPositionProps = ref([])
+const targetPositionProps = ref([])
 
 // Compute ball positions dynamically based on the current shot
 const computedBallPositionProps = computed(() => {
   if (!currentDrillTableSetup.value || !currentPosition.value) return []
-  const positions = [...currentDrillTableSetup.value.ballPositionProps[currentPosition.value]]
-  positions[0].number = currentShot.value // Assign the current shot number to the ball
+  let positions = []
+  if (currentDrillTableSetup.value.ballPositionProps.length === 1) {
+    positions = [...currentDrillTableSetup.value.ballPositionProps[0]]
+  } else {
+    positions = [...currentDrillTableSetup.value.ballPositionProps[currentPosition.value]]
+  }
+  // replace ball number 99 with the current shot
+  positions = positions.map((position) => {
+    if (position.number === 99) {
+      return { ...position, number: currentShot.value }
+    }
+    return position
+  })
+  console.log('positions:', positions)
   return positions
+})
+
+const computedTargetPositionProps = computed(() => {
+  console.log(currentDrillTableSetup.value)
+  if (!currentDrillTableSetup.value || !currentPosition.value) return []
+  let targetSpecs = []
+  if (currentDrillTableSetup.value.targetSpecs.length === 1) {
+    targetSpecs = currentDrillTableSetup.value.targetSpecs[0]
+  } else {
+    targetSpecs = currentDrillTableSetup.value.targetSpecs[currentPosition.value]
+  }
+  return targetSpecs
 })
 
 watch(
   [currentDrillTableSetup, currentPosition, currentShot],
   () => {
     ballPositionProps.value = computedBallPositionProps.value
-    console.log('New ball position:', ballPositionProps.value) // This logs the new value
+    targetPositionProps.value = computedTargetPositionProps.value
   },
   { immediate: true }
 )
+
+watch
 
 watch(
   () => store.getPosition(),
