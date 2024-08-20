@@ -8,6 +8,7 @@ import DummyPage from '../pages/DummyPage.vue'
 import NotFoundPage from '../pages/NotFoundPage.vue'
 import UserAuth from '../pages/UserAuth.vue'
 import ScoreHistory from '../pages/ScoreHistory.vue'
+import DrillsTestPage from '@/pages/DrillsTestPage.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -21,6 +22,11 @@ const router = createRouter({
       path: '/drill/:id',
       name: 'drills',
       component: DrillsPage
+    },
+    {
+      path: '/drilltest/:id',
+      name: 'drilltest',
+      component: DrillsTestPage
     },
     {
       path: '/set/:setId',

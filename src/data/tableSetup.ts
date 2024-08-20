@@ -6,9 +6,11 @@ export interface BallPosition {
 
 export interface TableSetup {
   drillName: string
+  drillType: string
+  drillId: number
   ballPositionProps: BallPosition[][]
   startIndex: number
-  showShotline: boolean
+  showShotLine: boolean
   pottingPocketProp: { x: number; y: number; show: boolean }
   targetSpecs: {
     isTarget: boolean
@@ -28,7 +30,9 @@ export interface TableSetup {
 }
 
 export const cutShotTableSetup: TableSetup = {
+  drillId: 1,
   drillName: 'Cut Shot',
+  drillType: 'Progressive',
   ballPositionProps: [
     [
       { number: 1, x: 7.7, y: 3 },
@@ -64,7 +68,7 @@ export const cutShotTableSetup: TableSetup = {
     ]
   ],
   startIndex: 3,
-  showShotline: true,
+  showShotLine: true,
   pottingPocketProp: { x: 8, y: 4, show: true },
   targetSpecs: null,
   leaveLineProp: null,
@@ -73,7 +77,9 @@ export const cutShotTableSetup: TableSetup = {
 }
 
 export const stopShotTableSetup: TableSetup = {
+  drillId: 2,
   drillName: 'Stop Shot',
+  drillType: 'Progressive',
   ballPositionProps: [
     [
       { number: 1, x: 7.7, y: 0.15 },
@@ -109,7 +115,7 @@ export const stopShotTableSetup: TableSetup = {
     ]
   ],
   startIndex: 3,
-  showShotline: true,
+  showShotLine: true,
   pottingPocketProp: { x: 8, y: 0, show: true },
   targetSpecs: null,
   leaveLineProp: null,
@@ -118,46 +124,50 @@ export const stopShotTableSetup: TableSetup = {
 }
 
 export const followShotTableSetup: TableSetup = {
-    drillName: 'Follow Shot',
-    ballPositionProps: [
-      [
-        { number: 1, x: 7.7, y: 0.15 },
-        { number: 0, x: 1, y: 1 }
-      ],
-      [
-        { number: 1, x: 7.7, y: 2 },
-        { number: 0, x: 2, y: 1 }
-      ],
-      [
-        { number: 1, x: 7.7, y: 2 },
-        { number: 0, x: 3, y: 0.25 }
-      ],
-      [
-        { number: 1, x: 7.7, y: 2 },
-        { number: 0, x: 4, y: 0.25 }
-      ],
-      [
-        { number: 1, x: 7.7, y: 2 },
-        { number: 0, x: 5, y: 0.25 }
-      ],
-      [
-        { number: 1, x: 7.7, y: 2 },
-        { number: 0, x: 6, y: 0.25 }
-      ],
-      [
-        { number: 1, x: 7.7, y: 2 },
-        { number: 0, x: 7, y: 0.25 }
-      ],
-      [
-        { number: 1, x: 7.7, y: 2 },
-        { number: 0, x: 8, y: 0.25 }
-      ]
+  drillId: 3,
+  drillName: 'Follow Shot',
+  drillType: 'Progressive',
+  ballPositionProps: [
+    [
+      { number: 1, x: 7.7, y: 0.15 },
+      { number: 0, x: 1, y: 1 }
     ],
-    startIndex: 3,
-    showShotline: true,
-    pottingPocketProp: { x: 8, y: 0, show: true },
-    targetSpecs: null,
-    leaveLineProp: null,
-    kickShotLineProp: null,
-    bankShotLineProp: null
-  }
+    [
+      { number: 1, x: 7.7, y: 2 },
+      { number: 0, x: 2, y: 1 }
+    ],
+    [
+      { number: 1, x: 7.7, y: 2 },
+      { number: 0, x: 3, y: 0.25 }
+    ],
+    [
+      { number: 1, x: 7.7, y: 2 },
+      { number: 0, x: 4, y: 0.25 }
+    ],
+    [
+      { number: 1, x: 7.7, y: 2 },
+      { number: 0, x: 5, y: 0.25 }
+    ],
+    [
+      { number: 1, x: 7.7, y: 2 },
+      { number: 0, x: 6, y: 0.25 }
+    ],
+    [
+      { number: 1, x: 7.7, y: 2 },
+      { number: 0, x: 7, y: 0.25 }
+    ],
+    [
+      { number: 1, x: 7.7, y: 2 },
+      { number: 0, x: 8, y: 0.25 }
+    ]
+  ],
+  startIndex: 3,
+  showShotLine: true,
+  pottingPocketProp: { x: 8, y: 0, show: true },
+  targetSpecs: null,
+  leaveLineProp: null,
+  kickShotLineProp: null,
+  bankShotLineProp: null
+}
+
+export const tableSetups = [cutShotTableSetup, stopShotTableSetup, followShotTableSetup]
