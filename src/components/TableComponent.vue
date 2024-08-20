@@ -1,6 +1,6 @@
 <template>
   <div id="main">
-    <!-- <PoolTable
+    <PoolTable
       :tableWidth="350"
       :ballPositionsProp="ballPositionProps"
       :pottingPocketProp="pottingPocketProp"
@@ -11,12 +11,12 @@
       :bankShotLineProp="bankShotLineProp"
       v-if="useProps"
     />
-    <PoolTable :tableWidth="350" v-else /> -->
+    <PoolTable :tableWidth="350" v-else />
     <p>Wrong Shit</p>
   </div>
 </template>
 
-<!-- 
+
 <script setup lang="ts">
 import PoolTable from '../components/PoolTable.vue'
 import { useDrillStore } from '../stores/drill'
@@ -924,4 +924,4 @@ const bankShotLineProp = computed(() => {
   color: #2c3e50;
   margin-top: 60px;
 }
-</style> -->
+</style>
