@@ -262,6 +262,11 @@ export default {
     this.modifySpecificDiamonds()
   },
   methods: {
+    renderPoolTable() {
+      d3.select('#pool-table').selectAll('*').remove() // Clear existing SVG elements
+      this.drawPoolTable() // Redraw the pool table
+      this.modifySpecificDiamonds() // Reapply diamond modifications
+    },
     getColor(number) {
       const colors = {
         1: '#FFD700',
@@ -681,25 +686,23 @@ export default {
     }
   },
   watch: {
+    ballPositionsProp: {
+      handler() {
+        this.renderPoolTable()
+      },
+      deep: true // Ensure Vue watches the entire object structure
+    },
     ballPositions() {
-      d3.select('#pool-table').selectAll('*').remove()
-      this.drawPoolTable()
-      this.modifySpecificDiamonds()
+      this.renderPoolTable()
     },
-    leaveLine() {
-      d3.select('#pool-table').selectAll('*').remove()
-      this.drawPoolTable()
-      this.modifySpecificDiamonds()
+    leaveLineProp() {
+      this.renderPoolTable()
     },
-    kickShotLine() {
-      d3.select('#pool-table').selectAll('*').remove()
-      this.drawPoolTable()
-      this.modifySpecificDiamonds()
+    kickShotLineProp() {
+      this.renderPoolTable()
     },
-    bankShotLine() {
-      d3.select('#pool-table').selectAll('*').remove()
-      this.drawPoolTable()
-      this.modifySpecificDiamonds()
+    bankShotLineProp() {
+      this.renderPoolTable()
     }
   }
 }

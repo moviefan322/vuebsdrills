@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import BaseDrillTest from '../components/baseComponents/BaseDrill.vue'
+import BaseDrillTest from '../components/baseComponents/BaseDrillTest.vue'
 import { useDrillStore } from '../stores/drill'
 import { onMounted, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'

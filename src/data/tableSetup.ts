@@ -36,27 +36,7 @@ export const cutShotTableSetup: TableSetup = {
   ballPositionProps: [
     [
       { number: 1, x: 7.7, y: 3 },
-      { number: 0, x: 1, y: 1 }
-    ],
-    [
-      { number: 1, x: 7.7, y: 3 },
-      { number: 0, x: 2, y: 1 }
-    ],
-    [
-      { number: 1, x: 7.7, y: 3 },
-      { number: 0, x: 3, y: 1 }
-    ],
-    [
-      { number: 1, x: 7.7, y: 3 },
-      { number: 0, x: 4, y: 1 }
-    ],
-    [
-      { number: 1, x: 7.7, y: 3 },
-      { number: 0, x: 5, y: 1 }
-    ],
-    [
-      { number: 1, x: 7.7, y: 3 },
-      { number: 0, x: 6, y: 1 }
+      { number: 0, x: 8, y: 1 }
     ],
     [
       { number: 1, x: 7.7, y: 3 },
@@ -64,16 +44,36 @@ export const cutShotTableSetup: TableSetup = {
     ],
     [
       { number: 1, x: 7.7, y: 3 },
-      { number: 0, x: 8, y: 1 }
+      { number: 0, x: 6, y: 1 }
+    ],
+    [
+      { number: 1, x: 7.7, y: 3 },
+      { number: 0, x: 5, y: 1 }
+    ],
+    [
+      { number: 1, x: 7.7, y: 3 },
+      { number: 0, x: 4, y: 1 }
+    ],
+    [
+      { number: 1, x: 7.7, y: 3 },
+      { number: 0, x: 3, y: 1 }
+    ],
+    [
+      { number: 1, x: 7.7, y: 3 },
+      { number: 0, x: 2, y: 1 }
+    ],
+    [
+      { number: 1, x: 7.7, y: 3 },
+      { number: 0, x: 1, y: 1 }
     ]
   ],
   startIndex: 3,
   showShotLine: true,
   pottingPocketProp: { x: 8, y: 4, show: true },
-  targetSpecs: null,
-  leaveLineProp: null,
-  kickShotLineProp: null,
-  bankShotLineProp: null
+  targetSpecs: { isTarget: false, x: 7.5, y: 0.5, rotate: false, w: 0.65, h: 0.8 },
+  leaveLineProp: { draw: false, x: 0, y: 0 },
+  kickShotLineProp: { draw: false, rails: 0, objectBall: null },
+  bankShotLineProp: { draw: false, objectBall: null, pocket: null }
 }
 
 export const stopShotTableSetup: TableSetup = {
