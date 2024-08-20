@@ -28,16 +28,23 @@ const currentDrillTableSetup = computed(() => {
   return tableSetups.find((setup) => setup.drillId === store.getDrillId()) || null
 })
 
-const currentPosition = ref(4)
+const currentPosition = ref(store.getPosition()) // Initialize with the store's position
+const currentShot = ref(store.getShot()) // Initialize with the store's shot
 const ballPositionProps = ref([])
 
+// Compute ball positions dynamically based on the current shot
+const computedBallPositionProps = computed(() => {
+  if (!currentDrillTableSetup.value || !currentPosition.value) return []
+  const positions = [...currentDrillTableSetup.value.ballPositionProps[currentPosition.value]]
+  positions[0].number = currentShot.value // Assign the current shot number to the ball
+  return positions
+})
+
 watch(
-  [currentPosition],
-  ([newPosition]) => {
-    if (newPosition) {
-      ballPositionProps.value = currentDrillTableSetup.value.ballPositionProps[newPosition] || []
-      console.log('New ball position:', ballPositionProps.value) // This logs the new value
-    }
+  [currentDrillTableSetup, currentPosition, currentShot],
+  () => {
+    ballPositionProps.value = computedBallPositionProps.value
+    console.log('New ball position:', ballPositionProps.value) // This logs the new value
   },
   { immediate: true }
 )
@@ -46,6 +53,13 @@ watch(
   () => store.getPosition(),
   (newPosition) => {
     currentPosition.value = newPosition
+  }
+)
+
+watch(
+  () => store.getShot(),
+  (newShot) => {
+    currentShot.value = newShot
   }
 )
 
