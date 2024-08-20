@@ -129,36 +129,36 @@ export const followShotTableSetup: TableSetup = {
   drillType: 'Progressive',
   ballPositionProps: [
     [
+      { number: 1, x: 7.7, y: 0.15},
+      { number: 0, x: 8, y: 0.25 }
+    ],
+    [
       { number: 1, x: 7.7, y: 0.15 },
-      { number: 0, x: 8, y: 0.15 }
+      { number: 0, x: 7, y: 0.25 }
     ],
     [
-      { number: 1, x: 8, y: 0.15 },
-      { number: 0, x: 7, y: 0.15 }
+      { number: 1, x: 7, y: 0.2 },
+      { number: 0, x: 6, y: 0.25 }
     ],
     [
-      { number: 1, x: 7, y: 0.15 },
-      { number: 0, x: 6, y: 0.15 }
+      { number: 1, x: 6, y: 0.2 },
+      { number: 0, x: 5, y: 0.25 }
     ],
     [
-      { number: 1, x: 6, y: 0.15 },
-      { number: 0, x: 5, y: 0.15 }
+      { number: 1, x: 5, y: 0.2 },
+      { number: 0, x: 4, y: 0.25 }
     ],
     [
-      { number: 1, x: 5, y: 0.15 },
-      { number: 0, x: 4, y: 0.15 }
+      { number: 1, x: 4, y: 0.2 },
+      { number: 0, x: 3, y: 0.25 }
     ],
     [
-      { number: 1, x: 4, y: 0.15 },
-      { number: 0, x: 3, y: 0.15 }
+      { number: 1, x: 3, y: 0.2 },
+      { number: 0, x: 2, y: .25}
     ],
     [
-      { number: 1, x: 3, y: 0.15 },
-      { number: 0, x: 2, y: .15}
-    ],
-    [
-      { number: 1, x: 2, y: 0.15 },
-      { number: 0, x: 1, y: .15 }
+      { number: 1, x: 2, y: 0.2 },
+      { number: 0, x: 1, y: .25 }
     ]
   ],
   startIndex: 3,
@@ -170,4 +170,51 @@ export const followShotTableSetup: TableSetup = {
   bankShotLineProp: { draw: false, objectBall: null, pocket: null }
 }
 
-export const tableSetups = [cutShotTableSetup, stopShotTableSetup, followShotTableSetup]
+export const stunShotTableSetup: TableSetup = {
+    drillId: 4,
+    drillName: 'Draw Shot',
+    drillType: 'Progressive',
+    ballPositionProps: [
+      [
+        { number: 1, x: 7.5, y: 0.15},
+        { number: 0, x: 8, y: 0.2 }
+      ],
+      [
+        { number: 1, x: 7.5, y: 0.15 },
+        { number: 0, x: 7, y: 0.2 }
+      ],
+      [
+        { number: 1, x: 7.5, y: 0.15 },
+        { number: 0, x: 6, y: 0.2 }
+      ],
+      [
+        { number: 1, x: 7.5, y: 0.15 },
+        { number: 0, x: 5, y: 0.2 }
+      ],
+      [
+        { number: 1, x: 7.5, y: 0.15 },
+        { number: 0, x: 4, y: 0.2 }
+      ],
+      [
+        { number: 1, x: 7.5, y: 0.15 },
+        { number: 0, x: 3, y: 0.2 }
+      ],
+      [
+        { number: 1, x: 7.5, y: 0.15 },
+        { number: 0, x: 2, y: .2}
+      ],
+      [
+        { number: 1, x: 7.5, y: 0.15 },
+        { number: 0, x: 1, y: .2 }
+      ]
+    ],
+    startIndex: 3,
+    showShotLine: true,
+    pottingPocketProp: { x: 8, y: 0, show: true },
+    targetSpecs: { isTarget: true, x: 4.5, y: 0.5, rotate: false, w: 2, h: 1 },
+    leaveLineProp: { draw: false, x: 0, y: 0 },
+    kickShotLineProp: { draw: false, rails: 0, objectBall: null },
+    bankShotLineProp: { draw: false, objectBall: null, pocket: null }
+  }
+
+export const tableSetups = [cutShotTableSetup, stopShotTableSetup, followShotTableSetup, stunShotTableSetup]
