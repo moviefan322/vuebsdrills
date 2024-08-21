@@ -31,6 +31,7 @@ const currentDrillTableSetup = computed(() => {
 
 const currentPosition = ref(store.getPosition())
 const currentShot = ref(store.getShot())
+const currentLayout = ref(store.getCurrentLayout())
 const ballPositionProps = ref([])
 const targetPositionProps = ref([])
 const pottingPocketProps = ref([])
@@ -44,10 +45,14 @@ const computedBallPositionProps = computed(() => {
     positions = [...currentDrillTableSetup.value.ballPositionProps[0]]
   } else if (currentDrillTableSetup.value.drillType === 'standard') {
     positions = currentDrillTableSetup.value.ballPositionProps[currentShot.value - 1]
+  } else if (currentDrillTableSetup.value.drillType === 'layout') {
+    console.log(currentDrillTableSetup.value.ballPositionProps[currentLayout.value])
+    return currentDrillTableSetup.value.ballPositionProps[currentLayout.value]
   } else {
     positions = [...currentDrillTableSetup.value.ballPositionProps[currentPosition.value]]
   }
   // replace ball number 99 with the current shot
+  if (positions.length === 0) throw new Error('No ball positions found')
   positions = positions.map((position) => {
     if (position.number === 99) {
       if (currentShot.value > 15) {
@@ -105,7 +110,7 @@ const computedLeaveLineProps = computed(() => {
 })
 
 watch(
-  [currentDrillTableSetup, currentPosition, currentShot],
+  [currentDrillTableSetup, currentPosition, currentShot, currentLayout],
   () => {
     ballPositionProps.value = computedBallPositionProps.value
     targetPositionProps.value = computedTargetPositionProps.value
@@ -128,6 +133,14 @@ watch(
   () => store.getShot(),
   (newShot) => {
     currentShot.value = newShot
+  }
+)
+
+watch(
+  () => store.getCurrentLayout(),
+  (newLayout) => {
+    console.log('New layout:', newLayout) // This logs the new value
+    currentLayout.value = newLayout
   }
 )
 
