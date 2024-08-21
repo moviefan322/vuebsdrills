@@ -863,6 +863,145 @@ export const pattern9Ball3TableSetup: TableSetup = {
   bankShotLineProp: { draw: false, objectBall: null, pocket: null }
 }
 
+export const pattern8Ball1TableSetup: TableSetup = {
+  drillId: 20,
+  drillName: '8 Pattern Drills (I)',
+  drillType: 'layout',
+  ballPositionProps: [
+    [
+      { number: 17, x: 1, y: 2.95 },
+      { number: 17, x: 4, y: 2.95 },
+      { number: 17, x: 7, y: 2.95 },
+      { number: 17, x: 1, y: 0.95 },
+      { number: 17, x: 1, y: 2.95 },
+      { number: 8, x: 7, y: 0.95 }
+    ],
+    [
+      { number: 17, x: 7, y: 1.95 },
+      { number: 17, x: 5.95, y: 3.75 },
+      { number: 17, x: 7, y: 2.95 },
+      { number: 17, x: 4, y: 2.95 },
+      { number: 8, x: 7.85, y: 2.95 },
+      { number: 16, x: 6, y: 1.95 },
+      { number: 16, x: 5, y: 2.95 }
+    ],
+    [
+      { number: 17, x: 6.95, y: 0.25 },
+      { number: 17, x: 6.95, y: 3.75 },
+      { number: 17, x: 0.15, y: 0.95 },
+      { number: 17, x: 0.15, y: 2.95 },
+      { number: 8, x: 0.95, y: 3.75 },
+      { number: 16, x: 6, y: 1.95 },
+      { number: 16, x: 6.2, y: 1.95 },
+      { number: 16, x: 2, y: 1.95 },
+      { number: 16, x: 2.2, y: 1.95 },
+      { number: 16, x: 1.8, y: 1.85 }
+    ]
+  ],
+  startIndex: 3,
+  showShotLine: true,
+  pottingPocketProp: [{ x: 8, y: 0, show: false }],
+  targetSpecs: [{ isTarget: false, x: 5.9, y: 0.5, rotate: false, w: 0.9, h: 0.65 }],
+  leaveLineProp: [{ draw: false, x: 0, y: 0 }],
+  kickShotLineProp: { draw: false, rails: 0, objectBall: null },
+  bankShotLineProp: { draw: false, objectBall: null, pocket: null }
+}
+
+export const pattern8Ball2TableSetup: TableSetup = {
+  drillId: 21,
+  drillName: '8 Pattern Drills (II)',
+  drillType: 'layout',
+  ballPositionProps: [
+    [
+      { number: 17, x: 0.15, y: 0.95 },
+      { number: 17, x: 4, y: 1.95 },
+      { number: 17, x: 7, y: 2.95 },
+      { number: 17, x: 1, y: 1.95 },
+      { number: 17, x: 1, y: 3.75 },
+      { number: 8, x: 7, y: 0.95 }
+    ],
+    [
+      { number: 17, x: 4, y: 1.95 },
+      { number: 17, x: 4, y: 0.95 },
+      { number: 17, x: 7, y: 1.95 },
+      { number: 17, x: 4, y: 2.95 },
+      { number: 17, x: 7, y: 0.95 },
+      { number: 8, x: 0.25, y: 2.95 },
+      { number: 16, x: 1.95, y: 0.25 },
+      { number: 16, x: 0.95, y: 1 }
+    ],
+    [
+      { number: 17, x: 1.95, y: 0.15 },
+      { number: 17, x: 6.95, y: 1 },
+      { number: 17, x: 6.95, y: 3.85 },
+      { number: 17, x: 5.95, y: 1.95 },
+      { number: 17, x: 0.15, y: 2.95 },
+      { number: 8, x: 0.3, y: 3.85 },
+      { number: 16, x: 1, y: 1.95 },
+      { number: 16, x: 2, y: 1.95 },
+      { number: 16, x: 2.95, y: 3.65 },
+      { number: 16, x: 2.95, y: 3.45 }
+    ]
+  ],
+  startIndex: 3,
+  showShotLine: true,
+  pottingPocketProp: [{ x: 8, y: 0, show: false }],
+  targetSpecs: [{ isTarget: false, x: 5.9, y: 0.5, rotate: false, w: 0.9, h: 0.65 }],
+  leaveLineProp: [{ draw: false, x: 0, y: 0 }],
+  kickShotLineProp: { draw: false, rails: 0, objectBall: null },
+  bankShotLineProp: { draw: false, objectBall: null, pocket: null }
+}
+
+export const pattern8Ball3TableSetup: TableSetup = {
+  drillId: 22,
+  drillName: '8 Pattern Drills (III)',
+  drillType: 'layout',
+  ballPositionProps: [
+    [
+      { number: 17, x: 4.25, y: 0.3 },
+      { number: 17, x: 4, y: 2.95 },
+      { number: 17, x: 6, y: 2.95 },
+      { number: 17, x: 0.15, y: 0.95 },
+      { number: 17, x: 2, y: 2.95 },
+      { number: 17, x: 4.95, y: 3.7 },
+      { number: 8, x: 7, y: 0.95 }
+    ],
+    [
+      { number: 17, x: 6, y: 1.95 },
+      { number: 17, x: 1.95, y: 0.15 },
+      { number: 17, x: 7, y: 3.85 },
+      { number: 17, x: 0.15, y: 2.95 },
+      { number: 17, x: 7, y: 0.95 },
+      { number: 8, x: 0.3, y: 3.85 },
+      { number: 16, x: 1, y: 1.95 },
+      { number: 16, x: 2, y: 1.95 },
+      { number: 16, x: 2.95, y: 3.65 },
+      { number: 16, x: 2.95, y: 3.45 }
+    ],
+    [
+      { number: 17, x: 1.95, y: 2.95 },
+      { number: 17, x: 7.85, y: 1 },
+      { number: 17, x: 7.85, y: 2.95 },
+      { number: 17, x: 5.95, y: 2.95 },
+      { number: 17, x: 0.15, y: 2.95 },
+      { number: 17, x: 3.95, y: 2.95 },
+      { number: 8, x: 0.3, y: 3.85 },
+      { number: 16, x: 1, y: 1.95 },
+      { number: 16, x: 2, y: 1.95 },
+      { number: 16, x: 2.95, y: 3.65 },
+      { number: 16, x: 2.95, y: 3.45 },
+      { number: 16, x: 6.95, y: 1.95 }
+    ]
+  ],
+  startIndex: 3,
+  showShotLine: true,
+  pottingPocketProp: [{ x: 8, y: 0, show: false }],
+  targetSpecs: [{ isTarget: false, x: 5.9, y: 0.5, rotate: false, w: 0.9, h: 0.65 }],
+  leaveLineProp: [{ draw: false, x: 0, y: 0 }],
+  kickShotLineProp: { draw: false, rails: 0, objectBall: null },
+  bankShotLineProp: { draw: false, objectBall: null, pocket: null }
+}
+
 export const tableSetups = [
   cutShotTableSetup,
   stopShotTableSetup,
@@ -880,5 +1019,8 @@ export const tableSetups = [
   railCutShot3TableSetup,
   pattern9Ball1TableSetup,
   pattern9Ball2TableSetup,
-  pattern9Ball3TableSetup
+  pattern9Ball3TableSetup,
+  pattern8Ball1TableSetup,
+  pattern8Ball2TableSetup,
+  pattern8Ball3TableSetup
 ]
