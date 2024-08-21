@@ -590,6 +590,27 @@ export const landingZoneTableSetup: TableSetup = {
   bankShotLineProp: { draw: false, objectBall: null, pocket: null }
 }
 
+export const lineOfBallsTableSetup: TableSetup = {
+  drillId: 11,
+  drillName: 'Line of Balls (I)',
+  drillType: 'attempt',
+  ballPositionProps: [
+    [
+      { number: 1, x: 7.65, y: 1.95 },
+      { number: 2, x: 7.25, y: 1.95 },
+      { number: 3, x: 6.85, y: 1.95 },
+      { number: 4, x: 6.45, y: 1.95 }
+    ]
+  ],
+  startIndex: 3,
+  showShotLine: true,
+  pottingPocketProp: [{ x: 8, y: 0, show: false }],
+  targetSpecs: [{ isTarget: false, x: 5.9, y: 0.5, rotate: false, w: 0.9, h: 0.65 }],
+  leaveLineProp: [{ draw: false, x: 0, y: 0 }],
+  kickShotLineProp: { draw: false, rails: 0, objectBall: null },
+  bankShotLineProp: { draw: false, objectBall: null, pocket: null }
+}
+
 export const tableSetups = [
   cutShotTableSetup,
   stopShotTableSetup,
@@ -598,5 +619,6 @@ export const tableSetups = [
   stunShotTableSetup,
   pocketingTableSetup,
   wagonWheelTableSetup,
-  landingZoneTableSetup
+  landingZoneTableSetup,
+  lineOfBallsTableSetup
 ]
