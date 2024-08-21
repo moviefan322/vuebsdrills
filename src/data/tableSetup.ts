@@ -1701,6 +1701,144 @@ export const bankShot3TableSetup: TableSetup = {
   bankShotLineProp: { draw: true, objectBall: 99, pocket: { x: 8, y: 0 } }
 }
 
+export const elevated1TableSetup: TableSetup = {
+  drillId: 32,
+  drillName: 'Elevated Cue (I)',
+  drillType: 'standard',
+  ballPositionProps: [
+    [
+      { number: 0, x: 6.95, y: 0.15 },
+      { number: 1, x: 7.45, y: 1.95 }
+    ],
+    [
+      { number: 0, x: 5.95, y: 0.15 },
+      { number: 2, x: 6.9, y: 1.95 }
+    ],
+    [
+      { number: 0, x: 5.05, y: 0.35 },
+      { number: 3, x: 6.45, y: 2.15 },
+      { number: 17, x: 4.95, y: 0.15 }
+    ],
+    [
+      { number: 0, x: 2.95, y: 0.15 },
+      { number: 4, x: 5.15, y: 1.95 }
+    ],
+    [
+      { number: 0, x: 3.12, y: 1.05 },
+      { number: 5, x: 5.26, y: 2.35 },
+      { number: 17, x: 2.95, y: 0.95 }
+    ],
+    [
+      { number: 0, x: 0.15, y: 1.95 },
+      { number: 6, x: 3.95, y: 2.95 }
+    ],
+    [
+      { number: 0, x: 2.15, y: 3 },
+      { number: 7, x: 4.95, y: 3.45 },
+      { number: 17, x: 1.95, y: 2.95 }
+    ]
+  ],
+  startIndex: 3,
+  showShotLine: true,
+  pottingPocketProp: [{ x: 8, y: 4, show: true }],
+  targetSpecs: [{ isTarget: false, x: 5.9, y: 0.5, rotate: false, w: 0.9, h: 0.65 }],
+  leaveLineProp: [{ draw: false, x: 0, y: 0 }],
+  kickShotLineProp: [{ draw: false, rails: 1, objectBall: 99 }],
+  bankShotLineProp: { draw: false, objectBall: 99, pocket: { x: 8, y: 0 } }
+}
+
+export const elevated2TableSetup: TableSetup = {
+  drillId: 33,
+  drillName: 'Elevated Cue (II)',
+  drillType: 'standard',
+  ballPositionProps: [
+    [
+      { number: 0, x: 6.95, y: 0.15 },
+      { number: 1, x: 7.45, y: 1.95 }
+    ],
+    [
+      { number: 0, x: 5.95, y: 0.15 },
+      { number: 2, x: 6.9, y: 1.95 }
+    ],
+    [
+      { number: 0, x: 5.05, y: 0.35 },
+      { number: 3, x: 6.45, y: 2.15 },
+      { number: 17, x: 4.95, y: 0.15 }
+    ],
+    [
+      { number: 0, x: 2.95, y: 0.15 },
+      { number: 4, x: 5.15, y: 1.95 }
+    ],
+    [
+      { number: 0, x: 3.12, y: 1.05 },
+      { number: 5, x: 5.26, y: 2.35 },
+      { number: 17, x: 2.95, y: 0.95 }
+    ],
+    [
+      { number: 0, x: 0.15, y: 1.95 },
+      { number: 6, x: 3.95, y: 2.95 }
+    ],
+    [
+      { number: 0, x: 2.15, y: 3 },
+      { number: 7, x: 4.95, y: 3.45 },
+      { number: 17, x: 1.95, y: 2.95 }
+    ]
+  ],
+  startIndex: 3,
+  showShotLine: true,
+  pottingPocketProp: [{ x: 8, y: 4, show: true }],
+  targetSpecs: [{ isTarget: false, x: 5.9, y: 0.5, rotate: false, w: 0.9, h: 0.65 }],
+  leaveLineProp: [{ draw: false, x: 0, y: 0 }],
+  kickShotLineProp: [{ draw: false, rails: 1, objectBall: 99 }],
+  bankShotLineProp: { draw: false, objectBall: 99, pocket: { x: 8, y: 0 } }
+}
+
+export const elevated3TableSetup: TableSetup = {
+  drillId: 34,
+  drillName: 'Elevated Cue (III)',
+  drillType: 'standard',
+  ballPositionProps: [
+    [
+      { number: 0, x: 6.95, y: 0.15 },
+      { number: 1, x: 7.45, y: 1.95 }
+    ],
+    [
+      { number: 0, x: 5.95, y: 0.15 },
+      { number: 2, x: 6.9, y: 1.95 }
+    ],
+    [
+      { number: 0, x: 5.05, y: 0.35 },
+      { number: 3, x: 6.45, y: 2.15 },
+      { number: 17, x: 4.95, y: 0.15 }
+    ],
+    [
+      { number: 0, x: 2.95, y: 0.15 },
+      { number: 4, x: 5.15, y: 1.95 }
+    ],
+    [
+      { number: 0, x: 3.12, y: 1.05 },
+      { number: 5, x: 5.26, y: 2.35 },
+      { number: 17, x: 2.95, y: 0.95 }
+    ],
+    [
+      { number: 0, x: 0.15, y: 1.95 },
+      { number: 6, x: 3.95, y: 2.95 }
+    ],
+    [
+      { number: 0, x: 2.15, y: 3 },
+      { number: 7, x: 4.95, y: 3.45 },
+      { number: 17, x: 1.95, y: 2.95 }
+    ]
+  ],
+  startIndex: 3,
+  showShotLine: true,
+  pottingPocketProp: [{ x: 8, y: 4, show: true }],
+  targetSpecs: [{ isTarget: false, x: 5.9, y: 0.5, rotate: false, w: 0.9, h: 0.65 }],
+  leaveLineProp: [{ draw: false, x: 0, y: 0 }],
+  kickShotLineProp: [{ draw: false, rails: 1, objectBall: 99 }],
+  bankShotLineProp: { draw: false, objectBall: 99, pocket: { x: 8, y: 0 } }
+}
+
 export const tableSetups = [
   cutShotTableSetup,
   stopShotTableSetup,
@@ -1730,5 +1868,8 @@ export const tableSetups = [
   kickShot3TableSetup,
   bankShot1TableSetup,
   bankShot2TableSetup,
-  bankShot3TableSetup
+  bankShot3TableSetup,
+  elevated1TableSetup,
+  elevated2TableSetup,
+  elevated3TableSetup
 ]
