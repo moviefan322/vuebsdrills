@@ -40,20 +40,25 @@ const leaveLineProps = ref([])
 const computedBallPositionProps = computed(() => {
   if (!currentDrillTableSetup.value || !currentPosition.value) return []
   let positions = []
-  if (currentDrillTableSetup.value.drillType === 'standard') {
-    positions = currentDrillTableSetup.value.ballPositionProps[currentShot.value - 1]
-  } else if (currentDrillTableSetup.value.ballPositionProps.length === 1) {
+  if (currentDrillTableSetup.value.ballPositionProps.length === 1) {
     positions = [...currentDrillTableSetup.value.ballPositionProps[0]]
+  } else if (currentDrillTableSetup.value.drillType === 'standard') {
+    positions = currentDrillTableSetup.value.ballPositionProps[currentShot.value - 1]
   } else {
     positions = [...currentDrillTableSetup.value.ballPositionProps[currentPosition.value]]
   }
   // replace ball number 99 with the current shot
   positions = positions.map((position) => {
     if (position.number === 99) {
-      return { ...position, number: currentShot.value }
+      if (currentShot.value > 15) {
+        return { ...position, number: currentShot.value - 15 }
+      } else {
+        return { ...position, number: currentShot.value }
+      }
     }
     return position
   })
+
   return positions
 })
 

@@ -550,6 +550,46 @@ export const wagonWheelTableSetup: TableSetup = {
   bankShotLineProp: { draw: false, objectBall: null, pocket: null }
 }
 
+export const landingZoneTableSetup: TableSetup = {
+  drillId: 8,
+  drillName: 'Landing Zone',
+  drillType: 'standard',
+  ballPositionProps: [
+    [
+      { number: 99, x: 7, y: 1 },
+      { number: 0, x: 6.5, y: 2 }
+    ]
+  ],
+  startIndex: 3,
+  showShotLine: true,
+  pottingPocketProp: [{ x: 8, y: 0, show: true }],
+  targetSpecs: [
+    { isTarget: true, x: 5.9, y: 0.5, rotate: false, w: 0.9, h: 0.65 },
+    { isTarget: true, x: 5.9, y: 0.5, rotate: false, w: 0.9, h: 0.65 },
+    { isTarget: true, x: 5.9, y: 0.5, rotate: false, w: 0.9, h: 0.65 },
+    { isTarget: true, x: 5.9, y: 0.5, rotate: false, w: 0.9, h: 0.65 },
+    { isTarget: true, x: 1.9, y: 0.5, rotate: false, w: 0.9, h: 0.65 },
+    { isTarget: true, x: 1.9, y: 0.5, rotate: false, w: 0.9, h: 0.65 },
+    { isTarget: true, x: 1.9, y: 0.5, rotate: false, w: 0.9, h: 0.65 },
+    { isTarget: true, x: 1.9, y: 0.5, rotate: false, w: 0.9, h: 0.65 },
+    { isTarget: true, x: 3.9, y: 2, rotate: false, w: 0.9, h: 0.65 },
+    { isTarget: true, x: 3.9, y: 2, rotate: false, w: 0.9, h: 0.65 },
+    { isTarget: true, x: 3.9, y: 2, rotate: false, w: 0.9, h: 0.65 },
+    { isTarget: true, x: 3.9, y: 2, rotate: false, w: 0.9, h: 0.65 },
+    { isTarget: true, x: 1.9, y: 3.65, rotate: false, w: 0.9, h: 0.65 },
+    { isTarget: true, x: 1.9, y: 3.65, rotate: false, w: 0.9, h: 0.65 },
+    { isTarget: true, x: 1.9, y: 3.65, rotate: false, w: 0.9, h: 0.65 },
+    { isTarget: true, x: 1.9, y: 3.65, rotate: false, w: 0.9, h: 0.65 },
+    { isTarget: true, x: 5.9, y: 3.65, rotate: false, w: 0.9, h: 0.65 },
+    { isTarget: true, x: 5.9, y: 3.65, rotate: false, w: 0.9, h: 0.65 },
+    { isTarget: true, x: 5.9, y: 3.65, rotate: false, w: 0.9, h: 0.65 },
+    { isTarget: true, x: 5.9, y: 3.65, rotate: false, w: 0.9, h: 0.65 }
+  ],
+  leaveLineProp: [{ draw: false, x: 0, y: 0 }],
+  kickShotLineProp: { draw: false, rails: 0, objectBall: null },
+  bankShotLineProp: { draw: false, objectBall: null, pocket: null }
+}
+
 export const tableSetups = [
   cutShotTableSetup,
   stopShotTableSetup,
@@ -557,5 +597,6 @@ export const tableSetups = [
   drawShotTableSetup,
   stunShotTableSetup,
   pocketingTableSetup,
-  wagonWheelTableSetup
+  wagonWheelTableSetup,
+  landingZoneTableSetup
 ]
