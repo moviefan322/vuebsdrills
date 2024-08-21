@@ -1596,6 +1596,33 @@ export const kickShot3TableSetup: TableSetup = {
   bankShotLineProp: { draw: false, objectBall: null, pocket: null }
 }
 
+export const bankShot1TableSetup: TableSetup = {
+  drillId: 29,
+  drillName: 'Bank Shot (I)',
+  drillType: 'standard',
+  ballPositionProps: [
+    [
+      { number: 0, x: 2.75, y: 1 },
+      { number: 1, x: 2.95, y: 1.95 }
+    ],
+    [
+      { number: 0, x: 2.25, y: 1 },
+      { number: 2, x: 2.55, y: 1.95 }
+    ],
+    [
+      { number: 0, x: 1.85, y: 1 },
+      { number: 3, x: 2.15, y: 1.95 }
+    ]
+  ],
+  startIndex: 3,
+  showShotLine: true,
+  pottingPocketProp: [{ x: 8, y: 0, show: false }],
+  targetSpecs: [{ isTarget: false, x: 5.9, y: 0.5, rotate: false, w: 0.9, h: 0.65 }],
+  leaveLineProp: [{ draw: false, x: 0, y: 0 }],
+  kickShotLineProp: [{ draw: false, rails: 1, objectBall: 99 }],
+  bankShotLineProp: { draw: true, objectBall: 99, pocket: { x: 4, y: 0 } }
+}
+
 export const tableSetups = [
   cutShotTableSetup,
   stopShotTableSetup,
@@ -1622,5 +1649,6 @@ export const tableSetups = [
   safety3TableSetup,
   kickShot1TableSetup,
   kickShot2TableSetup,
-  kickShot3TableSetup
+  kickShot3TableSetup,
+  bankShot1TableSetup
 ]

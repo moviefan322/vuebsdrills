@@ -9,7 +9,7 @@
       :leaveLineProp="leaveLineProps"
       :showShotLine="currentDrillTableSetup.showShotLine"
       :kickShotLineProp="kickShotLineProps"
-      :bankShotLineProp="currentDrillTableSetup.bankShotLineProp"
+      :bankShotLineProp="bankShotLineProps"
     />
     <PoolTable v-else :tableWidth="350" />
   </div>
@@ -37,6 +37,7 @@ const targetPositionProps = ref([])
 const pottingPocketProps = ref([])
 const leaveLineProps = ref([])
 const kickShotLineProps = ref([])
+const bankShotLineProps = ref([])
 
 // Compute ball positions dynamically based on the current shot
 const computedBallPositionProps = computed(() => {
@@ -135,6 +136,24 @@ const computedKickShotLineProp = computed(() => {
   return kickShotLineProp
 })
 
+const computedBankShotLineProp = computed(() => {
+  let bankShotLineProp = []
+  if (currentDrillTableSetup.value.bankShotLineProp.objectBall === 99) {
+    if (currentShot.value > 15) {
+      bankShotLineProp = {
+        ...currentDrillTableSetup.value.bankShotLineProp,
+        objectBall: currentShot.value - 15
+      }
+    } else {
+      bankShotLineProp = {
+        ...currentDrillTableSetup.value.bankShotLineProp,
+        objectBall: currentShot.value
+      }
+    }
+  }
+  return bankShotLineProp
+})
+
 watch(
   [currentDrillTableSetup, currentPosition, currentShot, currentLayout],
   () => {
@@ -143,6 +162,7 @@ watch(
     pottingPocketProps.value = computedPottingPocketProps.value
     leaveLineProps.value = computedLeaveLineProps.value
     kickShotLineProps.value = computedKickShotLineProp.value
+    bankShotLineProps.value = computedBankShotLineProp.value
   },
   { immediate: true }
 )
