@@ -8,7 +8,7 @@
       :targetSpecs="targetPositionProps"
       :leaveLineProp="leaveLineProps"
       :showShotLine="currentDrillTableSetup.showShotLine"
-      :kickShotLineProp="currentDrillTableSetup.kickShotLineProp"
+      :kickShotLineProp="kickShotLineProps"
       :bankShotLineProp="currentDrillTableSetup.bankShotLineProp"
     />
     <PoolTable v-else :tableWidth="350" />
@@ -36,6 +36,7 @@ const ballPositionProps = ref([])
 const targetPositionProps = ref([])
 const pottingPocketProps = ref([])
 const leaveLineProps = ref([])
+const kickShotLineProps = ref([])
 
 // Compute ball positions dynamically based on the current shot
 const computedBallPositionProps = computed(() => {
@@ -109,6 +110,31 @@ const computedLeaveLineProps = computed(() => {
   return leaveLineProps
 })
 
+const computedKickShotLineProp = computed(() => {
+  if (!currentDrillTableSetup.value || !currentPosition.value) return []
+  let kickShotLineProp = []
+  if (currentDrillTableSetup.value.kickShotLineProp.length === 1) {
+    kickShotLineProp = currentDrillTableSetup.value.kickShotLineProp[0]
+  } else if (currentDrillTableSetup.value.drillType === 'standard') {
+    kickShotLineProp = currentDrillTableSetup.value.kickShotLineProp[currentShot.value - 1]
+  } else {
+    kickShotLineProp = currentDrillTableSetup.value.kickShotLineProp[currentPosition.value]
+  }
+
+  if (kickShotLineProp.length === 0) throw new Error('No ball kickShotLineProp found')
+  if (kickShotLineProp.objectBall === 99) {
+    console.log('found one')
+    if (currentShot.value > 15) {
+      kickShotLineProp = { ...kickShotLineProp, objectBall: currentShot.value - 15 }
+    } else {
+      kickShotLineProp = { ...kickShotLineProp, objectBall: currentShot.value }
+    }
+  }
+
+  console.log(kickShotLineProp)
+  return kickShotLineProp
+})
+
 watch(
   [currentDrillTableSetup, currentPosition, currentShot, currentLayout],
   () => {
@@ -116,6 +142,7 @@ watch(
     targetPositionProps.value = computedTargetPositionProps.value
     pottingPocketProps.value = computedPottingPocketProps.value
     leaveLineProps.value = computedLeaveLineProps.value
+    kickShotLineProps.value = computedKickShotLineProp.value
   },
   { immediate: true }
 )

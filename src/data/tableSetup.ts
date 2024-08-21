@@ -25,6 +25,12 @@ export interface LeaveLineProp {
   y: number
 }
 
+export interface KickShotLineProp {
+  draw: boolean
+  rails: number
+  objectBall: number | null
+}
+
 export interface TableSetup {
   drillName: string
   drillType: string
@@ -35,7 +41,7 @@ export interface TableSetup {
   pottingPocketProp: PottingPocketProp[]
   targetSpecs: TargetSpec[]
   leaveLineProp: LeaveLineProp[]
-  kickShotLineProp: { draw: boolean; rails: number | null; objectBall: number | null } | null
+  kickShotLineProp: KickShotLineProp[]
   bankShotLineProp: {
     draw: boolean
     objectBall: number | null
@@ -86,7 +92,7 @@ export const cutShotTableSetup: TableSetup = {
   pottingPocketProp: [{ x: 8, y: 4, show: true }],
   targetSpecs: [{ isTarget: false, x: 7.5, y: 0.5, rotate: false, w: 0.65, h: 0.8 }],
   leaveLineProp: [{ draw: false, x: 0, y: 0 }],
-  kickShotLineProp: { draw: false, rails: 0, objectBall: null },
+  kickShotLineProp: [{ draw: false, rails: 0, objectBall: null }],
   bankShotLineProp: { draw: false, objectBall: null, pocket: null }
 }
 
@@ -133,7 +139,7 @@ export const stopShotTableSetup: TableSetup = {
   pottingPocketProp: [{ x: 8, y: 0, show: true }],
   targetSpecs: [{ isTarget: false, x: 7.5, y: 0.5, rotate: false, w: 0.65, h: 0.8 }],
   leaveLineProp: [{ draw: false, x: 0, y: 0 }],
-  kickShotLineProp: { draw: false, rails: 0, objectBall: null },
+  kickShotLineProp: [{ draw: false, rails: 0, objectBall: null }],
   bankShotLineProp: { draw: false, objectBall: null, pocket: null }
 }
 
@@ -180,7 +186,7 @@ export const followShotTableSetup: TableSetup = {
   pottingPocketProp: [{ x: 8, y: 0, show: true }],
   targetSpecs: [{ isTarget: true, x: 7.65, y: 0.5, rotate: false, w: 0.65, h: 0.8 }],
   leaveLineProp: [{ draw: false, x: 0, y: 0 }],
-  kickShotLineProp: { draw: false, rails: 0, objectBall: null },
+  kickShotLineProp: [{ draw: false, rails: 0, objectBall: null }],
   bankShotLineProp: { draw: false, objectBall: null, pocket: null }
 }
 
@@ -227,7 +233,7 @@ export const drawShotTableSetup: TableSetup = {
   pottingPocketProp: [{ x: 8, y: 0, show: true }],
   targetSpecs: [{ isTarget: true, x: 4.5, y: 0.5, rotate: false, w: 2, h: 1 }],
   leaveLineProp: [{ draw: false, x: 0, y: 0 }],
-  kickShotLineProp: { draw: false, rails: 0, objectBall: null },
+  kickShotLineProp: [{ draw: false, rails: 0, objectBall: null }],
   bankShotLineProp: { draw: false, objectBall: null, pocket: null }
 }
 
@@ -254,7 +260,7 @@ export const stunShotTableSetup: TableSetup = {
     { isTarget: true, x: 4.9, y: 1.95, rotate: true, w: 0.65, h: 0.8 }
   ],
   leaveLineProp: [{ draw: false, x: 0, y: 0 }],
-  kickShotLineProp: { draw: false, rails: 0, objectBall: null },
+  kickShotLineProp: [{ draw: false, rails: 0, objectBall: null }],
   bankShotLineProp: { draw: false, objectBall: null, pocket: null }
 }
 
@@ -320,7 +326,7 @@ export const pocketingTableSetup: TableSetup = {
   ],
   targetSpecs: [{ isTarget: false, x: 4.5, y: 0.5, rotate: false, w: 2, h: 1 }],
   leaveLineProp: [{ draw: false, x: 0, y: 0 }],
-  kickShotLineProp: { draw: false, rails: 0, objectBall: null },
+  kickShotLineProp: [{ draw: false, rails: 0, objectBall: null }],
   bankShotLineProp: { draw: false, objectBall: null, pocket: null }
 }
 
@@ -546,7 +552,7 @@ export const wagonWheelTableSetup: TableSetup = {
     { draw: true, x: 5.8, y: 3.6 },
     { draw: true, x: 5.8, y: 3.6 }
   ],
-  kickShotLineProp: { draw: false, rails: 0, objectBall: null },
+  kickShotLineProp: [{ draw: false, rails: 0, objectBall: null }],
   bankShotLineProp: { draw: false, objectBall: null, pocket: null }
 }
 
@@ -586,7 +592,7 @@ export const landingZoneTableSetup: TableSetup = {
     { isTarget: true, x: 5.9, y: 3.65, rotate: false, w: 0.9, h: 0.65 }
   ],
   leaveLineProp: [{ draw: false, x: 0, y: 0 }],
-  kickShotLineProp: { draw: false, rails: 0, objectBall: null },
+  kickShotLineProp: [{ draw: false, rails: 0, objectBall: null }],
   bankShotLineProp: { draw: false, objectBall: null, pocket: null }
 }
 
@@ -607,7 +613,7 @@ export const lineOfBalls1TableSetup: TableSetup = {
   pottingPocketProp: [{ x: 8, y: 0, show: false }],
   targetSpecs: [{ isTarget: false, x: 5.9, y: 0.5, rotate: false, w: 0.9, h: 0.65 }],
   leaveLineProp: [{ draw: false, x: 0, y: 0 }],
-  kickShotLineProp: { draw: false, rails: 0, objectBall: null },
+  kickShotLineProp: [{ draw: false, rails: 0, objectBall: null }],
   bankShotLineProp: { draw: false, objectBall: null, pocket: null }
 }
 
@@ -631,7 +637,7 @@ export const lineOfBalls2TableSetup: TableSetup = {
   pottingPocketProp: [{ x: 8, y: 0, show: false }],
   targetSpecs: [{ isTarget: false, x: 5.9, y: 0.5, rotate: false, w: 0.9, h: 0.65 }],
   leaveLineProp: [{ draw: false, x: 0, y: 0 }],
-  kickShotLineProp: { draw: false, rails: 0, objectBall: null },
+  kickShotLineProp: [{ draw: false, rails: 0, objectBall: null }],
   bankShotLineProp: { draw: false, objectBall: null, pocket: null }
 }
 
@@ -658,7 +664,7 @@ export const lineOfBalls3TableSetup: TableSetup = {
   pottingPocketProp: [{ x: 8, y: 0, show: false }],
   targetSpecs: [{ isTarget: false, x: 5.9, y: 0.5, rotate: false, w: 0.9, h: 0.65 }],
   leaveLineProp: [{ draw: false, x: 0, y: 0 }],
-  kickShotLineProp: { draw: false, rails: 0, objectBall: null },
+  kickShotLineProp: [{ draw: false, rails: 0, objectBall: null }],
   bankShotLineProp: { draw: false, objectBall: null, pocket: null }
 }
 
@@ -682,7 +688,7 @@ export const railCutShot1TableSetup: TableSetup = {
   pottingPocketProp: [{ x: 8, y: 0, show: false }],
   targetSpecs: [{ isTarget: false, x: 5.9, y: 0.5, rotate: false, w: 0.9, h: 0.65 }],
   leaveLineProp: [{ draw: false, x: 0, y: 0 }],
-  kickShotLineProp: { draw: false, rails: 0, objectBall: null },
+  kickShotLineProp: [{ draw: false, rails: 0, objectBall: null }],
   bankShotLineProp: { draw: false, objectBall: null, pocket: null }
 }
 
@@ -710,7 +716,7 @@ export const railCutShot2TableSetup: TableSetup = {
   pottingPocketProp: [{ x: 8, y: 0, show: false }],
   targetSpecs: [{ isTarget: false, x: 5.9, y: 0.5, rotate: false, w: 0.9, h: 0.65 }],
   leaveLineProp: [{ draw: false, x: 0, y: 0 }],
-  kickShotLineProp: { draw: false, rails: 0, objectBall: null },
+  kickShotLineProp: [{ draw: false, rails: 0, objectBall: null }],
   bankShotLineProp: { draw: false, objectBall: null, pocket: null }
 }
 
@@ -742,7 +748,7 @@ export const railCutShot3TableSetup: TableSetup = {
   pottingPocketProp: [{ x: 8, y: 0, show: false }],
   targetSpecs: [{ isTarget: false, x: 5.9, y: 0.5, rotate: false, w: 0.9, h: 0.65 }],
   leaveLineProp: [{ draw: false, x: 0, y: 0 }],
-  kickShotLineProp: { draw: false, rails: 0, objectBall: null },
+  kickShotLineProp: [{ draw: false, rails: 0, objectBall: null }],
   bankShotLineProp: { draw: false, objectBall: null, pocket: null }
 }
 
@@ -778,7 +784,7 @@ export const pattern9Ball1TableSetup: TableSetup = {
   pottingPocketProp: [{ x: 8, y: 0, show: false }],
   targetSpecs: [{ isTarget: false, x: 5.9, y: 0.5, rotate: false, w: 0.9, h: 0.65 }],
   leaveLineProp: [{ draw: false, x: 0, y: 0 }],
-  kickShotLineProp: { draw: false, rails: 0, objectBall: null },
+  kickShotLineProp: [{ draw: false, rails: 0, objectBall: null }],
   bankShotLineProp: { draw: false, objectBall: null, pocket: null }
 }
 
@@ -817,7 +823,7 @@ export const pattern9Ball2TableSetup: TableSetup = {
   pottingPocketProp: [{ x: 8, y: 0, show: false }],
   targetSpecs: [{ isTarget: false, x: 5.9, y: 0.5, rotate: false, w: 0.9, h: 0.65 }],
   leaveLineProp: [{ draw: false, x: 0, y: 0 }],
-  kickShotLineProp: { draw: false, rails: 0, objectBall: null },
+  kickShotLineProp: [{ draw: false, rails: 0, objectBall: null }],
   bankShotLineProp: { draw: false, objectBall: null, pocket: null }
 }
 
@@ -859,7 +865,7 @@ export const pattern9Ball3TableSetup: TableSetup = {
   pottingPocketProp: [{ x: 8, y: 0, show: false }],
   targetSpecs: [{ isTarget: false, x: 5.9, y: 0.5, rotate: false, w: 0.9, h: 0.65 }],
   leaveLineProp: [{ draw: false, x: 0, y: 0 }],
-  kickShotLineProp: { draw: false, rails: 0, objectBall: null },
+  kickShotLineProp: [{ draw: false, rails: 0, objectBall: null }],
   bankShotLineProp: { draw: false, objectBall: null, pocket: null }
 }
 
@@ -903,7 +909,7 @@ export const pattern8Ball1TableSetup: TableSetup = {
   pottingPocketProp: [{ x: 8, y: 0, show: false }],
   targetSpecs: [{ isTarget: false, x: 5.9, y: 0.5, rotate: false, w: 0.9, h: 0.65 }],
   leaveLineProp: [{ draw: false, x: 0, y: 0 }],
-  kickShotLineProp: { draw: false, rails: 0, objectBall: null },
+  kickShotLineProp: [{ draw: false, rails: 0, objectBall: null }],
   bankShotLineProp: { draw: false, objectBall: null, pocket: null }
 }
 
@@ -948,7 +954,7 @@ export const pattern8Ball2TableSetup: TableSetup = {
   pottingPocketProp: [{ x: 8, y: 0, show: false }],
   targetSpecs: [{ isTarget: false, x: 5.9, y: 0.5, rotate: false, w: 0.9, h: 0.65 }],
   leaveLineProp: [{ draw: false, x: 0, y: 0 }],
-  kickShotLineProp: { draw: false, rails: 0, objectBall: null },
+  kickShotLineProp: [{ draw: false, rails: 0, objectBall: null }],
   bankShotLineProp: { draw: false, objectBall: null, pocket: null }
 }
 
@@ -998,7 +1004,7 @@ export const pattern8Ball3TableSetup: TableSetup = {
   pottingPocketProp: [{ x: 8, y: 0, show: false }],
   targetSpecs: [{ isTarget: false, x: 5.9, y: 0.5, rotate: false, w: 0.9, h: 0.65 }],
   leaveLineProp: [{ draw: false, x: 0, y: 0 }],
-  kickShotLineProp: { draw: false, rails: 0, objectBall: null },
+  kickShotLineProp: [{ draw: false, rails: 0, objectBall: null }],
   bankShotLineProp: { draw: false, objectBall: null, pocket: null }
 }
 
@@ -1091,7 +1097,7 @@ export const safety1TableSetup: TableSetup = {
   pottingPocketProp: [{ x: 8, y: 0, show: false }],
   targetSpecs: [{ isTarget: false, x: 5.9, y: 0.5, rotate: false, w: 0.9, h: 0.65 }],
   leaveLineProp: [{ draw: false, x: 0, y: 0 }],
-  kickShotLineProp: { draw: false, rails: 0, objectBall: null },
+  kickShotLineProp: [{ draw: false, rails: 0, objectBall: null }],
   bankShotLineProp: { draw: false, objectBall: null, pocket: null }
 }
 
@@ -1229,14 +1235,14 @@ export const safety2TableSetup: TableSetup = {
       { number: 8, x: 6.15, y: 0.85 },
       { number: 9, x: 6.15, y: 1.05 },
       { number: 10, x: 6.35, y: 0.95 }
-    ],
+    ]
   ],
   startIndex: 3,
   showShotLine: true,
   pottingPocketProp: [{ x: 8, y: 0, show: false }],
   targetSpecs: [{ isTarget: false, x: 5.9, y: 0.5, rotate: false, w: 0.9, h: 0.65 }],
   leaveLineProp: [{ draw: false, x: 0, y: 0 }],
-  kickShotLineProp: { draw: false, rails: 0, objectBall: null },
+  kickShotLineProp: [{ draw: false, rails: 0, objectBall: null }],
   bankShotLineProp: { draw: false, objectBall: null, pocket: null }
 }
 
@@ -1426,14 +1432,167 @@ export const safety3TableSetup: TableSetup = {
       { number: 8, x: 6.15, y: 0.85 },
       { number: 9, x: 6.15, y: 1.05 },
       { number: 10, x: 6.35, y: 0.95 }
-    ],
+    ]
   ],
   startIndex: 3,
   showShotLine: true,
   pottingPocketProp: [{ x: 8, y: 0, show: false }],
   targetSpecs: [{ isTarget: false, x: 5.9, y: 0.5, rotate: false, w: 0.9, h: 0.65 }],
   leaveLineProp: [{ draw: false, x: 0, y: 0 }],
-  kickShotLineProp: { draw: false, rails: 0, objectBall: null },
+  kickShotLineProp: [{ draw: false, rails: 0, objectBall: null }],
+  bankShotLineProp: { draw: false, objectBall: null, pocket: null }
+}
+
+export const kickShot1TableSetup: TableSetup = {
+  drillId: 26,
+  drillName: 'Kick Shot (I)',
+  drillType: 'standard',
+  ballPositionProps: [
+    [
+      { number: 0, x: 0.95, y: 0.95 },
+      { number: 1, x: 1.95, y: 1.95 }
+    ],
+    [
+      { number: 0, x: 0.95, y: 0.95 },
+      { number: 2, x: 2.95, y: 1.95 }
+    ],
+    [
+      { number: 0, x: 0.95, y: 0.95 },
+      { number: 3, x: 3.95, y: 1.95 }
+    ],
+    [
+      { number: 0, x: 0.95, y: 0.95 },
+      { number: 4, x: 5.75, y: 1.95 }
+    ],
+    [
+      { number: 0, x: 0.95, y: 0.95 },
+      { number: 5, x: 1.95, y: 1.95 }
+    ],
+    [
+      { number: 0, x: 0.95, y: 0.95 },
+      { number: 6, x: 3.95, y: 1.95 }
+    ],
+    [
+      { number: 0, x: 0.95, y: 0.95 },
+      { number: 7, x: 2.95, y: 1.95 }
+    ]
+  ],
+  startIndex: 3,
+  showShotLine: false,
+  pottingPocketProp: [{ x: 8, y: 0, show: false }],
+  targetSpecs: [{ isTarget: false, x: 5.9, y: 0.5, rotate: false, w: 0.9, h: 0.65 }],
+  leaveLineProp: [{ draw: false, x: 0, y: 0 }],
+  kickShotLineProp: [
+    { draw: true, rails: 1, objectBall: 99 },
+    { draw: true, rails: 1, objectBall: 99 },
+    { draw: true, rails: 1, objectBall: 99 },
+    { draw: true, rails: 2, objectBall: 99 },
+    { draw: true, rails: 2, objectBall: 99 },
+    { draw: true, rails: 2, objectBall: 99 },
+    { draw: true, rails: 3, objectBall: 99 }
+  ],
+  bankShotLineProp: { draw: false, objectBall: null, pocket: null }
+}
+
+export const kickShot2TableSetup: TableSetup = {
+  drillId: 27,
+  drillName: 'Kick Shot (II)',
+  drillType: 'standard',
+  ballPositionProps: [
+    [
+      { number: 0, x: 0.95, y: 0.95 },
+      { number: 1, x: 1.95, y: 1.95 }
+    ],
+    [
+      { number: 0, x: 0.95, y: 0.95 },
+      { number: 2, x: 2.95, y: 1.95 }
+    ],
+    [
+      { number: 0, x: 0.95, y: 0.95 },
+      { number: 3, x: 3.95, y: 1.95 }
+    ],
+    [
+      { number: 0, x: 0.95, y: 0.95 },
+      { number: 4, x: 5.75, y: 1.95 }
+    ],
+    [
+      { number: 0, x: 0.95, y: 0.95 },
+      { number: 5, x: 1.95, y: 1.95 }
+    ],
+    [
+      { number: 0, x: 0.95, y: 0.95 },
+      { number: 6, x: 3.95, y: 1.95 }
+    ],
+    [
+      { number: 0, x: 0.95, y: 0.95 },
+      { number: 7, x: 2.95, y: 1.95 }
+    ]
+  ],
+  startIndex: 3,
+  showShotLine: false,
+  pottingPocketProp: [{ x: 8, y: 0, show: false }],
+  targetSpecs: [{ isTarget: false, x: 5.9, y: 0.5, rotate: false, w: 0.9, h: 0.65 }],
+  leaveLineProp: [{ draw: false, x: 0, y: 0 }],
+  kickShotLineProp: [
+    { draw: true, rails: 1, objectBall: 99 },
+    { draw: true, rails: 1, objectBall: 99 },
+    { draw: true, rails: 1, objectBall: 99 },
+    { draw: true, rails: 2, objectBall: 99 },
+    { draw: true, rails: 2, objectBall: 99 },
+    { draw: true, rails: 2, objectBall: 99 },
+    { draw: true, rails: 3, objectBall: 99 }
+  ],
+  bankShotLineProp: { draw: false, objectBall: null, pocket: null }
+}
+
+export const kickShot3TableSetup: TableSetup = {
+  drillId: 28,
+  drillName: 'Kick Shot (III)',
+  drillType: 'standard',
+  ballPositionProps: [
+    [
+      { number: 0, x: 0.95, y: 0.95 },
+      { number: 1, x: 1.95, y: 1.95 }
+    ],
+    [
+      { number: 0, x: 0.95, y: 0.95 },
+      { number: 2, x: 2.95, y: 1.95 }
+    ],
+    [
+      { number: 0, x: 0.95, y: 0.95 },
+      { number: 3, x: 3.95, y: 1.95 }
+    ],
+    [
+      { number: 0, x: 0.95, y: 0.95 },
+      { number: 4, x: 5.75, y: 1.95 }
+    ],
+    [
+      { number: 0, x: 0.95, y: 0.95 },
+      { number: 5, x: 1.95, y: 1.95 }
+    ],
+    [
+      { number: 0, x: 0.95, y: 0.95 },
+      { number: 6, x: 3.95, y: 1.95 }
+    ],
+    [
+      { number: 0, x: 0.95, y: 0.95 },
+      { number: 7, x: 2.95, y: 1.95 }
+    ]
+  ],
+  startIndex: 3,
+  showShotLine: false,
+  pottingPocketProp: [{ x: 8, y: 0, show: false }],
+  targetSpecs: [{ isTarget: false, x: 5.9, y: 0.5, rotate: false, w: 0.9, h: 0.65 }],
+  leaveLineProp: [{ draw: false, x: 0, y: 0 }],
+  kickShotLineProp: [
+    { draw: true, rails: 1, objectBall: 99 },
+    { draw: true, rails: 1, objectBall: 99 },
+    { draw: true, rails: 1, objectBall: 99 },
+    { draw: true, rails: 2, objectBall: 99 },
+    { draw: true, rails: 2, objectBall: 99 },
+    { draw: true, rails: 2, objectBall: 99 },
+    { draw: true, rails: 3, objectBall: 99 }
+  ],
   bankShotLineProp: { draw: false, objectBall: null, pocket: null }
 }
 
@@ -1460,5 +1619,8 @@ export const tableSetups = [
   pattern8Ball3TableSetup,
   safety1TableSetup,
   safety2TableSetup,
-  safety3TableSetup
+  safety3TableSetup,
+  kickShot1TableSetup,
+  kickShot2TableSetup,
+  kickShot3TableSetup
 ]
