@@ -1839,6 +1839,93 @@ export const elevated3TableSetup: TableSetup = {
   bankShotLineProp: { draw: false, objectBall: 99, pocket: { x: 8, y: 0 } }
 }
 
+export const jumpMasse1TableSetup: TableSetup = {
+  drillId: 35,
+  drillName: 'Jump/Massé (I)',
+  drillType: 'standard',
+  ballPositionProps: [
+    [
+      { number: 0, x: 0.95, y: 0.95 },
+      { number: 1, x: 7.8, y: 3.8 },
+      { number: 17, x: 2, y: 1.6 },
+      { number: 17, x: 2.15, y: 1.25 }
+    ]
+  ],
+  startIndex: 3,
+  showShotLine: true,
+  pottingPocketProp: [{ x: 8, y: 4, show: true }],
+  targetSpecs: [{ isTarget: false, x: 5.9, y: 0.5, rotate: false, w: 0.9, h: 0.65 }],
+  leaveLineProp: [{ draw: false, x: 0, y: 0 }],
+  kickShotLineProp: [{ draw: false, rails: 1, objectBall: 99 }],
+  bankShotLineProp: { draw: false, objectBall: 99, pocket: { x: 8, y: 0 } }
+}
+
+export const jumpMasse2TableSetup: TableSetup = {
+  drillId: 36,
+  drillName: 'Jump/Massé (II)',
+  drillType: 'standard',
+  ballPositionProps: [
+    [
+      { number: 0, x: 0.95, y: 0.95 },
+      { number: 1, x: 7.8, y: 3.8 },
+      { number: 17, x: 2, y: 1.4 }
+    ]
+  ],
+  startIndex: 3,
+  showShotLine: true,
+  pottingPocketProp: [{ x: 8, y: 4, show: true }],
+  targetSpecs: [{ isTarget: false, x: 5.9, y: 0.5, rotate: false, w: 0.9, h: 0.65 }],
+  leaveLineProp: [{ draw: false, x: 0, y: 0 }],
+  kickShotLineProp: [{ draw: false, rails: 1, objectBall: 99 }],
+  bankShotLineProp: { draw: false, objectBall: 99, pocket: { x: 8, y: 0 } }
+}
+
+export const jumpMasse3TableSetup: TableSetup = {
+  drillId: 37,
+  drillName: 'Jump/Massé (III)',
+  drillType: 'standard',
+  ballPositionProps: [
+    [
+      { number: 0, x: 0.95, y: 0.95 },
+      { number: 1, x: 7.8, y: 3.8 },
+      { number: 17, x: 1.55, y: 1.2 }
+    ]
+  ],
+  startIndex: 3,
+  showShotLine: true,
+  pottingPocketProp: [{ x: 8, y: 4, show: true }],
+  targetSpecs: [{ isTarget: false, x: 5.9, y: 0.5, rotate: false, w: 0.9, h: 0.65 }],
+  leaveLineProp: [{ draw: false, x: 0, y: 0 }],
+  kickShotLineProp: [{ draw: false, rails: 1, objectBall: 99 }],
+  bankShotLineProp: { draw: false, objectBall: 99, pocket: { x: 8, y: 0 } }
+}
+
+export const breakDrillTableSetup: TableSetup = {
+  drillId: 38,
+  drillName: 'Break',
+  drillType: 'attempt',
+  ballPositionProps: [
+    [
+      { number: 1, x: 5.9, y: 1.95 },
+      { number: 2, x: 6.1, y: 1.85 },
+      { number: 3, x: 6.1, y: 2.05 },
+      { number: 9, x: 6.3, y: 1.95 },
+      { number: 4, x: 6.3, y: 1.75 },
+      { number: 5, x: 6.3, y: 2.15 },
+      { number: 6, x: 6.5, y: 1.85 },
+      { number: 8, x: 6.5, y: 2.05 },
+      { number: 7, x: 6.7, y: 1.95 }
+    ]
+  ],
+  startIndex: 3,
+  showShotLine: true,
+  pottingPocketProp: [{ x: 8, y: 4, show: false }],
+  targetSpecs: [{ isTarget: true, x: 2.35, y: 0.5, rotate: false, w: 4, h: 3.8 }],
+  leaveLineProp: [{ draw: false, x: 0, y: 0 }],
+  kickShotLineProp: [{ draw: false, rails: 1, objectBall: 99 }],
+  bankShotLineProp: { draw: false, objectBall: 99, pocket: { x: 8, y: 0 } }
+}
+
 export const tableSetups = [
   cutShotTableSetup,
   stopShotTableSetup,
@@ -1871,5 +1958,9 @@ export const tableSetups = [
   bankShot3TableSetup,
   elevated1TableSetup,
   elevated2TableSetup,
-  elevated3TableSetup
+  elevated3TableSetup,
+  jumpMasse1TableSetup,
+  jumpMasse2TableSetup,
+  jumpMasse3TableSetup,
+  breakDrillTableSetup
 ]
