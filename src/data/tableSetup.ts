@@ -19,6 +19,12 @@ export interface PottingPocketProp {
   show: boolean
 }
 
+export interface LeaveLineProp {
+  draw: boolean
+  x: number
+  y: number
+}
+
 export interface TableSetup {
   drillName: string
   drillType: string
@@ -27,8 +33,8 @@ export interface TableSetup {
   startIndex: number
   showShotLine: boolean
   pottingPocketProp: PottingPocketProp[]
-  targetSpecs: TargetSpec[] | null
-  leaveLineProp: { draw: boolean; x: number; y: number } | null
+  targetSpecs: TargetSpec[]
+  leaveLineProp: LeaveLineProp[]
   kickShotLineProp: { draw: boolean; rails: number | null; objectBall: number | null } | null
   bankShotLineProp: {
     draw: boolean
@@ -79,7 +85,7 @@ export const cutShotTableSetup: TableSetup = {
   showShotLine: true,
   pottingPocketProp: [{ x: 8, y: 4, show: true }],
   targetSpecs: [{ isTarget: false, x: 7.5, y: 0.5, rotate: false, w: 0.65, h: 0.8 }],
-  leaveLineProp: { draw: false, x: 0, y: 0 },
+  leaveLineProp: [{ draw: false, x: 0, y: 0 }],
   kickShotLineProp: { draw: false, rails: 0, objectBall: null },
   bankShotLineProp: { draw: false, objectBall: null, pocket: null }
 }
@@ -126,7 +132,7 @@ export const stopShotTableSetup: TableSetup = {
   showShotLine: true,
   pottingPocketProp: [{ x: 8, y: 0, show: true }],
   targetSpecs: [{ isTarget: false, x: 7.5, y: 0.5, rotate: false, w: 0.65, h: 0.8 }],
-  leaveLineProp: { draw: false, x: 0, y: 0 },
+  leaveLineProp: [{ draw: false, x: 0, y: 0 }],
   kickShotLineProp: { draw: false, rails: 0, objectBall: null },
   bankShotLineProp: { draw: false, objectBall: null, pocket: null }
 }
@@ -173,7 +179,7 @@ export const followShotTableSetup: TableSetup = {
   showShotLine: true,
   pottingPocketProp: [{ x: 8, y: 0, show: true }],
   targetSpecs: [{ isTarget: true, x: 7.65, y: 0.5, rotate: false, w: 0.65, h: 0.8 }],
-  leaveLineProp: { draw: false, x: 0, y: 0 },
+  leaveLineProp: [{ draw: false, x: 0, y: 0 }],
   kickShotLineProp: { draw: false, rails: 0, objectBall: null },
   bankShotLineProp: { draw: false, objectBall: null, pocket: null }
 }
@@ -220,7 +226,7 @@ export const drawShotTableSetup: TableSetup = {
   showShotLine: true,
   pottingPocketProp: [{ x: 8, y: 0, show: true }],
   targetSpecs: [{ isTarget: true, x: 4.5, y: 0.5, rotate: false, w: 2, h: 1 }],
-  leaveLineProp: { draw: false, x: 0, y: 0 },
+  leaveLineProp: [{ draw: false, x: 0, y: 0 }],
   kickShotLineProp: { draw: false, rails: 0, objectBall: null },
   bankShotLineProp: { draw: false, objectBall: null, pocket: null }
 }
@@ -247,7 +253,7 @@ export const stunShotTableSetup: TableSetup = {
     { isTarget: true, x: 5.9, y: 1.95, rotate: true, w: 0.65, h: 0.8 },
     { isTarget: true, x: 4.9, y: 1.95, rotate: true, w: 0.65, h: 0.8 }
   ],
-  leaveLineProp: { draw: false, x: 0, y: 0 },
+  leaveLineProp: [{ draw: false, x: 0, y: 0 }],
   kickShotLineProp: { draw: false, rails: 0, objectBall: null },
   bankShotLineProp: { draw: false, objectBall: null, pocket: null }
 }
@@ -313,7 +319,233 @@ export const pocketingTableSetup: TableSetup = {
     { x: 8, y: 0, show: true }
   ],
   targetSpecs: [{ isTarget: false, x: 4.5, y: 0.5, rotate: false, w: 2, h: 1 }],
-  leaveLineProp: { draw: false, x: 0, y: 0 },
+  leaveLineProp: [{ draw: false, x: 0, y: 0 }],
+  kickShotLineProp: { draw: false, rails: 0, objectBall: null },
+  bankShotLineProp: { draw: false, objectBall: null, pocket: null }
+}
+
+export const wagonWheelTableSetup: TableSetup = {
+  drillId: 7,
+  drillName: 'Wagon Wheel',
+  drillType: 'standard',
+  ballPositionProps: [
+    [
+      { number: 0, x: 3.6, y: 2 },
+      { number: 11, x: 4, y: 1 },
+      { number: 1, x: 4.95, y: 0.2 },
+      { number: 2, x: 5.95, y: 0.2 },
+      { number: 3, x: 6.95, y: 0.2 },
+      { number: 4, x: 7.8, y: 0.2 },
+      { number: 5, x: 7.8, y: 0.95 },
+      { number: 6, x: 7.8, y: 1.95 },
+      { number: 7, x: 7.8, y: 2.95 },
+      { number: 8, x: 7.8, y: 3.8 },
+      { number: 9, x: 6.95, y: 3.8 },
+      { number: 10, x: 5.95, y: 3.8 }
+    ],
+    [
+      { number: 0, x: 3.6, y: 2 },
+      { number: 12, x: 4, y: 1 },
+      { number: 1, x: 4.95, y: 0.2 },
+      { number: 2, x: 5.95, y: 0.2 },
+      { number: 3, x: 6.95, y: 0.2 },
+      { number: 4, x: 7.8, y: 0.2 },
+      { number: 5, x: 7.8, y: 0.95 },
+      { number: 6, x: 7.8, y: 1.95 },
+      { number: 7, x: 7.8, y: 2.95 },
+      { number: 8, x: 7.8, y: 3.8 },
+      { number: 9, x: 6.95, y: 3.8 },
+      { number: 10, x: 5.95, y: 3.8 }
+    ],
+    [
+      { number: 0, x: 3.6, y: 2 },
+      { number: 13, x: 4, y: 1 },
+      { number: 2, x: 5.95, y: 0.2 },
+      { number: 3, x: 6.95, y: 0.2 },
+      { number: 4, x: 7.8, y: 0.2 },
+      { number: 5, x: 7.8, y: 0.95 },
+      { number: 6, x: 7.8, y: 1.95 },
+      { number: 7, x: 7.8, y: 2.95 },
+      { number: 8, x: 7.8, y: 3.8 },
+      { number: 9, x: 6.95, y: 3.8 },
+      { number: 10, x: 5.95, y: 3.8 }
+    ],
+    [
+      { number: 0, x: 3.6, y: 2 },
+      { number: 14, x: 4, y: 1 },
+      { number: 2, x: 5.95, y: 0.2 },
+      { number: 3, x: 6.95, y: 0.2 },
+      { number: 4, x: 7.8, y: 0.2 },
+      { number: 5, x: 7.8, y: 0.95 },
+      { number: 6, x: 7.8, y: 1.95 },
+      { number: 7, x: 7.8, y: 2.95 },
+      { number: 8, x: 7.8, y: 3.8 },
+      { number: 9, x: 6.95, y: 3.8 },
+      { number: 10, x: 5.95, y: 3.8 }
+    ],
+    [
+      { number: 0, x: 3.6, y: 2 },
+      { number: 15, x: 4, y: 1 },
+      { number: 3, x: 6.95, y: 0.2 },
+      { number: 4, x: 7.8, y: 0.2 },
+      { number: 5, x: 7.8, y: 0.95 },
+      { number: 6, x: 7.8, y: 1.95 },
+      { number: 7, x: 7.8, y: 2.95 },
+      { number: 8, x: 7.8, y: 3.8 },
+      { number: 9, x: 6.95, y: 3.8 },
+      { number: 10, x: 5.95, y: 3.8 }
+    ],
+    [
+      { number: 0, x: 3.6, y: 2 },
+      { number: 1, x: 4, y: 1 },
+      { number: 3, x: 6.95, y: 0.2 },
+      { number: 4, x: 7.8, y: 0.2 },
+      { number: 5, x: 7.8, y: 0.95 },
+      { number: 6, x: 7.8, y: 1.95 },
+      { number: 7, x: 7.8, y: 2.95 },
+      { number: 8, x: 7.8, y: 3.8 },
+      { number: 9, x: 6.95, y: 3.8 },
+      { number: 10, x: 5.95, y: 3.8 }
+    ],
+    [
+      { number: 0, x: 3.6, y: 2 },
+      { number: 2, x: 4, y: 1 },
+      { number: 4, x: 7.8, y: 0.2 },
+      { number: 5, x: 7.8, y: 0.95 },
+      { number: 6, x: 7.8, y: 1.95 },
+      { number: 7, x: 7.8, y: 2.95 },
+      { number: 8, x: 7.8, y: 3.8 },
+      { number: 9, x: 6.95, y: 3.8 },
+      { number: 10, x: 5.95, y: 3.8 }
+    ],
+    [
+      { number: 0, x: 3.6, y: 2 },
+      { number: 3, x: 4, y: 1 },
+      { number: 4, x: 7.8, y: 0.2 },
+      { number: 5, x: 7.8, y: 0.95 },
+      { number: 6, x: 7.8, y: 1.95 },
+      { number: 7, x: 7.8, y: 2.95 },
+      { number: 8, x: 7.8, y: 3.8 },
+      { number: 9, x: 6.95, y: 3.8 },
+      { number: 10, x: 5.95, y: 3.8 }
+    ],
+    [
+      { number: 0, x: 3.6, y: 2 },
+      { number: 4, x: 4, y: 1 },
+      { number: 5, x: 7.8, y: 0.95 },
+      { number: 6, x: 7.8, y: 1.95 },
+      { number: 7, x: 7.8, y: 2.95 },
+      { number: 8, x: 7.8, y: 3.8 },
+      { number: 9, x: 6.95, y: 3.8 },
+      { number: 10, x: 5.95, y: 3.8 }
+    ],
+    [
+      { number: 0, x: 3.6, y: 2 },
+      { number: 11, x: 4, y: 1 },
+      { number: 5, x: 7.8, y: 0.95 },
+      { number: 6, x: 7.8, y: 1.95 },
+      { number: 7, x: 7.8, y: 2.95 },
+      { number: 8, x: 7.8, y: 3.8 },
+      { number: 9, x: 6.95, y: 3.8 },
+      { number: 10, x: 5.95, y: 3.8 }
+    ],
+    [
+      { number: 0, x: 3.6, y: 2 },
+      { number: 12, x: 4, y: 1 },
+      { number: 6, x: 7.8, y: 1.95 },
+      { number: 7, x: 7.8, y: 2.95 },
+      { number: 8, x: 7.8, y: 3.8 },
+      { number: 9, x: 6.95, y: 3.8 },
+      { number: 10, x: 5.95, y: 3.8 }
+    ],
+    [
+      { number: 0, x: 3.6, y: 2 },
+      { number: 13, x: 4, y: 1 },
+      { number: 6, x: 7.8, y: 1.95 },
+      { number: 7, x: 7.8, y: 2.95 },
+      { number: 8, x: 7.8, y: 3.8 },
+      { number: 9, x: 6.95, y: 3.8 },
+      { number: 10, x: 5.95, y: 3.8 }
+    ],
+    [
+      { number: 0, x: 3.6, y: 2 },
+      { number: 14, x: 4, y: 1 },
+      { number: 7, x: 7.8, y: 2.95 },
+      { number: 8, x: 7.8, y: 3.8 },
+      { number: 9, x: 6.95, y: 3.8 },
+      { number: 10, x: 5.95, y: 3.8 }
+    ],
+    [
+      { number: 0, x: 3.6, y: 2 },
+      { number: 15, x: 4, y: 1 },
+      { number: 7, x: 7.8, y: 2.95 },
+      { number: 8, x: 7.8, y: 3.8 },
+      { number: 9, x: 6.95, y: 3.8 },
+      { number: 10, x: 5.95, y: 3.8 }
+    ],
+    [
+      { number: 0, x: 3.6, y: 2 },
+      { number: 1, x: 4, y: 1 },
+      { number: 8, x: 7.8, y: 3.8 },
+      { number: 9, x: 6.95, y: 3.8 },
+      { number: 10, x: 5.95, y: 3.8 }
+    ],
+    [
+      { number: 0, x: 3.6, y: 2 },
+      { number: 2, x: 4, y: 1 },
+      { number: 8, x: 7.8, y: 3.8 },
+      { number: 9, x: 6.95, y: 3.8 },
+      { number: 10, x: 5.95, y: 3.8 }
+    ],
+    [
+      { number: 0, x: 3.6, y: 2 },
+      { number: 3, x: 4, y: 1 },
+      { number: 9, x: 6.95, y: 3.8 },
+      { number: 10, x: 5.95, y: 3.8 }
+    ],
+    [
+      { number: 0, x: 3.6, y: 2 },
+      { number: 3, x: 4, y: 1 },
+      { number: 9, x: 6.95, y: 3.8 },
+      { number: 10, x: 5.95, y: 3.8 }
+    ],
+    [
+      { number: 0, x: 3.6, y: 2 },
+      { number: 4, x: 4, y: 1 },
+      { number: 10, x: 5.95, y: 3.8 }
+    ],
+    [
+      { number: 0, x: 3.6, y: 2 },
+      { number: 4, x: 4, y: 1 },
+      { number: 10, x: 5.95, y: 3.8 }
+    ]
+  ],
+  startIndex: 3,
+  showShotLine: true,
+  pottingPocketProp: [{ x: 4, y: 0, show: true }],
+  targetSpecs: [{ isTarget: false, x: 4.5, y: 0.5, rotate: false, w: 2, h: 1 }],
+  leaveLineProp: [
+    { draw: true, x: 4.8, y: 0.35 },
+    { draw: true, x: 4.8, y: 0.35 },
+    { draw: true, x: 5.8, y: 0.35 },
+    { draw: true, x: 5.8, y: 0.35 },
+    { draw: true, x: 6.7, y: 0.35 },
+    { draw: true, x: 6.7, y: 0.35 },
+    { draw: true, x: 7.5, y: 0.25 },
+    { draw: true, x: 7.5, y: 0.25 },
+    { draw: true, x: 7.5, y: 0.96 },
+    { draw: true, x: 7.5, y: 0.96 },
+    { draw: true, x: 7.5, y: 1.9 },
+    { draw: true, x: 7.5, y: 1.9 },
+    { draw: true, x: 7.5, y: 2.8 },
+    { draw: true, x: 7.5, y: 2.8 },
+    { draw: true, x: 7.6, y: 3.65 },
+    { draw: true, x: 7.6, y: 3.65 },
+    { draw: true, x: 6.75, y: 3.6 },
+    { draw: true, x: 6.75, y: 3.6 },
+    { draw: true, x: 5.8, y: 3.6 },
+    { draw: true, x: 5.8, y: 3.6 }
+  ],
   kickShotLineProp: { draw: false, rails: 0, objectBall: null },
   bankShotLineProp: { draw: false, objectBall: null, pocket: null }
 }
@@ -324,5 +556,6 @@ export const tableSetups = [
   followShotTableSetup,
   drawShotTableSetup,
   stunShotTableSetup,
-  pocketingTableSetup
+  pocketingTableSetup,
+  wagonWheelTableSetup
 ]

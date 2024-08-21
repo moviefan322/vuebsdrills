@@ -6,7 +6,7 @@
       :ballPositionsProp="ballPositionProps"
       :pottingPocketProp="pottingPocketProps"
       :targetSpecs="targetPositionProps"
-      :leaveLineProp="currentDrillTableSetup.leaveLineProp"
+      :leaveLineProp="leaveLineProps"
       :showShotLine="currentDrillTableSetup.showShotLine"
       :kickShotLineProp="currentDrillTableSetup.kickShotLineProp"
       :bankShotLineProp="currentDrillTableSetup.bankShotLineProp"
@@ -34,6 +34,7 @@ const currentShot = ref(store.getShot())
 const ballPositionProps = ref([])
 const targetPositionProps = ref([])
 const pottingPocketProps = ref([])
+const leaveLineProps = ref([])
 
 // Compute ball positions dynamically based on the current shot
 const computedBallPositionProps = computed(() => {
@@ -65,7 +66,8 @@ const computedTargetPositionProps = computed(() => {
   if (currentDrillTableSetup.value.targetSpecs.length === 1) {
     targetSpecs = currentDrillTableSetup.value.targetSpecs[0]
   } else {
-    targetSpecs = currentDrillTableSetup.value.targetSpecs[currentPosition.value]
+    console.log(currentPosition.value)
+    targetSpecs = currentDrillTableSetup.value.targetSpecs[currentPosition.value - 1]
   }
   return targetSpecs
 })
@@ -73,15 +75,28 @@ const computedTargetPositionProps = computed(() => {
 const computedPottingPocketProps = computed(() => {
   if (!currentDrillTableSetup.value || !currentPosition.value) return []
   let pottingPocketProps = []
-  if (currentDrillTableSetup.value.drillType === 'standard') {
-    return currentDrillTableSetup.value.pottingPocketProp[currentShot.value - 1]
-  }
   if (currentDrillTableSetup.value.pottingPocketProp.length === 1) {
     pottingPocketProps = currentDrillTableSetup.value.pottingPocketProp[0]
+  } else if (currentDrillTableSetup.value.drillType === 'standard') {
+    return currentDrillTableSetup.value.pottingPocketProp[currentShot.value - 1]
   } else {
     pottingPocketProps = currentDrillTableSetup.value.pottingPocketProp[currentPosition.value]
   }
   return pottingPocketProps
+})
+
+const computedLeaveLineProps = computed(() => {
+  if (!currentDrillTableSetup.value || !currentPosition.value) return []
+  let leaveLineProps = []
+  if (currentDrillTableSetup.value.drillType === 'standard') {
+    return currentDrillTableSetup.value.leaveLineProp[currentShot.value - 1]
+  }
+  if (currentDrillTableSetup.value.leaveLineProp.length === 1) {
+    leaveLineProps = currentDrillTableSetup.value.leaveLineProp[0]
+  } else {
+    leaveLineProps = currentDrillTableSetup.value.leaveLineProp[currentPosition.value]
+  }
+  return leaveLineProps
 })
 
 watch(
@@ -90,6 +105,7 @@ watch(
     ballPositionProps.value = computedBallPositionProps.value
     targetPositionProps.value = computedTargetPositionProps.value
     pottingPocketProps.value = computedPottingPocketProps.value
+    leaveLineProps.value = computedLeaveLineProps.value
   },
   { immediate: true }
 )
