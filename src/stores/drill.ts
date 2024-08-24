@@ -6,7 +6,10 @@ import type { Drill, DrillSet } from '../types/types'
 import drills from '../data/bufDrills'
 import drillSets from '../data/drillSets'
 
+const allDrillsUrl = import.meta.env.VITE_APP_BACKEND_URL + 'api/drill/drills'
+
 export const useDrillStore = defineStore('drill', () => {
+  const allDrills = ref<Drill[]>([])
   const drillSet = ref<DrillSet | null>(null)
   const drill = ref<Drill | null>(null)
   const currentDrillIndex = ref(0)
@@ -29,6 +32,16 @@ export const useDrillStore = defineStore('drill', () => {
   })
 
   const scoreStore = useScoreStore()
+
+  const fetchAllDrills = async () => {
+    try {
+      const response = await fetch(allDrillsUrl)
+      const data = await response.json()
+      console.log(data)
+    } catch(error:any) {
+      console.log('error block')
+    }
+  }
 
   const currentDrill = computed<Drill | null>(() => {
     if (drillSet.value) {
@@ -361,6 +374,7 @@ export const useDrillStore = defineStore('drill', () => {
     getCurrentLayout,
     getLayoutResults,
     pushLayoutResult,
-    incrementCurrentLayout
+    incrementCurrentLayout,
+    fetchAllDrills
   }
 })
