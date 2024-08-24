@@ -30,7 +30,7 @@
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue"
-  ],
+, "src/data/genDrillsJson.js"  ],
   "exclude": [
     "node_modules"
   ]
