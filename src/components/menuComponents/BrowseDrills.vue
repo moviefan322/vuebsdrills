@@ -15,7 +15,6 @@ onMounted(async () => {
   } catch (error) {
     console.error('Error fetching drills:', error)
   } finally {
-    console.log('alldrills!', allDrills.value)
     loading.value = false
   }
 })

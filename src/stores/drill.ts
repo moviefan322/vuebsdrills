@@ -40,7 +40,7 @@ export const useDrillStore = defineStore('drill', () => {
       console.log(data)
       allDrills.value = data
       return data
-    } catch(error:any) {
+    } catch (error: any) {
       console.log('error block')
     }
   }
@@ -70,17 +70,19 @@ export const useDrillStore = defineStore('drill', () => {
   }
 
   const fetchDrill = async (id: number) => {
-    const data = await new Promise<Drill | undefined>((resolve) => {
-      setTimeout(() => {
-        resolve(drills.find((d) => d.id === id))
-      }, 200)
-    })
-
-    if (data) {
-      drill.value = data
-      drillSet.value = null
-    } else {
-      router.push('/notfound')
+    try {
+      console.log('id', id)
+      const response = await fetch(allDrillsUrl + id + '/')
+      const data = await response.json()
+      console.log(data)
+      allDrills.value = data
+      if (data) {
+        drill.value = data
+      } else {
+        console.error('Drill set not found')
+      }
+    } catch (error: any) {
+      console.log('error block')
     }
   }
 
