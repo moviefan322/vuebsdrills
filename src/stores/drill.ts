@@ -38,6 +38,8 @@ export const useDrillStore = defineStore('drill', () => {
       const response = await fetch(allDrillsUrl)
       const data = await response.json()
       console.log(data)
+      allDrills.value = data
+      return data
     } catch(error:any) {
       console.log('error block')
     }
