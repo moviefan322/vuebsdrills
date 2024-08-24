@@ -3,11 +3,13 @@ import { ref, watch, computed, onMounted } from 'vue'
 import { RouterLink } from 'vue-router'
 import BrowseDrills from '@/components/menuComponents/BrowseDrills.vue'
 import { useAuthStore } from '@/stores/auth'
+import { useDrillStore } from '@/stores/drill'
 
 const showExams = ref(false)
 const showMainMenu = ref(true)
 const showDrills = ref(false)
 const store = useAuthStore()
+const drillStore = useDrillStore()
 
 const handleShowExams = () => {
   showMainMenu.value = false
@@ -34,6 +36,7 @@ watch(showMainMenu, (newVal) => {
 
 onMounted(() => {
   store.checkForToken()
+  drillStore.fetchAllDrills()
 })
 </script>
 

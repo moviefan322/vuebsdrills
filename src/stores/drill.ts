@@ -6,7 +6,7 @@ import type { Drill, DrillSet } from '../types/types'
 import drills from '../data/bufDrills'
 import drillSets from '../data/drillSets'
 
-const allDrillsUrl = import.meta.env.VITE_APP_BACKEND_URL + 'api/drill/drills'
+const allDrillsUrl = import.meta.env.VITE_APP_BACKEND_URL + 'api/drill/drills/'
 
 export const useDrillStore = defineStore('drill', () => {
   const allDrills = ref<Drill[]>([])
