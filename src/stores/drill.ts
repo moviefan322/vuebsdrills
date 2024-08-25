@@ -3,7 +3,6 @@ import { ref, computed, watch } from 'vue'
 import { useScoreStore } from './scores'
 import { useRouter } from 'vue-router'
 import type { Drill, DrillSet } from '../types/types'
-import drills from '../data/bufDrills'
 import drillSets from '../data/drillSets'
 
 const allDrillsUrl = import.meta.env.VITE_APP_BACKEND_URL + 'api/drill/drills/'
@@ -23,7 +22,6 @@ export const useDrillStore = defineStore('drill', () => {
   const currentLayout = ref(0)
   const attemptResults = ref<number[]>([])
   const layoutResults = ref<number[]>([])
-  const router = useRouter()
   const previousState = ref({
     shot: 1,
     position: 4,
@@ -71,11 +69,10 @@ export const useDrillStore = defineStore('drill', () => {
 
   const fetchDrill = async (id: number) => {
     try {
-      console.log('id', id)
       const response = await fetch(allDrillsUrl + id + '/')
       const data = await response.json()
-      console.log(data)
-      allDrills.value = data
+      console.log('from fetch drill', data)
+      drill.value = data
       if (data) {
         drill.value = data
       } else {
@@ -106,9 +103,10 @@ export const useDrillStore = defineStore('drill', () => {
     return false
   })
 
-  const getDrillName = (id: number) => {
-    const drill = drills.find((d) => d.id === id)
-    return drill ? drill.name : ''
+  const getDrillName = async (id: number) => {
+    const drill = await fetchAllDrills()
+    const matchedDrill = drill.find((drill: Drill) => drill.id === id)
+    return drill ? matchedDrill.name : ''
   }
 
   const resetValues = () => {
@@ -198,10 +196,6 @@ export const useDrillStore = defineStore('drill', () => {
     }
   })
 
-  const getAllDrills = () => {
-    return drills
-  }
-
   const getShot = () => {
     return shot.value
   }
@@ -281,6 +275,14 @@ export const useDrillStore = defineStore('drill', () => {
     return layoutResults.value
   }
 
+  const getCurrentDrill = () => {
+    return currentDrill.value
+  }
+
+  const getCurrentTableSetup = () => {
+    return currentDrill.value!.tableSetup
+  }
+
   const pushAttemptResult = (result: number) => {
     attemptResults.value.push(result)
   }
@@ -340,7 +342,6 @@ export const useDrillStore = defineStore('drill', () => {
   return {
     drill,
     fetchDrill,
-    getAllDrills,
     nextDrill,
     previousDrill,
     fetchDrillSet,
@@ -379,6 +380,8 @@ export const useDrillStore = defineStore('drill', () => {
     getLayoutResults,
     pushLayoutResult,
     incrementCurrentLayout,
-    fetchAllDrills
+    fetchAllDrills,
+    getCurrentDrill,
+    getCurrentTableSetup
   }
 })

@@ -17,7 +17,6 @@
 
 <script setup>
 import PoolTable from '../components/PoolTable.vue'
-import { tableSetups } from '../data/tableSetup'
 import { useDrillStore } from '../stores/drill'
 import { ref, computed, watch, onBeforeMount } from 'vue'
 
@@ -26,7 +25,12 @@ const useProps = ref(false)
 
 // Match the current drill with the table setup
 const currentDrillTableSetup = computed(() => {
-  return tableSetups.find((setup) => setup.drillId === store.getDrillId()) || null
+  console.log('setup', store.getCurrentTableSetup())
+  return store.getCurrentTableSetup()
+})
+
+const currentDrill = computed(() => {
+  return store.getCurrentDrill()
 })
 
 const currentPosition = ref(store.getPosition())
@@ -42,13 +46,23 @@ const bankShotLineProps = ref([])
 // Compute ball positions dynamically based on the current shot
 const computedBallPositionProps = computed(() => {
   if (!currentDrillTableSetup.value || !currentPosition.value) return []
+
   let positions = []
+  const ballPositionProps = currentDrillTableSetup.value.ballPositionProps
+
+  if (!ballPositionProps || !Array.isArray(ballPositionProps)) {
+    console.error('ballPositionProps is undefined or not an array', ballPositionProps)
+    return []
+  }
+
+  console.log('type', currentDrill.value.type)
+  console.log('current drill', currentDrill.value)
+
   if (currentDrillTableSetup.value.ballPositionProps.length === 1) {
     positions = [...currentDrillTableSetup.value.ballPositionProps[0]]
-  } else if (currentDrillTableSetup.value.drillType === 'standard') {
+  } else if (currentDrill.value.type === 'standard') {
     positions = currentDrillTableSetup.value.ballPositionProps[currentShot.value - 1]
-  } else if (currentDrillTableSetup.value.drillType === 'layout') {
-    console.log(currentDrillTableSetup.value.ballPositionProps[currentLayout.value])
+  } else if (currentDrill.value.type === 'layout') {
     return currentDrillTableSetup.value.ballPositionProps[currentLayout.value]
   } else {
     positions = [...currentDrillTableSetup.value.ballPositionProps[currentPosition.value]]
@@ -72,7 +86,7 @@ const computedBallPositionProps = computed(() => {
 const computedTargetPositionProps = computed(() => {
   if (!currentDrillTableSetup.value || !currentPosition.value) return []
   let targetSpecs = []
-  if (currentDrillTableSetup.value.drillType === 'standard') {
+  if (currentDrill.value.type === 'standard') {
     return currentDrillTableSetup.value.targetSpecs[currentShot.value - 1]
   }
   if (currentDrillTableSetup.value.targetSpecs.length === 1) {
@@ -89,7 +103,7 @@ const computedPottingPocketProps = computed(() => {
   let pottingPocketProps = []
   if (currentDrillTableSetup.value.pottingPocketProp.length === 1) {
     pottingPocketProps = currentDrillTableSetup.value.pottingPocketProp[0]
-  } else if (currentDrillTableSetup.value.drillType === 'standard') {
+  } else if (currentDrill.value.type === 'standard') {
     return currentDrillTableSetup.value.pottingPocketProp[currentShot.value - 1]
   } else {
     pottingPocketProps = currentDrillTableSetup.value.pottingPocketProp[currentPosition.value]
@@ -100,7 +114,7 @@ const computedPottingPocketProps = computed(() => {
 const computedLeaveLineProps = computed(() => {
   if (!currentDrillTableSetup.value || !currentPosition.value) return []
   let leaveLineProps = []
-  if (currentDrillTableSetup.value.drillType === 'standard') {
+  if (currentDrill.value.type === 'standard') {
     return currentDrillTableSetup.value.leaveLineProp[currentShot.value - 1]
   }
   if (currentDrillTableSetup.value.leaveLineProp.length === 1) {
@@ -116,7 +130,7 @@ const computedKickShotLineProp = computed(() => {
   let kickShotLineProp = []
   if (currentDrillTableSetup.value.kickShotLineProp.length === 1) {
     kickShotLineProp = currentDrillTableSetup.value.kickShotLineProp[0]
-  } else if (currentDrillTableSetup.value.drillType === 'standard') {
+  } else if (currentDrill.value.type === 'standard') {
     kickShotLineProp = currentDrillTableSetup.value.kickShotLineProp[currentShot.value - 1]
   } else {
     kickShotLineProp = currentDrillTableSetup.value.kickShotLineProp[currentPosition.value]

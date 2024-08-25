@@ -22,7 +22,7 @@ export default {
     },
     pottingPocketProp: {
       type: Object,
-      default: () => ({ show: false, x: 8, y: 4 }) // Diamond coordinates for the pocket
+      default: () => ({ show: false, x: 8, y: 4 })
     },
     targetSpecs: {
       type: Object,

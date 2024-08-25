@@ -21,7 +21,7 @@ const router = createRouter({
     {
       path: '/drill/:id',
       name: 'drills',
-      component: DrillsPage
+      component: DrillsTestPage
     },
     {
       path: '/drilltest/:id',
