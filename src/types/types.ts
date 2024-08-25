@@ -45,7 +45,7 @@ export interface DrillSet {
 export interface ScoreFromApi {
   id: number
   user: number
-  drillId: number
+  drill: number
   score: number
   maxScore: number
   createdAt: string
@@ -54,5 +54,10 @@ export interface ScoreFromApi {
 export interface SubmitScorePayload {
   score: number
   maxScore: number
-  drillId: number
+  drill: number
+}
+
+export interface UserObject {
+  name: string
+  email: string
 }

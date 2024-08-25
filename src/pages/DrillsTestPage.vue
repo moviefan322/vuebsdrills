@@ -27,7 +27,6 @@ watch(
 watch(
   () => drillStore.drill,
   (newVal) => {
-    console.log('newVal:', newVal)
     drillData.value = newVal
   }
 )
@@ -40,7 +39,6 @@ const previousDrill = () => {
   drillStore.previousDrill()
 }
 
-console.log('drillData:', drillData.value) // Log the value, not the ref
 </script>
 
 <template>

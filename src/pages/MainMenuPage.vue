@@ -4,12 +4,14 @@ import { RouterLink } from 'vue-router'
 import BrowseDrills from '@/components/menuComponents/BrowseDrills.vue'
 import { useAuthStore } from '@/stores/auth'
 import { useDrillStore } from '@/stores/drill'
+import type { UserObject } from '@/types/types'
 
 const showExams = ref(false)
 const showMainMenu = ref(true)
 const showDrills = ref(false)
 const store = useAuthStore()
 const drillStore = useDrillStore()
+const user = ref<UserObject | null>(null)
 
 const handleShowExams = () => {
   showMainMenu.value = false
@@ -25,7 +27,7 @@ const handleShowDrills = () => {
   showDrills.value = true
 }
 
-const userName = computed(() => store.getUser()?.name || '')
+const userName = computed(() => user.value?.name || '')
 
 watch(showMainMenu, (newVal) => {
   if (newVal === true) {
@@ -34,9 +36,10 @@ watch(showMainMenu, (newVal) => {
   }
 })
 
-onMounted(() => {
+onMounted(async () => {
   store.checkForToken()
   drillStore.fetchAllDrills()
+  user.value = await store.getUser()
 })
 </script>
 

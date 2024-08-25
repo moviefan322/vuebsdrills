@@ -75,7 +75,10 @@ const switchModeButtonCaption = computed(() => {
 
 const loginUser = async (actionPayload: LoginPayload) => {
   await store.loginUser(actionPayload)
-  if (store.getUser()!.email === email.value) {
+
+  const user = await store.getUser() 
+
+  if (user?.email === email.value) {
     const redirectUrl = '/'
     router.replace(redirectUrl)
   } else {
@@ -125,8 +128,6 @@ const switchAuthMode = () => {
 const handleError = () => {
   error.value = null
 }
-
-console.log('getERROR', store.getError())
 </script>
 
 <style scoped>

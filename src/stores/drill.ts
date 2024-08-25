@@ -1,9 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, computed, watch } from 'vue'
 import { useScoreStore } from './scores'
-import { useRouter } from 'vue-router'
 import type { Drill, DrillSet } from '../types/types'
-import drillSets from '../data/drillSets'
 
 const allDrillsUrl = import.meta.env.VITE_APP_BACKEND_URL + 'api/drill/drills/'
 
@@ -35,7 +33,6 @@ export const useDrillStore = defineStore('drill', () => {
     try {
       const response = await fetch(allDrillsUrl)
       const data = await response.json()
-      console.log(data)
       allDrills.value = data
       return data
     } catch (error: any) {
@@ -51,33 +48,43 @@ export const useDrillStore = defineStore('drill', () => {
     }
   })
 
-  const fetchDrillSet = async (id: number) => {
-    const data = await new Promise<DrillSet | undefined>((resolve) => {
-      setTimeout(() => {
-        resolve(drillSets.find((set: DrillSet) => set.id === id))
-      }, 200)
-    })
+  // const fetchDrillSet = async (id: number) => {
+  //   const data = await new Promise<DrillSet | undefined>((resolve) => {
+  //     setTimeout(() => {
+  //       resolve(drillSets.find((set: DrillSet) => set.id === id))
+  //     }, 200)
+  //   })
 
-    if (data) {
-      drillSet.value = data
-      currentDrillIndex.value = 0
-      drill.value = null
-    } else {
-      console.error('Drill set not found')
-    }
-  }
+  //   if (data) {
+  //     drillSet.value = data
+  //     currentDrillIndex.value = 0
+  //     drill.value = null
+  //   } else {
+  //     console.error('Drill set not found')
+  //   }
+  // }
 
   const fetchDrill = async (id: number) => {
     try {
       const response = await fetch(allDrillsUrl + id + '/')
       const data = await response.json()
-      console.log('from fetch drill', data)
       drill.value = data
       if (data) {
         drill.value = data
+        return drill
       } else {
         console.error('Drill set not found')
       }
+    } catch (error: any) {
+      console.log('error block')
+    }
+  }
+
+  const fetchDrillData = async (id: number) => {
+    try {
+      const response = await fetch(allDrillsUrl + id + '/')
+      const data = await response.json()
+      return data
     } catch (error: any) {
       console.log('error block')
     }
@@ -103,10 +110,10 @@ export const useDrillStore = defineStore('drill', () => {
     return false
   })
 
-  const getDrillName = async (id: number) => {
-    const drill = await fetchAllDrills()
-    const matchedDrill = drill.find((drill: Drill) => drill.id === id)
-    return drill ? matchedDrill.name : ''
+  const getDrillName = async (id: number): Promise<string> => {
+    const drill = await fetchDrillData(id)
+    console.log('drill', drill)
+    return drill && drill.name ? drill.name : ''
   }
 
   const resetValues = () => {
@@ -176,10 +183,10 @@ export const useDrillStore = defineStore('drill', () => {
   const submitScore = () => {
     const submission = {
       score: getScore(),
-      drillId: currentDrill.value!.id,
+      drill: currentDrill.value!.id,
       maxScore: currentDrill.value!.maxScore
     }
-    console.log(isSet.value)
+
     if (isSet.value) {
       scoreStore.pushScore(submission)
     } else {
@@ -344,7 +351,7 @@ export const useDrillStore = defineStore('drill', () => {
     fetchDrill,
     nextDrill,
     previousDrill,
-    fetchDrillSet,
+    // fetchDrillSet,
     currentDrill,
     isFirstDrill,
     isLastDrill,

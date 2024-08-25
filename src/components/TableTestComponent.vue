@@ -25,7 +25,6 @@ const useProps = ref(false)
 
 // Match the current drill with the table setup
 const currentDrillTableSetup = computed(() => {
-  console.log('setup', store.getCurrentTableSetup())
   return store.getCurrentTableSetup()
 })
 
@@ -54,9 +53,6 @@ const computedBallPositionProps = computed(() => {
     console.error('ballPositionProps is undefined or not an array', ballPositionProps)
     return []
   }
-
-  console.log('type', currentDrill.value.type)
-  console.log('current drill', currentDrill.value)
 
   if (currentDrillTableSetup.value.ballPositionProps.length === 1) {
     positions = [...currentDrillTableSetup.value.ballPositionProps[0]]
@@ -138,7 +134,6 @@ const computedKickShotLineProp = computed(() => {
 
   if (kickShotLineProp.length === 0) throw new Error('No ball kickShotLineProp found')
   if (kickShotLineProp.objectBall === 99) {
-    console.log('found one')
     if (currentShot.value > 15) {
       kickShotLineProp = { ...kickShotLineProp, objectBall: currentShot.value - 15 }
     } else {
@@ -146,7 +141,6 @@ const computedKickShotLineProp = computed(() => {
     }
   }
 
-  console.log(kickShotLineProp)
   return kickShotLineProp
 })
 
@@ -200,7 +194,6 @@ watch(
 watch(
   () => store.getCurrentLayout(),
   (newLayout) => {
-    console.log('New layout:', newLayout) // This logs the new value
     currentLayout.value = newLayout
   }
 )
@@ -211,5 +204,4 @@ onBeforeMount(() => {
   }
 })
 
-console.log('Initial position:', currentPosition.value) // This logs the initial value
 </script>

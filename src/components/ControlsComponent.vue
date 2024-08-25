@@ -96,8 +96,6 @@ const disableUndo = computed(() => {
   }
   return false
 })
-
-console.log(store.getLayoutMaxScore())
 </script>
 
 <style scoped>

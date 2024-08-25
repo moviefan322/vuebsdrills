@@ -29,6 +29,7 @@ export const useScoreStore = defineStore('score', () => {
         }
       })
 
+      console.log(response)
       console.log('Response Status:', response.status) // Log the response status
 
       if (response.status !== 201) {
