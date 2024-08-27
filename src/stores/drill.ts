@@ -10,6 +10,7 @@ export const useDrillStore = defineStore('drill', () => {
   const allDrills = ref<Drill[]>([])
   const drillSet = ref<DrillSet | null>(null)
   const drill = ref<Drill | null>(null)
+  const currentDrill = ref<Drill | null>(null)
   const currentDrillIndex = ref(0)
   const isSet = computed(() => !!drillSet.value)
   const shot = ref(1)
@@ -45,12 +46,8 @@ export const useDrillStore = defineStore('drill', () => {
     }
   }
 
-  const currentDrill = computed<Drill | null>(() => {
-    if (drillSet.value) {
-      return drillSet.value.drills[currentDrillIndex.value]
-    } else {
-      return drill.value
-    }
+  watch(drill, () => {
+    currentDrill.value = drill.value
   })
 
   const fetchAllDrillSets = async () => {
@@ -67,16 +64,19 @@ export const useDrillStore = defineStore('drill', () => {
     }
   }
 
-  const fetchDrillSet = async (id: number) => {
+  const fetchDrillSet = async (id: number): Promise<DrillSet | null> => {
     try {
       const response = await fetch(allDrillSetsUrl + id + '/')
       const data = await response.json()
       drillSet.value = data
       currentDrillIndex.value = 0
-      drill.value = null
+      console.log(data, 'pinia data fetchDrillSet')
+      drill.value = fetchDrill(data.drills[currentDrillIndex.value]) as unknown as Drill
+      console.log('drill from fetch drill set', drill.value)
       return data
     } catch (error: any) {
       console.log('error block')
+      return null
     }
   }
 
@@ -87,7 +87,7 @@ export const useDrillStore = defineStore('drill', () => {
       drill.value = data
       if (data) {
         drill.value = data
-        return drill
+        return data
       } else {
         console.error('Drill set not found')
       }
@@ -302,7 +302,12 @@ export const useDrillStore = defineStore('drill', () => {
     return currentDrill.value
   }
 
+  const getCurrentDrillIndex = () => {
+    return currentDrillIndex.value
+  }
+
   const getCurrentTableSetup = () => {
+    console.log('currentDrill from pinia get tableSetup', currentDrill.value)
     return currentDrill.value!.tableSetup
   }
 
@@ -406,6 +411,7 @@ export const useDrillStore = defineStore('drill', () => {
     incrementCurrentLayout,
     fetchAllDrills,
     getCurrentDrill,
+    getCurrentDrillIndex,
     getCurrentTableSetup
   }
 })

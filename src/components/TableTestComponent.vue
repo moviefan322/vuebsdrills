@@ -25,10 +25,12 @@ const useProps = ref(false)
 
 // Match the current drill with the table setup
 const currentDrillTableSetup = computed(() => {
+  console.log('currentDrillTableSetup from table', store.getCurrentTableSetup())
   return store.getCurrentTableSetup()
 })
 
 const currentDrill = computed(() => {
+  console.log('currentDrill from table', store.getCurrentDrill())
   return store.getCurrentDrill()
 })
 

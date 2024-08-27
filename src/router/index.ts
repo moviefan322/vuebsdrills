@@ -24,11 +24,6 @@ const router = createRouter({
       component: DrillsTestPage
     },
     {
-      path: '/drilltest/:id',
-      name: 'drilltest',
-      component: DrillsTestPage
-    },
-    {
       path: '/set/:setId',
       name: 'DrillSet',
       component: DrillSetPage
