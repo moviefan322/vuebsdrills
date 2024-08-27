@@ -73,7 +73,9 @@ export const useDrillStore = defineStore('drill', () => {
 
       // Ensure the drills are correctly assigned
       console.log('id to be queried', data.drills[currentDrillIndex.value])
-      drill.value = data.drills ? await fetchDrill(data.drills[currentDrillIndex.value].id) as unknown as Drill : null
+      drill.value = data.drills
+        ? ((await fetchDrill(data.drills[currentDrillIndex.value].id)) as unknown as Drill)
+        : null
 
       return data
     } catch (error: any) {
@@ -358,7 +360,7 @@ export const useDrillStore = defineStore('drill', () => {
   const incrementCurrentDrillIndex = async () => {
     if (drillSet.value && drillSet.value.drills) {
       currentDrillIndex.value++
-      currentDrill.value = await fetchDrill(drillSet.value.drills[currentDrillIndex.value].id) as unknown as Drill
+      currentDrill.value = drillSet.value.drills[currentDrillIndex.value]
     } else {
       console.error('drillSet or drillSet.drills is not defined')
     }
@@ -367,7 +369,7 @@ export const useDrillStore = defineStore('drill', () => {
   const decrementCurrentDrillIndex = async () => {
     if (drillSet.value && drillSet.value.drills) {
       currentDrillIndex.value--
-      currentDrill.value = await fetchDrill(drillSet.value.drills[currentDrillIndex.value].id) as unknown as Drill
+      currentDrill.value = drillSet.value.drills[currentDrillIndex.value]
     } else {
       console.error('drillSet or drillSet.drills is not defined')
     }
