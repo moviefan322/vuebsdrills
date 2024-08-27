@@ -4,6 +4,7 @@ import { useScoreStore } from './scores'
 import type { Drill, DrillSet } from '../types/types'
 
 const allDrillsUrl = import.meta.env.VITE_APP_BACKEND_URL + 'api/drill/drills/'
+const allDrillSetsUrl = import.meta.env.VITE_APP_BACKEND_URL + 'api/drillset/'
 
 export const useDrillStore = defineStore('drill', () => {
   const allDrills = ref<Drill[]>([])
@@ -33,10 +34,14 @@ export const useDrillStore = defineStore('drill', () => {
     try {
       const response = await fetch(allDrillsUrl)
       const data = await response.json()
-      allDrills.value = data
-      return data
+
+      const sortedData = data.sort((a: Drill, b: Drill) => b.id - a.id)
+
+      allDrills.value = sortedData
+
+      return sortedData.sort((a: Drill, b: Drill) => a.id - b.id)
     } catch (error: any) {
-      console.log('error block')
+      console.log('error block:', error)
     }
   }
 
@@ -48,21 +53,32 @@ export const useDrillStore = defineStore('drill', () => {
     }
   })
 
-  // const fetchDrillSet = async (id: number) => {
-  //   const data = await new Promise<DrillSet | undefined>((resolve) => {
-  //     setTimeout(() => {
-  //       resolve(drillSets.find((set: DrillSet) => set.id === id))
-  //     }, 200)
-  //   })
+  const fetchAllDrillSets = async () => {
+    try {
+      const response = await fetch(allDrillSetsUrl)
+      const data = await response.json()
 
-  //   if (data) {
-  //     drillSet.value = data
-  //     currentDrillIndex.value = 0
-  //     drill.value = null
-  //   } else {
-  //     console.error('Drill set not found')
-  //   }
-  // }
+      const sortedData = data.sort((a: DrillSet, b: DrillSet) => a.id - b.id)
+      console.log('sortedData', sortedData)
+
+      return sortedData
+    } catch (error: any) {
+      console.log('error block')
+    }
+  }
+
+  const fetchDrillSet = async (id: number) => {
+    try {
+      const response = await fetch(allDrillSetsUrl + id + '/')
+      const data = await response.json()
+      drillSet.value = data
+      currentDrillIndex.value = 0
+      drill.value = null
+      return data
+    } catch (error: any) {
+      console.log('error block')
+    }
+  }
 
   const fetchDrill = async (id: number) => {
     try {
@@ -351,7 +367,8 @@ export const useDrillStore = defineStore('drill', () => {
     fetchDrill,
     nextDrill,
     previousDrill,
-    // fetchDrillSet,
+    fetchAllDrillSets,
+    fetchDrillSet,
     currentDrill,
     isFirstDrill,
     isLastDrill,

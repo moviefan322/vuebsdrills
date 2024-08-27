@@ -4,11 +4,12 @@ import { RouterLink } from 'vue-router'
 import BrowseDrills from '@/components/menuComponents/BrowseDrills.vue'
 import { useAuthStore } from '@/stores/auth'
 import { useDrillStore } from '@/stores/drill'
-import type { UserObject } from '@/types/types'
+import type { UserObject, DrillSet } from '@/types/types'
 
 const showExams = ref(false)
 const showMainMenu = ref(true)
 const showDrills = ref(false)
+const allDrillSets = ref<DrillSet[]>([])
 const store = useAuthStore()
 const drillStore = useDrillStore()
 const user = ref<UserObject | null>(null)
@@ -40,6 +41,9 @@ onMounted(async () => {
   store.checkForToken()
   drillStore.fetchAllDrills()
   user.value = await store.getUser()
+  const drillSets = await drillStore.fetchAllDrillSets()
+  allDrillSets.value = drillSets
+  console.log(drillSets)
 })
 </script>
 
@@ -55,16 +59,11 @@ onMounted(async () => {
     </div>
     <div v-if="showExams">
       <h2 class="center mb">BU Exams</h2>
-      <ul class="menulist mb">
-        <li><router-link to="/set/1" class="noStyleLink lime">BU Fundamentals</router-link></li>
+      <ul class="menulist mb" v-for="drillSet in allDrillSets" :key="drillSet.name">
         <li>
-          <router-link to="/set/2" class="noStyleLink lime">BU Skills I (Bachelors)</router-link>
-        </li>
-        <li>
-          <router-link to="/set/3" class="noStyleLink lime">BU Skills II (Masters)</router-link>
-        </li>
-        <li>
-          <router-link to="/set/4" class="noStyleLink lime">BU Skills III (Doctorate)</router-link>
+          <router-link :to="`/set/${drillSet.id}`" class="noStyleLink lime">{{
+            drillSet.name
+          }}</router-link>
         </li>
       </ul>
     </div>

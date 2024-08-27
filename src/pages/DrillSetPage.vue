@@ -11,14 +11,14 @@ const route = useRoute()
 const setId = Number(route.params.setId)
 
 onMounted(async () => {
-  // await drillStore.fetchDrillSet(setId)
+  await drillStore.fetchDrillSet(setId)
   return
 })
 
 watch(
   () => route.params.setId,
   async (newSetId) => {
-    // await drillStore.fetchDrillSet(Number(newSetId))
+    await drillStore.fetchDrillSet(Number(newSetId))
     return
   }
 )
