@@ -25,12 +25,10 @@ const useProps = ref(false)
 
 // Match the current drill with the table setup
 const currentDrillTableSetup = computed(() => {
-  console.log('currentDrillTableSetup from table', store.getCurrentTableSetup())
   return store.getCurrentTableSetup()
 })
 
 const currentDrill = computed(() => {
-  console.log('currentDrill from table', store.getCurrentDrill())
   return store.getCurrentDrill()
 })
 
@@ -90,7 +88,6 @@ const computedTargetPositionProps = computed(() => {
   if (currentDrillTableSetup.value.targetSpecs.length === 1) {
     targetSpecs = currentDrillTableSetup.value.targetSpecs[0]
   } else {
-    console.log(currentPosition.value)
     targetSpecs = currentDrillTableSetup.value.targetSpecs[currentPosition.value - 1]
   }
   return targetSpecs
@@ -148,7 +145,6 @@ const computedKickShotLineProp = computed(() => {
 
 const computedBankShotLineProp = computed(() => {
   let bankShotLineProp = []
-  console.log('from table', currentDrillTableSetup.value)
   if (currentDrillTableSetup.value.bankShotLineProp.objectBall === 99) {
     if (currentShot.value > 15) {
       bankShotLineProp = {

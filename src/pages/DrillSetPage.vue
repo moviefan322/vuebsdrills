@@ -1,71 +1,28 @@
 <script setup lang="ts">
 import BaseDrillTest from '../components/baseComponents/BaseDrillTest.vue'
 import { useDrillStore } from '../stores/drill'
-import { onMounted, computed, watch, ref } from 'vue'
+import { onMounted, computed } from 'vue'
 import { useRoute } from 'vue-router'
-import type { Drill, DrillSet } from '../types/types'
+import type { Drill } from '../types/types'
 
 const drillStore = useDrillStore()
 const route = useRoute()
 
 const setId = Number(route.params.setId)
-const drillSet = ref<DrillSet | null>(null)
-const currentDrill = ref<Drill | null>(null)
-const currentDrillIndex = computed(() => drillStore.getCurrentDrillIndex())
 
-// Load the drill set on component mount
 onMounted(async () => {
-  console.log('mounted')
-  drillSet.value = await drillStore.fetchDrillSet(setId)
-  console.log('drillset', drillSet.value)
-  updateCurrentDrill()
+  await drillStore.setDrillSet(setId)
 })
 
-// Helper function to update the current drill based on the current index
-const updateCurrentDrill = async () => {
-  if (drillSet.value && currentDrillIndex.value < (drillSet.value.drills?.length || 0)) {
-    currentDrill.value = drillStore.fetchDrill(drillSet.value.drills[currentDrillIndex.value] as unknown as number) as unknown as  Drill ?? null
-  }
-}
-
-watch(
-  () => drillStore.getCurrentDrillIndex(),
-  () => {
-    updateCurrentDrill()
-  }
-)
-
-// Watch for changes in the route's setId parameter
-watch(
-  () => route.params.setId,
-  async (newSetId) => {
-    const newId = Number(newSetId)
-    drillSet.value = await drillStore.fetchDrillSet(newId)
-    updateCurrentDrill()
-  }
-)
-
-watch(
-  () => drillStore.getCurrentDrillIndex(),
-  async () => {
-    updateCurrentDrill()
-    console.log('currentDrillIndex changed', currentDrill.value)
-  }
-)
+const currentDrill = computed<Drill | null>(() => drillStore.getCurrentDrill())
 
 const nextDrill = () => {
-  console.log('old', currentDrillIndex.value)
-  drillStore.nextDrill()
-  updateCurrentDrill()
-  console.log('new', currentDrillIndex.value)
+  drillStore.incrementCurrentDrillIndex()
 }
 
 const previousDrill = () => {
-  drillStore.previousDrill()
-  updateCurrentDrill()
+  drillStore.decrementCurrentDrillIndex()
 }
-
-console.log('main log', currentDrill.value)
 </script>
 
 <template>
