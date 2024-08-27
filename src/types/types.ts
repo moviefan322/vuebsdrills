@@ -40,6 +40,7 @@ export interface DrillSet {
   id: number
   name: string
   drills: Drill[]
+  createdBy: number
 }
 
 export interface ScoreFromApi {

@@ -67,12 +67,17 @@ export const useDrillStore = defineStore('drill', () => {
     try {
       const response = await fetch(allDrillSetsUrl + id + '/')
       const data = await response.json()
+
       drillSet.value = data
       currentDrillIndex.value = 0
-      drill.value = (await fetchDrill(data.drills[currentDrillIndex.value])) as unknown as Drill
+
+      // Ensure the drills are correctly assigned
+      console.log('id to be queried', data.drills[currentDrillIndex.value])
+      drill.value = data.drills ? await fetchDrill(data.drills[currentDrillIndex.value].id) as unknown as Drill : null
+
       return data
     } catch (error: any) {
-      console.log('error block')
+      console.log('Error fetching drill set:', error)
       return null
     }
   }
@@ -81,6 +86,7 @@ export const useDrillStore = defineStore('drill', () => {
     try {
       const response = await fetch(allDrillsUrl + id + '/')
       const data = await response.json()
+      console.log('fetchDrill data:', data)
       drill.value = data
       if (data) {
         drill.value = data
@@ -125,9 +131,11 @@ export const useDrillStore = defineStore('drill', () => {
 
   const getDrillName = async (id: number): Promise<string> => {
     const drill = await fetchDrill(id)
-    console.log('drill from drillName', drill)
-    console.log('drill.name from drillName', drill.name)
     return drill && drill.name ? drill.name : ''
+  }
+
+  const getDrillSet = () => {
+    return drillSet.value
   }
 
   const resetValues = () => {
@@ -305,11 +313,11 @@ export const useDrillStore = defineStore('drill', () => {
   }
 
   const setDrillSet = async (id: number) => {
-    fetchDrillSet(id)
+    drillSet.value = await fetchDrillSet(id)
   }
 
   const getCurrentTableSetup = () => {
-    console.log('currentDrill from pinia get tableSetup', currentDrill.value!.tableSetup)
+    console.log('currentDrill from pinia get tableSetup', currentDrill.value!)
     return currentDrill.value!.tableSetup
   }
 
@@ -348,17 +356,21 @@ export const useDrillStore = defineStore('drill', () => {
   }
 
   const incrementCurrentDrillIndex = async () => {
-    currentDrillIndex.value++
-    drill.value = (await fetchDrill(
-      drillSet.value?.drills[currentDrillIndex.value] as unknown as number
-    )) as unknown as Drill
+    if (drillSet.value && drillSet.value.drills) {
+      currentDrillIndex.value++
+      currentDrill.value = await fetchDrill(drillSet.value.drills[currentDrillIndex.value].id) as unknown as Drill
+    } else {
+      console.error('drillSet or drillSet.drills is not defined')
+    }
   }
 
   const decrementCurrentDrillIndex = async () => {
-    currentDrillIndex.value--
-    drill.value = (await fetchDrill(
-      drillSet.value?.drills[currentDrillIndex.value] as unknown as number
-    )) as unknown as Drill
+    if (drillSet.value && drillSet.value.drills) {
+      currentDrillIndex.value--
+      currentDrill.value = await fetchDrill(drillSet.value.drills[currentDrillIndex.value].id) as unknown as Drill
+    } else {
+      console.error('drillSet or drillSet.drills is not defined')
+    }
   }
 
   watch([shot, score], () => {
@@ -431,6 +443,7 @@ export const useDrillStore = defineStore('drill', () => {
     getCurrentTableSetup,
     incrementCurrentDrillIndex,
     decrementCurrentDrillIndex,
-    setDrillSet
+    setDrillSet,
+    getDrillSet
   }
 })

@@ -48,6 +48,7 @@ const computedBallPositionProps = computed(() => {
 
   let positions = []
   const ballPositionProps = currentDrillTableSetup.value.ballPositionProps
+  console.log('ballPositionProps', currentDrillTableSetup.value)
 
   if (!ballPositionProps || !Array.isArray(ballPositionProps)) {
     console.error('ballPositionProps is undefined or not an array', ballPositionProps)

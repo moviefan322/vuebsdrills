@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import BaseDrillTest from '../components/baseComponents/BaseDrillTest.vue'
 import { useDrillStore } from '../stores/drill'
-import { onMounted, computed } from 'vue'
+import { onMounted, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import type { Drill } from '../types/types'
 
@@ -12,6 +12,8 @@ const setId = Number(route.params.setId)
 
 onMounted(async () => {
   await drillStore.setDrillSet(setId)
+  const drillSet = drillStore.getDrillSet()
+  console.log('drillSet', drillSet)
 })
 
 const currentDrill = computed<Drill | null>(() => drillStore.getCurrentDrill())
