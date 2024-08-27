@@ -9,7 +9,6 @@ const drillScoreUrl = import.meta.env.VITE_APP_BACKEND_URL + 'api/drillscore/'
 export const useScoreStore = defineStore('score', () => {
   const authStore = useAuthStore()
   const setScore = ref<SubmitScorePayload[]>([])
-  const token = authStore.getToken()
 
   const pushScore = (score: SubmitScorePayload) => {
     setScore.value.push(score)

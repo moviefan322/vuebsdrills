@@ -18,18 +18,20 @@ onMounted(async () => {
   console.log('mounted')
   drillSet.value = await drillStore.fetchDrillSet(setId)
   console.log('drillset', drillSet.value)
-  console.log('drillBefore', drillSet.value?.drills[currentDrillIndex.value])
-  console.log('drillIndexBefore', currentDrillIndex.value)
-  currentDrill.value = await drillStore.fetchDrill(drillSet.value?.drills[currentDrillIndex.value] as unknown as number) as Drill
-  console.log('drillIndex', currentDrillIndex.value)
-  console.log('drill', currentDrill.value)
+  updateCurrentDrill()
 })
+
+// Helper function to update the current drill based on the current index
+const updateCurrentDrill = async () => {
+  if (drillSet.value && currentDrillIndex.value < (drillSet.value.drills?.length || 0)) {
+    currentDrill.value = drillStore.fetchDrill(drillSet.value.drills[currentDrillIndex.value] as unknown as number) as unknown as  Drill ?? null
+  }
+}
 
 watch(
   () => drillStore.getCurrentDrillIndex(),
-  (newIndex) => {
-    console.log('new index', newIndex)
-    currentDrill.value = drillSet.value?.drills[newIndex] as Drill
+  () => {
+    updateCurrentDrill()
   }
 )
 
@@ -39,25 +41,28 @@ watch(
   async (newSetId) => {
     const newId = Number(newSetId)
     drillSet.value = await drillStore.fetchDrillSet(newId)
-    currentDrill.value = await drillStore.fetchDrill(drillSet.value?.drills[currentDrillIndex.value]) as Drill
-    console.log('Updated drill', currentDrill.value)
+    updateCurrentDrill()
   }
 )
 
 watch(
-  () => currentDrill.value,
-  async (newDrill) => {
-    console.log('new drill', newDrill)
-  })
+  () => drillStore.getCurrentDrillIndex(),
+  async () => {
+    updateCurrentDrill()
+    console.log('currentDrillIndex changed', currentDrill.value)
+  }
+)
 
 const nextDrill = () => {
+  console.log('old', currentDrillIndex.value)
   drillStore.nextDrill()
-  currentDrill.value = drillSet.value?.drills[drillStore.getCurrentDrillIndex()] as Drill
+  updateCurrentDrill()
+  console.log('new', currentDrillIndex.value)
 }
 
 const previousDrill = () => {
   drillStore.previousDrill()
-  currentDrill.value = drillSet.value?.drills[drillStore.getCurrentDrillIndex()] as Drill
+  updateCurrentDrill()
 }
 
 console.log('main log', currentDrill.value)
@@ -66,7 +71,6 @@ console.log('main log', currentDrill.value)
 <template>
   <base-drill-test
     v-if="currentDrill"
-    :drill="currentDrill"
     @nextDrill="nextDrill"
     @previousDrill="previousDrill"
   ></base-drill-test>

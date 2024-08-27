@@ -307,7 +307,7 @@ export const useDrillStore = defineStore('drill', () => {
   }
 
   const getCurrentTableSetup = () => {
-    console.log('currentDrill from pinia get tableSetup', currentDrill.value)
+    console.log('currentDrill from pinia get tableSetup', currentDrill.value!.tableSetup)
     return currentDrill.value!.tableSetup
   }
 

@@ -148,6 +148,7 @@ const computedKickShotLineProp = computed(() => {
 
 const computedBankShotLineProp = computed(() => {
   let bankShotLineProp = []
+  console.log('from table', currentDrillTableSetup.value)
   if (currentDrillTableSetup.value.bankShotLineProp.objectBall === 99) {
     if (currentShot.value > 15) {
       bankShotLineProp = {
@@ -167,12 +168,14 @@ const computedBankShotLineProp = computed(() => {
 watch(
   [currentDrillTableSetup, currentPosition, currentShot, currentLayout],
   () => {
-    ballPositionProps.value = computedBallPositionProps.value
-    targetPositionProps.value = computedTargetPositionProps.value
-    pottingPocketProps.value = computedPottingPocketProps.value
-    leaveLineProps.value = computedLeaveLineProps.value
-    kickShotLineProps.value = computedKickShotLineProp.value
-    bankShotLineProps.value = computedBankShotLineProp.value
+    if (currentDrillTableSetup.value) {
+      ballPositionProps.value = computedBallPositionProps.value
+      targetPositionProps.value = computedTargetPositionProps.value
+      pottingPocketProps.value = computedPottingPocketProps.value
+      leaveLineProps.value = computedLeaveLineProps.value
+      kickShotLineProps.value = computedKickShotLineProp.value
+      bankShotLineProps.value = computedBankShotLineProp.value
+    }
   },
   { immediate: true }
 )
@@ -205,5 +208,4 @@ onBeforeMount(() => {
     useProps.value = true
   }
 })
-
 </script>
