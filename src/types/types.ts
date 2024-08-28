@@ -49,6 +49,7 @@ export interface ScoreFromApi {
   drill: number
   score: number
   maxScore: number
+  isSet?: boolean
   createdAt: string
 }
 
@@ -56,6 +57,7 @@ export interface SubmitScorePayload {
   score: number
   maxScore: number
   drill: number
+  isSet: boolean
 }
 
 export interface UserObject {

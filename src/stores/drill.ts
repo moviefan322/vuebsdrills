@@ -208,7 +208,8 @@ export const useDrillStore = defineStore('drill', () => {
     const submission = {
       score: getScore(),
       drill: currentDrill.value!.id,
-      maxScore: currentDrill.value!.maxScore
+      maxScore: currentDrill.value!.maxScore,
+      isSet: isSet.value
     }
 
     if (isSet.value) {

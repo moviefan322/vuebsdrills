@@ -28,9 +28,6 @@ export const useScoreStore = defineStore('score', () => {
         }
       })
 
-      console.log(response)
-      console.log('Response Status:', response.status) // Log the response status
-
       if (response.status !== 201) {
         throw new Error('Failed to submit scores')
       }
@@ -49,6 +46,8 @@ export const useScoreStore = defineStore('score', () => {
           Authorization: `Token ${authStore.getToken()}`
         }
       })
+
+      console.log(response)
 
       if (response.status !== 200) {
         throw new Error('Failed to fetch scores')
