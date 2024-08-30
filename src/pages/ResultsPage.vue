@@ -21,10 +21,7 @@ onMounted(async () => {
   for (const score of scores) {
     drillNames.value[score.drill] = await drillStore.getDrillName(score.drill)
   }
-  console.log(drillNames.value)  // Log to check if drill names are loaded
 })
-
-console.log(scores)
 </script>
 
 <template>

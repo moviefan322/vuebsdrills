@@ -16,7 +16,10 @@ const userName = ref('')
 onMounted(async () => {
   try {
     const fetchedScores = await store.getUserScores()
-    scores.value = fetchedScores
+    console.log('before filter', fetchedScores)
+    const filteredScores = fetchedScores.filter((score: ScoreFromApi) => !score.isSet)
+    console.log('after filter', filteredScores)
+    scores.value = filteredScores
     const userNameValue = await authStore.getUserName()
     userName.value = userNameValue
 

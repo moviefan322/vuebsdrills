@@ -64,3 +64,8 @@ export interface UserObject {
   name: string
   email: string
 }
+
+export interface SubmitSetScorePayload {
+  drill_set: number
+  scores: SubmitScorePayload[]
+}

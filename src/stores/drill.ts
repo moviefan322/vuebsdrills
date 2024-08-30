@@ -71,8 +71,6 @@ export const useDrillStore = defineStore('drill', () => {
       drillSet.value = data
       currentDrillIndex.value = 0
 
-      // Ensure the drills are correctly assigned
-      console.log('id to be queried', data.drills[currentDrillIndex.value])
       drill.value = data.drills
         ? ((await fetchDrill(data.drills[currentDrillIndex.value].id)) as unknown as Drill)
         : null
@@ -88,7 +86,6 @@ export const useDrillStore = defineStore('drill', () => {
     try {
       const response = await fetch(allDrillsUrl + id + '/')
       const data = await response.json()
-      console.log('fetchDrill data:', data)
       drill.value = data
       if (data) {
         drill.value = data
@@ -214,8 +211,14 @@ export const useDrillStore = defineStore('drill', () => {
 
     if (isSet.value) {
       scoreStore.pushScore(submission)
+      if (isLastDrill.value) {
+        console.log('submitting set', submission)
+        scoreStore.submitSetScore()
+      } else {
+        return
+      }
     } else {
-      console.log('submitting', submission)
+      console.log('submitting single score', submission)
       scoreStore.submitScore(submission)
     }
   }
@@ -272,6 +275,10 @@ export const useDrillStore = defineStore('drill', () => {
     return currentDrill.value!.id
   }
 
+  const getDrillSetId = () => {
+    return drillSet.value!.id
+  }
+
   const isCurrentDrill = () => {
     return currentDrill.value !== null
   }
@@ -320,7 +327,6 @@ export const useDrillStore = defineStore('drill', () => {
   }
 
   const getCurrentTableSetup = () => {
-    console.log('currentDrill from pinia get tableSetup', currentDrill.value!)
     return currentDrill.value!.tableSetup
   }
 
@@ -447,6 +453,7 @@ export const useDrillStore = defineStore('drill', () => {
     incrementCurrentDrillIndex,
     decrementCurrentDrillIndex,
     setDrillSet,
-    getDrillSet
+    getDrillSet,
+    getDrillSetId
   }
 })

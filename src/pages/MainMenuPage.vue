@@ -43,7 +43,6 @@ onMounted(async () => {
   user.value = await store.getUser()
   const drillSets = await drillStore.fetchAllDrillSets()
   allDrillSets.value = drillSets
-  console.log(drillSets)
 })
 </script>
 
