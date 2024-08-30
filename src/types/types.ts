@@ -69,3 +69,12 @@ export interface SubmitSetScorePayload {
   drill_set: number
   scores: SubmitScorePayload[]
 }
+
+export interface DrillSetScoreFromApi {
+  createdAt: string;
+  drill_set: number;
+  id: number;
+  scores: ScoreFromApi[];
+  total_max_score: number;
+  total_score: number;
+}

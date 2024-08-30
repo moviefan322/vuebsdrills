@@ -4,6 +4,7 @@ import { useAuthStore } from './auth'
 import { ref } from 'vue'
 import axios from 'axios'
 import type { SubmitScorePayload, SubmitSetScorePayload } from '../types/types'
+import { get } from 'http'
 
 const drillScoreUrl = import.meta.env.VITE_APP_BACKEND_URL + 'api/drillscore/'
 const drillSetScoreUrl = import.meta.env.VITE_APP_BACKEND_URL + 'api/drillsetscore/'
@@ -83,11 +84,33 @@ export const useScoreStore = defineStore('score', () => {
         throw new Error('Failed to fetch scores')
       }
 
-      return response.data // Ensure this returns the correct data
+      return response.data
     } catch (error) {
       console.error('Error fetching scores:', error)
       throw error
     }
+  }
+
+  const getUserSetScores = async () => {
+    try {
+      const response = await axios.get(drillSetScoreUrl, {
+        headers: {
+          Authorization: `Token ${authStore.getToken()}`
+        }
+      })
+
+      console.log(response)
+
+      if (response.status !== 200) {
+        throw new Error('Failed to fetch scores')
+      }
+
+      return response.data 
+    } catch (error) {
+      console.error('Error fetching scores:', error)
+      throw error
+    }
+  
   }
 
   const getSetScore = () => {
@@ -99,6 +122,7 @@ export const useScoreStore = defineStore('score', () => {
     pushScore,
     submitScore,
     getUserScores,
+    getUserSetScores,
     submitSetScore,
     resetSetScore
   }

@@ -3,7 +3,7 @@ import { ref, onMounted, computed } from 'vue'
 import { useScoreStore } from '@/stores/scores'
 import { useDrillStore } from '@/stores/drill'
 import { useAuthStore } from '@/stores/auth'
-import type { ScoreFromApi } from '@/types/types'
+import type { ScoreFromApi, DrillSetScoreFromApi } from '@/types/types'
 
 const store = useScoreStore()
 const drillStore = useDrillStore()
@@ -16,10 +16,12 @@ const userName = ref('')
 onMounted(async () => {
   try {
     const fetchedScores = await store.getUserScores()
-    console.log('before filter', fetchedScores)
     const filteredScores = fetchedScores.filter((score: ScoreFromApi) => !score.isSet)
-    console.log('after filter', filteredScores)
-    scores.value = filteredScores
+    const setScores = await store.getUserSetScores()
+    const combinedScores = [...filteredScores, ...setScores].sort((a, b) => {
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    })
+    scores.value = combinedScores
     const userNameValue = await authStore.getUserName()
     userName.value = userNameValue
 
@@ -27,6 +29,12 @@ onMounted(async () => {
     for (const score of fetchedScores) {
       const drillName = await drillStore.getDrillName(score.drill)
       drillNames.value[score.drill] = drillName
+    }
+
+    for (const score of setScores) {
+      const drillName = await drillStore.getDrillSetName(score.drill_set)
+      console.log(drillName)
+      drillNames.value[score.drill_set] = drillName
     }
   } catch (error) {
     console.error('Failed to fetch scores or drill names:', error)
@@ -39,6 +47,14 @@ const formatDate = (dateString: string) => {
   const day = date.getDate()
   return `${month}/${day}`
 }
+
+function isScoreFromApi(object: any): object is ScoreFromApi {
+  return 'drill' in object && 'score' in object && 'maxScore' in object
+}
+
+function isDrillSetScoreFromApi(object: any): object is DrillSetScoreFromApi {
+  return 'drill_set' in object && 'scores' in object && 'total_score' in object
+}
 </script>
 
 <template>
@@ -46,9 +62,15 @@ const formatDate = (dateString: string) => {
     <h3>{{ userName }}'s Scores</h3>
   </div>
   <div id="areScores" v-if="areScores">
-    <div class="score" v-for="score in scores" :key="score.id">
-      <p>{{ formatDate(score.createdAt) }}</p>
-      <p>{{ drillNames[score.drill] }}: {{ score.score }}/{{ score.maxScore }}</p>
+    <div v-for="score in scores" :key="score.id">
+      <div class="score" v-if="isScoreFromApi(score)">
+        <p>{{ formatDate(score.createdAt) }}</p>
+        <p>{{ drillNames[score.drill] }}: {{ score.score }}/{{ score.maxScore }}</p>
+      </div>
+      <div class="score" v-if="isDrillSetScoreFromApi(score)">
+        <p>{{ formatDate(score.createdAt) }}</p>
+        <p>{{ drillNames[score.drill_set] }}: {{ score.total_score }}/{{ score.total_max_score }}</p>
+      </div>
     </div>
   </div>
   <div v-else>
