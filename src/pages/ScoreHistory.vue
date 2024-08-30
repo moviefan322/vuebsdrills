@@ -12,6 +12,11 @@ const scores = ref<ScoreFromApi[]>([])
 const drillNames = ref<{ [key: number]: string }>({}) // To store drill names by ID
 const areScores = computed(() => scores.value.length > 0)
 const userName = ref('')
+const expandedSetScores = ref<{ [key: number]: boolean }>({})
+
+const toggleExpandScore = (id: number) => {
+  expandedSetScores.value[id] = !expandedSetScores.value[id]
+}
 
 onMounted(async () => {
   try {
@@ -67,9 +72,29 @@ function isDrillSetScoreFromApi(object: any): object is DrillSetScoreFromApi {
         <p>{{ formatDate(score.createdAt) }}</p>
         <p>{{ drillNames[score.drill] }}: {{ score.score }}/{{ score.maxScore }}</p>
       </div>
-      <div class="score" v-if="isDrillSetScoreFromApi(score)">
-        <p>{{ formatDate(score.createdAt) }}</p>
-        <p>{{ drillNames[score.drill_set] }}: {{ score.total_score }}/{{ score.total_max_score }}</p>
+      <div v-if="isDrillSetScoreFromApi(score)">
+        <div class="score">
+          <p>{{ formatDate(score.createdAt) }}</p>
+          <p>
+            <button @click="toggleExpandScore(score.id)" class="butt">
+              {{ expandedSetScores[score.id] ? '-' : '+' }}
+              {{ drillNames[score.drill_set] }}: {{ score.total_score }}/{{ score.total_max_score }}
+            </button>
+          </p>
+        </div>
+        <div v-if="expandedSetScores[score.id]">
+          <div
+            v-for="individualSetScore in score.scores"
+            :key="individualSetScore.id"
+            class="score"
+          >
+            <p></p>
+            <p>
+              {{ drillNames[individualSetScore.drill] }}: {{ individualSetScore.score }}/
+              {{ individualSetScore.maxScore }}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -90,7 +115,24 @@ h3 {
   justify-content: space-between;
 }
 
+.setScoreExpand {
+  align-self: flex-end;
+}
+
 #areScores {
   width: 100%;
+}
+
+.butt {
+  font: inherit;
+  color: lime;
+  border: none;
+  background-color: transparent;
+  font-size: 1rem;
+}
+
+.butt:hover {
+  color: yellow;
+  cursor: pointer;
 }
 </style>
